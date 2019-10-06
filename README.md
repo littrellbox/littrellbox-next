@@ -1,1 +1,2 @@
-# littrellbox-server
+# littrellbox-next
+Open source chat software.
