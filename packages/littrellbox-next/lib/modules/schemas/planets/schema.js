@@ -49,3 +49,5 @@ const schema = {
 
   //TODO: add sidebar image
 };
+
+export default schema;

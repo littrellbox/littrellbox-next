@@ -70,3 +70,5 @@ const schema = {
     canUpdate: ['members'],
   }
 };
+
+export default schema;
