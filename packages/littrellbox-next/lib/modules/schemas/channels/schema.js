@@ -41,7 +41,7 @@ const schema = {
   planetId: {
     type: String,
     optional: true,
-    canRead: ['members'],
+    canRead: ['guests'],
     canCreate: ['members'],
     canUpdate: ['members'],
     resolveAs: {
@@ -65,7 +65,7 @@ const schema = {
   name: {
     type: String,
     optional: true,
-    canRead: ['members'],
+    canRead: ['guests'],
     canCreate: ['members'],
     canUpdate: ['members'],
   }

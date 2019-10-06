@@ -41,7 +41,7 @@ const schema = {
   planetId: {
     type: String,
     optional: true,
-    canRead: ['members'],
+    canRead: ['guests'],
     canCreate: ['members'],
     canUpdate: ['members'],
     resolveAs: {
@@ -64,7 +64,7 @@ const schema = {
   channelId: {
     type: String,
     optional: true,
-    canRead: ['members'],
+    canRead: ['guests'],
     canCreate: ['members'],
     canUpdate: ['members'],
     resolveAs: {
@@ -88,7 +88,7 @@ const schema = {
   text: {
     type: String,
     optional: true,
-    canRead: ['members'],
+    canRead: ['guests'],
     canCreate: ['members'],
     canUpdate: ['members'],
   },
@@ -97,7 +97,7 @@ const schema = {
   fileId: {
     type: String,
     optional: true,
-    canRead: ['members'],
+    canRead: ['guests'],
     canCreate: ['members'],
     canUpdate: ['members'],
   }
