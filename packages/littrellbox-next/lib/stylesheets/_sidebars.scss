@@ -3,6 +3,11 @@
   width: 4.5rem;
   height: 100%;
   background-color: #333333;
+  scrollbar-width: none;
+}
+
+.planet-sidebar::-webkit-scrollbar { 
+  display: none; 
 }
 
 .channel-sidebar {
@@ -10,4 +15,46 @@
   width: 17.5rem;
   height: 100%;
   background-color: #444444;
+}
+
+.new-planet-button {
+  width: 3.5rem;
+  height: 3.5rem;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  margin-top: 0.5rem;
+  background-color: #555555;
+  color: #eeeeee;
+  border-radius: 5px;
+  font-size: 3rem;
+  text-align: center;
+  line-height: 1.1;
+  transition: 0.2s;
+}
+
+.new-planet-button:hover {
+  color: #111111;
+  background-color: #55BB55;
+}
+
+.planet-button {
+  width: 3.5rem;
+  height: 3.5rem;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  margin-top: 0.5rem;
+  background-color: #555555;
+  color: #eeeeee;
+  border-radius: 5px;
+  transition: 0.2s;
+  overflow: hidden;
+}
+
+.planet-button:hover {
+  background-color: #777777;
+}
+
+.planet-button-inner {
+  transform: translateY(+50%);
+  text-align: center;
 }

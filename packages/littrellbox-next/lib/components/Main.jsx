@@ -5,7 +5,7 @@ import { Components, withCurrentUser, registerComponent } from 'meteor/vulcan:co
 //import UI elements
 import './userinterface/sidebars/PlanetSidebar'
 import './userinterface/sidebars/ChannelSidebar'
-import "./userinterface/MessageArea"
+import './userinterface/MessageArea'
 
 const Main = ({ currentUser }) => (
   <div> 
@@ -25,15 +25,3 @@ const Main = ({ currentUser }) => (
 );
 
 registerComponent({ name: 'Main', component: Main, hocs: [withCurrentUser] });
-
-
-
-
-
-
-
-
-
-
-
-
