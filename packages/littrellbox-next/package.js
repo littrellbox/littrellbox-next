@@ -20,6 +20,7 @@ Package.onUse(function (api) {
     'vulcan:forms@1.13.1',
     'vulcan:accounts@1.13.1',
     'vulcan:ui-bootstrap@1.13.1',
+    'vulcan:admin@1.13.1',
 
   ]);
 

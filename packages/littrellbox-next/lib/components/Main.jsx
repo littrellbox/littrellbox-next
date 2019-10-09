@@ -10,7 +10,9 @@ import './userinterface/MessageArea'
 const Main = ({ currentUser }) => (
   <div> 
     {currentUser && <div className="main-app">
-      <Components.PlanetSidebar/>
+      <Components.PlanetSidebar terms={{
+        userId: currentUser._id
+      }} />
       <Components.ChannelSidebar/>
       <Components.MessageArea/>
     </div> }

@@ -28,3 +28,5 @@ littrellbox-next
 # example-interfaces
 # example-reactions
 # example-forms
+vulcan:debug
+vulcan:admin
