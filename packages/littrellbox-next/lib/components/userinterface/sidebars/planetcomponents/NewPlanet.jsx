@@ -11,9 +11,8 @@ const NewPlanet = ({ currentUser, createPlanetMember, createChannel, closeModal 
     <Components.ModalTrigger size="large" title="New Planet" component={<div><Components.NewPlanetButton/></div>}>
       <Components.SmartForm
         collectionName="Planets"
-        successCallback={document => {
-          //TODO: closeModal is undefined
-          console.log(closeModal)
+        successCallback={(document, options) => {
+          options.form.props.closeModal()
           createChannel({
             data: {
               planetId: document._id,

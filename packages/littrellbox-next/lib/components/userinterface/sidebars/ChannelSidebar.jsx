@@ -4,19 +4,27 @@ import { Components, withCurrentUser, registerComponent } from 'meteor/vulcan:co
 
 import {ChatContext} from '../../../contexts/ChatContext';
 
-const ChannelSidebar = ({ currentUser }) => (
-  <ChatContext.Consumer>
-    {({planet}) => {
-        if(planet != {}) {
+import './channelcomponents/ChannelHeader'
+import './channelcomponents/ChannelList'
+
+const ChannelSidebar = ({ currentUser }) => {
+  return (
+    <ChatContext.Consumer>
+      {({planet}) => {
+        if(planet.name) {
           return (
-            <div className="channel-sidebar"> 
-              {planet.name}
+            <div className="channel-sidebar">
+              <Components.ChannelHeader planet={planet}/>
+              <Components.ChannelList planet={planet} terms={{
+                view: 'byPlanetId',
+                planetId: planet._id
+              }}/>
             </div>
           )
         }
-      }
-    }
-  </ChatContext.Consumer>
-);
+      }}
+    </ChatContext.Consumer>
+  );
+}
 
 registerComponent({ name: 'ChannelSidebar', component: ChannelSidebar, hocs: [withCurrentUser] });

@@ -23,13 +23,16 @@ Users.groups.members.can(membersActions);
 
 Channels.addDefaultView(terms => ({
   options: {
-    selector: {
-      planetId: terms.planetId
-    },
     sort: {
       //put the newest at the bottom
       createdAt: 1 
     }
+  }
+}));
+
+Channels.addView('byPlanetId', terms => ({
+  selector: {
+    planetId: terms.planetId
   }
 }));
 

@@ -15,7 +15,8 @@
 
 .channel-sidebar {
   order: 1;
-  width: 17.5rem;
+  width: 16rem;
+  min-width: 16rem;
   height: 100%;
   background-color: #444444;
 }
@@ -27,7 +28,7 @@
   margin-right: 0.5rem;
   margin-top: 0.5rem;
   background-color: #555555;
-  color: #eeeeee;
+  color: #cccccc;
   border-radius: 5px;
   font-size: 3rem;
   text-align: center;
@@ -47,8 +48,9 @@
   margin-right: 0.5rem;
   margin-top: 0.5rem;
   background-color: #555555;
-  color: #eeeeee;
+  color: #cccccc;
   border-radius: 5px;
+  padding-top: 0.2rem;
   transition: 0.2s;
   overflow: hidden;
 }
@@ -60,4 +62,37 @@
 .planet-button-inner {
   transform: translateY(+50%);
   text-align: center;
+}
+
+.channel-header {
+  color: #cccccc;
+  padding: 0.5rem;
+  padding-top: 0.2rem;
+  padding-bottom: 0.4rem;
+  border-bottom-width: 0.1rem;
+  border-bottom-style: solid;
+  border-bottom-color: #666666;
+}
+
+.channel-header-planet {
+  font-weight: bold;
+  font-size: 1.25rem;
+}
+
+.channel-header-user {
+  font-size: 0.9rem;
+}
+
+.channel-list-title {
+  padding-top: 0.3rem;
+  padding-left: 0.5rem;
+  color: #cccccc;
+  font-weight: bold;
+}
+
+.channel-button {
+  color: #cccccc;
+  padding-bottom: 0.4rem;
+  padding-top: 0.35rem;
+  padding-left: 0.5rem;
 }
