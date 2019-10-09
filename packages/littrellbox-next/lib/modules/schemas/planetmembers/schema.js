@@ -19,6 +19,7 @@ const schema = {
     type: String,
     optional: true,
     canRead: ['guests'],
+    searchable: true,
     resolveAs: {
       fieldName: 'user',
       type: 'User',
@@ -41,6 +42,7 @@ const schema = {
   planetId: {
     type: String,
     optional: true,
+    searchable: true,
     canRead: ['guests'],
     canCreate: ['members'],
     canUpdate: ['members'],

@@ -11,6 +11,7 @@ const Main = ({ currentUser }) => (
   <div> 
     {currentUser && <div className="main-app">
       <Components.PlanetSidebar terms={{
+        view: 'byUserId',
         userId: currentUser._id
       }} />
       <Components.ChannelSidebar/>

@@ -6,8 +6,6 @@ import './planetcomponents/PlanetButton'
 import './planetcomponents/NewPlanet'
 
 const PlanetSidebar = ({results = [], currentUser, loading, loadMore, count, totalCount, terms }) => {
-  console.log(results)
-
   if(results.length == 0) {
     return (
       <div className="planet-sidebar">

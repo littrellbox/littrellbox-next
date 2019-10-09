@@ -44,6 +44,7 @@ const schema = {
     canRead: ['guests'],
     canCreate: ['members'],
     canUpdate: ['members'],
+    searchable: true,
     resolveAs: {
       fieldName: 'planet',
       type: 'Planet',
