@@ -7,24 +7,54 @@ import './userinterface/sidebars/PlanetSidebar'
 import './userinterface/sidebars/ChannelSidebar'
 import './userinterface/MessageArea'
 
-const Main = ({ currentUser }) => (
-  <div> 
-    {currentUser && <div className="main-app">
-      <Components.PlanetSidebar terms={{
-        view: 'byUserId',
-        userId: currentUser._id
-      }} />
-      <Components.ChannelSidebar/>
-      <Components.MessageArea/>
-    </div> }
-    {!currentUser && <div style={{ maxWidth: "500px", margin: "20px auto" }}>
-      <div className="login-form">
-        <div>
-          <Components.AccountsLoginForm redirect={false} />
-        </div>
-      </div>
-    </div> }
-  </div>
-);
+//import context
+import {ChatContext} from '../contexts/ChatContext'
+
+class Main extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.switchPlanet = (planetToSet) => {
+      this.setState(state => ({
+        planet: planetToSet
+      }));
+    };
+
+    this.switchChannel = (channelToSet) => {
+      this.setState(state => ({
+        channel: channelToSet
+      }));
+    };
+
+    this.state = {
+      planet: {},
+      channel: {},
+      switchPlanet: this.switchPlanet,
+      switchChannel: this.switchChannel
+    };
+  }
+
+  render() {
+    return (
+      <ChatContext.Provider value={this.state}> 
+        {this.props.currentUser && <div className="main-app">
+          <Components.PlanetSidebar terms={{
+            view: 'byUserId',
+            userId: this.props.currentUser._id
+          }} />
+          <Components.ChannelSidebar/>
+          <Components.MessageArea/>
+        </div> }
+        {!this.props.currentUser && <div style={{ maxWidth: "500px", margin: "20px auto" }}>
+          <div className="login-form">
+            <div>
+              <Components.AccountsLoginForm redirect={false} />
+            </div>
+          </div>
+        </div> }
+      </ChatContext.Provider>
+    )
+  }
+}
 
 registerComponent({ name: 'Main', component: Main, hocs: [withCurrentUser] });
