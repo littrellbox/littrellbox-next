@@ -9,11 +9,23 @@ const ChannelList = ({planet, currentUser, results = [], loading, terms}) => {
     <div className="channel-list">
       <div className="channel-list-title">
         CHANNELS
+        <Components.ModalTrigger size="large" title="New Planet" component={<div className="new-channel-button">+</div>}>
+          <Components.SmartForm
+            collectionName="Channels"
+            fields={['name']}
+            prefilledProps={{
+              planetId: planet._id
+            }}
+            successCallback={(document, options) => {
+              options.form.props.closeModal()
+            }}
+          />
+        </Components.ModalTrigger>
       </div>
       {loading ?
         <div>Loading</div>:
         <div>
-          {results.map(channel => <Components.ChannelButton key={channel._id} channel={channel}/>)}
+          {results.map(channel => <Components.ChannelButton key={channel._id} buttonChannel={channel}/>)}
         </div>
       }
     </div>

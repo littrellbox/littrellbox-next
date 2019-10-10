@@ -5,29 +5,19 @@ import { Components, withCurrentUser, registerComponent, Loading, withMulti } fr
 import './planetcomponents/PlanetButton'
 import './planetcomponents/NewPlanet'
 
-const PlanetSidebar = ({results = [], currentUser, loading, loadMore, count, totalCount, terms }) => {
-  if(results.length == 0) {
-    return (
-      <div className="planet-sidebar">
+const PlanetSidebar = ({results = [], currentUser, loading, loadMore, count, totalCount, terms }) => (
+  <div className="scroll-container">
+    <div className="planet-sidebar">
+      {loading ?
+        <Loading/>:
+        <div> 
+          {results.map(planetmember => <Components.PlanetButton terms={terms} key={planetmember._id} documentId={planetmember.planetId}/>)}
+        </div>
+      }
         <Components.NewPlanet/>
-      </div>
-    )
-  }
-
-  return (
-    <div className="scroll-container">
-      <div className="planet-sidebar">
-        {loading ?
-          <Loading/>:
-          <div> 
-            {results.map(planetmember => <Components.PlanetButton terms={terms} key={planetmember._id} documentId={planetmember.planetId}/>)}
-          </div>
-        }
-          <Components.NewPlanet/>
-      </div>
     </div>
-  )
-};
+  </div>
+);
 
 const options = {
   collectionName: "PlanetMembers"

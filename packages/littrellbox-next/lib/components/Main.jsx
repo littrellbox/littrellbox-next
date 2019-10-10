@@ -36,7 +36,10 @@ class Main extends React.Component {
 
   render() {
     return (
-      <ChatContext.Provider value={this.state}> 
+      <ChatContext.Provider value={this.state} className="main"> 
+        <Helmet>
+          <link href="https://fonts.googleapis.com/css?family=Muli&display=swap" rel="stylesheet"/> 
+        </Helmet>
         {this.props.currentUser && <div className="main-app">
           <Components.PlanetSidebar terms={{
             view: 'byUserId',

@@ -3,7 +3,7 @@
   width: 4.5rem;
   min-width: 4.5rem;
   height: 100%;
-  background-color: #333333;
+  background-color: #222222;
   overflow-y: auto;
   scrollbar-width: none;
   padding-bottom: .5rem;
@@ -18,7 +18,7 @@
   width: 16rem;
   min-width: 16rem;
   height: 100%;
-  background-color: #444444;
+  background-color: #333333;
 }
 
 .new-planet-button {
@@ -27,7 +27,7 @@
   margin-left: 0.5rem;
   margin-right: 0.5rem;
   margin-top: 0.5rem;
-  background-color: #555555;
+  background-color: #444444;
   color: #cccccc;
   border-radius: 5px;
   font-size: 3rem;
@@ -47,7 +47,7 @@
   margin-left: 0.5rem;
   margin-right: 0.5rem;
   margin-top: 0.5rem;
-  background-color: #555555;
+  background-color: #444444;
   color: #cccccc;
   border-radius: 5px;
   padding-top: 0.2rem;
@@ -56,7 +56,7 @@
 }
 
 .planet-button:hover {
-  background-color: #777777;
+  background-color: #333333;
 }
 
 .planet-button-inner {
@@ -69,9 +69,6 @@
   padding: 0.5rem;
   padding-top: 0.2rem;
   padding-bottom: 0.4rem;
-  border-bottom-width: 0.1rem;
-  border-bottom-style: solid;
-  border-bottom-color: #666666;
 }
 
 .channel-header-planet {
@@ -92,7 +89,19 @@
 
 .channel-button {
   color: #cccccc;
-  padding-bottom: 0.4rem;
-  padding-top: 0.35rem;
+  padding-bottom: 0.5rem;
+  padding-top: 0.4rem;
   padding-left: 0.5rem;
+}
+
+.channel-button:hover {
+  background-color: #3b3b3b
+}
+
+.channel-button-active {
+  color: #cccccc;
+  padding-bottom: 0.5rem;
+  padding-top: 0.4rem;
+  padding-left: 0.5rem;
+  background-color: #555555;
 }

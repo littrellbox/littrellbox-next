@@ -2,10 +2,25 @@ import React from 'react';
 import Helmet from 'react-helmet';
 import { Components, withCurrentUser, registerComponent } from 'meteor/vulcan:core';
 
-const ChannelButton = ({channel, currentUser}) => (
-  <div className="channel-button">
-    #{channel.name}
-  </div>
+import {ChatContext} from '../../../../contexts/ChatContext'
+
+const ChannelButton = ({buttonChannel, currentUser}) => (
+  <ChatContext.Consumer>
+    {({channel, switchChannel}) => {
+      if(channel == buttonChannel) {
+        return(
+          <div className="channel-button-active" onClick={() => switchChannel(buttonChannel)}>
+            #{buttonChannel.name}
+          </div>
+        )
+      }
+      return(
+        <div className="channel-button" onClick={() => switchChannel(buttonChannel)}>
+          #{buttonChannel.name}
+        </div>
+      )
+    }}
+  </ChatContext.Consumer>
 )
 
 registerComponent({ name: 'ChannelButton', component: ChannelButton, hocs: [withCurrentUser] });
