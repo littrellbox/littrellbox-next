@@ -28,6 +28,8 @@ scratch
 
 .deploy
 .deploy/*
+
+start.sh
 ### Meteor template
 .meteor/local
 .meteor/meteorite
