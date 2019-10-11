@@ -22,13 +22,22 @@ const membersActions = [
 Users.groups.members.can(membersActions);
 
 Messages.addDefaultView(terms => ({
+  options: {
+    sort: {
+      //put the newest at the bottom
+      createdAt: -1 
+    }
+  }
+}));
+
+Messages.addView('byChannel', terms => ({
   selector: {
     channelId: terms.channelId
   },
   options: {
     sort: {
       //put the newest at the bottom
-      createdAt: -1 
+      createdAt: 1 
     }
   }
 }));

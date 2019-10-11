@@ -7,6 +7,11 @@ import {ChatContext} from '../../../../contexts/ChatContext'
 const ChannelButton = ({buttonChannel, currentUser}) => (
   <ChatContext.Consumer>
     {({channel, switchChannel}) => {
+      if(!buttonChannel) {
+        buttonChannel = {
+          name: "Loading..."
+        }
+      }
       if(channel == buttonChannel) {
         return(
           <div className="channel-button-active" onClick={() => switchChannel(buttonChannel)}>

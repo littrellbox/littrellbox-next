@@ -3,23 +3,17 @@ import Helmet from 'react-helmet';
 import { Components, withCurrentUser, registerComponent, Loading, withMulti } from 'meteor/vulcan:core';
 
 import './ChannelButton'
+import './NewChannelForm'
 
 const ChannelList = ({planet, currentUser, results = [], loading, terms}) => {
   return (
     <div className="channel-list">
       <div className="channel-list-title">
-        CHANNELS
-        <Components.ModalTrigger size="large" title="New Planet" component={<div className="new-channel-button">+</div>}>
-          <Components.SmartForm
-            collectionName="Channels"
-            fields={['name']}
-            prefilledProps={{
-              planetId: planet._id
-            }}
-            successCallback={(document, options) => {
-              options.form.props.closeModal()
-            }}
-          />
+        <div className="channel-list-title-text">
+          CHANNELS
+        </div>
+        <Components.ModalTrigger size="large" title="New Planet" className="new-channel-trigger" component={<span className="new-channel-button">+</span>}>
+          <Components.NewChannelForm/>
         </Components.ModalTrigger>
       </div>
       {loading ?

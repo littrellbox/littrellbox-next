@@ -17,7 +17,8 @@ const ChannelSidebar = ({ currentUser }) => {
               <Components.ChannelHeader planet={planet}/>
               <Components.ChannelList planet={planet} terms={{
                 view: 'byPlanetId',
-                planetId: planet._id
+                planetId: planet._id,
+                limit: 1000
               }}/>
             </div>
           )

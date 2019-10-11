@@ -43,7 +43,8 @@ class Main extends React.Component {
         {this.props.currentUser && <div className="main-app">
           <Components.PlanetSidebar terms={{
             view: 'byUserId',
-            userId: this.props.currentUser._id
+            userId: this.props.currentUser._id,
+            limit: 10000
           }} />
           <Components.ChannelSidebar/>
           <Components.MessageArea/>
