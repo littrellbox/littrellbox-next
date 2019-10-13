@@ -12,9 +12,9 @@ const ChannelList = ({planet, currentUser, results = [], loading, terms}) => {
         <div className="channel-list-title-text">
           CHANNELS
         </div>
-        <Components.ModalTrigger size="large" title="New Planet" className="new-channel-trigger" component={<span className="new-channel-button">+</span>}>
+        {currentUser._id == planet.userId && <Components.ModalTrigger size="large" title="New Planet" className="new-channel-trigger" component={<span className="new-channel-button">+</span>}>
           <Components.NewChannelForm/>
-        </Components.ModalTrigger>
+        </Components.ModalTrigger> }
       </div>
       {loading ?
         <div>Loading</div>:
