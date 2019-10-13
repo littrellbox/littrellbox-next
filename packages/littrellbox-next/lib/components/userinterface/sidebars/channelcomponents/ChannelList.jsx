@@ -5,6 +5,9 @@ import { Components, withCurrentUser, registerComponent, Loading, withMulti } fr
 import './ChannelButton'
 import './NewChannelForm'
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
+
 const ChannelList = ({planet, currentUser, results = [], loading, terms}) => {
   return (
     <div className="channel-list">
@@ -12,14 +15,17 @@ const ChannelList = ({planet, currentUser, results = [], loading, terms}) => {
         <div className="channel-list-title-text">
           CHANNELS
         </div>
-        {currentUser._id == planet.userId && <Components.ModalTrigger size="large" title="New Planet" className="new-channel-trigger" component={<span className="new-channel-button">+</span>}>
+        {currentUser._id == planet.userId && <Components.ModalTrigger size="large" title="New Planet" className="new-channel-trigger" component={<span className="new-channel-button"><FontAwesomeIcon icon={faPlus}/></span>}>
           <Components.NewChannelForm/>
         </Components.ModalTrigger> }
       </div>
       {loading ?
         <div>Loading</div>:
         <div>
-          {results.map(channel => <Components.ChannelButton key={channel._id} buttonChannel={channel}/>)}
+          {results.map(channel => <Components.ChannelButton key={channel._id} buttonChannel={channel} terms={{
+            view: 'byChannelId',
+            channelId: channel._id
+          }}/>)}
         </div>
       }
     </div>

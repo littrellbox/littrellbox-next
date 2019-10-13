@@ -18,6 +18,7 @@ class MessageArea extends React.Component {
   
   handleKeyPress(e, planet, channel) {
     if (e.key === 'Enter') {
+      e.preventDefault()
       this.props.createMessage({
         data: {
           planetId: planet._id,
@@ -45,7 +46,7 @@ class MessageArea extends React.Component {
                   channelId: channel._id,
                   limit: 100
                 }}/>
-                <Textarea value={this.state.textboxText} rows="1" tabindex="1" placeholder={"Message #" + channel.name} className="message-textbox" onKeyPress={(e) => this.handleKeyPress(e, planet, channel)} onChange={(e) => this.onChange(e)} /> 
+                <Textarea value={this.state.textboxText} rows="1" tabIndex="1" placeholder={"Message #" + channel.name} className="message-textbox" onKeyPress={(e) => this.handleKeyPress(e, planet, channel)} onChange={(e) => this.onChange(e)} /> 
               </div>
             )
           }

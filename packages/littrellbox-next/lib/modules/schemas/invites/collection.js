@@ -30,9 +30,9 @@ Invites.addDefaultView(terms => ({
   }
 }));
 
-Invites.addView('byPlanetId', terms => ({
+Invites.addView('byChannelId', terms => ({
   selector: {
-    planetId: terms.planetId
+    channelId: terms.channelId
   }
 }));
 

@@ -2,21 +2,21 @@ import React from 'react';
 import Helmet from 'react-helmet';
 import { Components, withCurrentUser, registerComponent } from 'meteor/vulcan:core';
 //import context
-import {ChatContext} from '../contexts/ChatContext'
 
-class Main extends React.Component {
+class InviteMain extends React.Component {
   constructor(props) {
     super(props);
   }
 
   render() {
+    inviteArray = this.props.location.pathname.split("/")
     return (
-      <ChatContext.Provider value={this.state} className="main"> 
+      <div className="main"> 
         <Helmet>
           <link href="https://fonts.googleapis.com/css?family=Muli&display=swap" rel="stylesheet"/> 
         </Helmet>
         {this.props.currentUser && <div className="invite">
-
+          {inviteArray[inviteArray.length - 1]}
         </div> }
         {!this.props.currentUser && <div style={{ maxWidth: "500px", margin: "20px auto" }}>
           <div className="login-form">
@@ -25,9 +25,9 @@ class Main extends React.Component {
             </div>
           </div>
         </div> }
-      </ChatContext.Provider>
+      </div>
     )
   }
 }
 
-registerComponent({ name: 'Main', component: Main, hocs: [withCurrentUser] });
+registerComponent({ name: 'InviteMain', component: InviteMain, hocs: [withCurrentUser] });

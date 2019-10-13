@@ -98,6 +98,7 @@
   padding-top: 0.4rem;
   padding-left: 0.5rem;
   cursor: pointer;
+  padding-right: 0.5rem;
 }
 
 .channel-button:hover {
@@ -112,6 +113,8 @@
   padding-left: 0.5rem;
   background-color: #555555;
   cursor: pointer;
+  display: flex;
+  padding-right: 0.5rem;
 }
 
 .new-channel-button {
@@ -121,5 +124,8 @@
 }
 
 .channel-list-title-text {
+  margin-right: auto;
+}
+.channel-button-active-text {
   margin-right: auto;
 }
