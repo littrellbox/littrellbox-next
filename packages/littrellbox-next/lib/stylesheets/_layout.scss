@@ -16,6 +16,7 @@
   order: 2;
   background-color: #444444;
   padding: 1rem;
+  flex: 1 1 auto;
   display: flex;
   flex-direction: column;
 }
@@ -37,6 +38,10 @@
 }
 
 .message-textbox {
+  white-space: pre-wrap;
+  resize: none;
+  max-height: 10rem;
+  flex-shrink: 0;
   min-height: 2rem;
   margin-top: 1rem;
   background-color: #555555;
