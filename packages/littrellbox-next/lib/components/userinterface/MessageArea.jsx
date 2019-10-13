@@ -1,6 +1,7 @@
 import React from 'react';
 import Helmet from 'react-helmet';
 import { Components, withCurrentUser, registerComponent, withCreate } from 'meteor/vulcan:core';
+import Textarea from 'react-textarea-autosize';
 
 import { ChatContext } from '../../contexts/ChatContext'
 
@@ -24,6 +25,7 @@ class MessageArea extends React.Component {
           text: this.state.textboxText
         }
       })
+      this.setState({textboxText: ""})
     }
   }
 
@@ -43,7 +45,7 @@ class MessageArea extends React.Component {
                   channelId: channel._id,
                   limit: 100
                 }}/>
-                <textarea className="message-textbox" onKeyPress={(e) => this.handleKeyPress(e, planet, channel)} onChange={(e) => this.onChange(e)} /> 
+                <Textarea value={this.state.textboxText} rows="1" tabindex="1" placeholder={"Message #" + channel.name} className="message-textbox" onKeyPress={(e) => this.handleKeyPress(e, planet, channel)} onChange={(e) => this.onChange(e)} /> 
               </div>
             )
           }
