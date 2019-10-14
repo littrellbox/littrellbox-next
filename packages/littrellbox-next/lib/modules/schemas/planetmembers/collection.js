@@ -36,10 +36,11 @@ PlanetMembers.addView('byUserId', terms => ({
   }
 }));
 
-PlanetMembers.addView('byPlanetMember', terms => ({
+PlanetMembers.addView('userLookup', terms => ({
   selector: {
-    PlanetMemberId: terms.PlanetMemberId
+    userId: terms.userId,
+    planetId: terms.planetId
   }
-}));
+}))
 
 export default PlanetMembers;

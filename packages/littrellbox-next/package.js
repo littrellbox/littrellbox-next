@@ -1,5 +1,3 @@
-// packages.js #tutorial-step-2 - Decribes the contents of the package as well as the dependencies. 
-
 Package.describe({
   name: 'littrellbox-next',
 });
