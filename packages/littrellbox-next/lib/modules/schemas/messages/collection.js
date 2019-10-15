@@ -25,7 +25,7 @@ Messages.addDefaultView(terms => ({
   options: {
     sort: {
       //put the newest at the bottom
-      createdAt: -1 
+      createdAt: -1
     }
   }
 }));
@@ -37,7 +37,7 @@ Messages.addView('byChannel', terms => ({
   options: {
     sort: {
       //put the newest at the bottom
-      createdAt: 1 
+      createdAt: -1 
     }
   }
 }));
@@ -49,7 +49,7 @@ Messages.addView('byPlanet', terms => ({
   options: {
     sort: {
       //put the newest at the bottom
-      createdAt: -1 
+      createdAt: 1 
     }
   }
 }));

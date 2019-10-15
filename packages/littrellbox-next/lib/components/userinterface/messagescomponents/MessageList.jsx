@@ -13,13 +13,17 @@ class MessageList extends React.Component {
     this.messagesEnd.scrollIntoView({ behavior: "auto" });
   }
 
+  reverseWorkaround() {
+    return [...this.props.results].reverse()
+  }
+
   render() {
     return (
       <div className="message-list">
         {this.props.loading ?
           <div>Loading</div>:
           <div>
-            {this.props.results.map(message => <Components.Message key={message._id} message={message} documentId={message.userId}/>)}
+            {this.reverseWorkaround().map(message => <Components.Message key={message._id} message={message} documentId={message.userId}/>)}
           </div>
         }
         <div ref={(el) => { this.messagesEnd = el; }}/>

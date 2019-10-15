@@ -1,6 +1,6 @@
 import React from 'react';
 import Helmet from 'react-helmet';
-import { Components, withCurrentUser, registerComponent, withCreate } from 'meteor/vulcan:core';
+import { Components, withCurrentUser, registerComponent, withCreate, withUpdate, withMulti } from 'meteor/vulcan:core';
 import Textarea from 'react-textarea-autosize';
 
 import { ChatContext } from '../../contexts/ChatContext'
@@ -12,21 +12,46 @@ class MessageArea extends React.Component {
     super(props);
 
     this.state = {
-      textboxText: ""
+      textboxText: "",
+      shiftKeyDown: false
     };
   }
   
   handleKeyPress(e, planet, channel) {
-    if (e.key === 'Enter') {
+    if (e.key === 'Enter' && !this.state.shiftKeyDown)
       e.preventDefault()
-      this.props.createMessage({
-        data: {
-          planetId: planet._id,
-          channelId: channel._id,
-          text: this.state.textboxText
-        }
-      })
+    if (e.key === 'Enter' && !this.state.shiftKeyDown && this.state.textboxText != "") {
+      if(this.props.results.length != 0 && this.props.results[0].userId == this.props.currentUser._id) {
+        document = this.props.results[0]
+        documentId = document._id
+        this.props.updateMessage({
+          selector: { documentId },
+          data: {
+            text: document.text + "  \n" + this.state.textboxText
+          }
+        })
+      } else {
+        this.props.createMessage({
+          data: {
+            planetId: planet._id,
+            channelId: channel._id,
+            text: this.state.textboxText.replaceAll("\n", "  \n\n")
+          }
+        })
+      }
       this.setState({textboxText: ""})
+    }
+  }
+
+  handleKeyDown(e) {
+    if (e.key === 'Shift') {
+      this.setState({shiftKeyDown: true})
+    }
+  }
+
+  handleKeyUp(e) {
+    if (e.key === 'Shift') {
+      this.setState({shiftKeyDown: false})
     }
   }
 
@@ -46,7 +71,17 @@ class MessageArea extends React.Component {
                   channelId: channel._id,
                   limit: 100
                 }}/>
-                <Textarea value={this.state.textboxText} rows="1" tabIndex="1" placeholder={"Message #" + channel.name} className="message-textbox" onKeyPress={(e) => this.handleKeyPress(e, planet, channel)} onChange={(e) => this.onChange(e)} /> 
+                <Textarea 
+                  value={this.state.textboxText} 
+                  rows="1" 
+                  tabIndex="1" 
+                  placeholder={"Message #" + channel.name} 
+                  className="message-textbox" 
+                  onKeyDown={(e) => this.handleKeyDown(e)} 
+                  onKeyUp={(e) => this.handleKeyUp(e)} 
+                  onKeyPress={(e) => this.handleKeyPress(e, planet, channel)} 
+                  onChange={(e) => this.onChange(e)} 
+                /> 
               </div>
             )
           }
@@ -65,5 +100,9 @@ const createOptions = {
   collectionName: "Messages"
 };
 
-registerComponent({ name: 'MessageArea', component: MessageArea, hocs: [withCurrentUser, [withCreate, createOptions]] });
+const options = {
+  collectionName: "Messages"
+}
+
+registerComponent({ name: 'MessageArea', component: MessageArea, hocs: [withCurrentUser, [withMulti, options], [withCreate, createOptions], [withUpdate, createOptions]] });
 //[withMulti, multiOptions], [withCreate, createOptions]

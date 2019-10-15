@@ -47,7 +47,11 @@ class Main extends React.Component {
             limit: 10000
           }} />
           <Components.ChannelSidebar/>
-          <Components.MessageArea/>
+          <Components.MessageArea terms={{
+            view: 'byChannel',
+            channelId: this.state.channel._id,
+            limit: 100
+          }}/>
         </div> }
         {!this.props.currentUser && <div style={{ maxWidth: "500px", margin: "20px auto" }}>
           <div className="login-form">
