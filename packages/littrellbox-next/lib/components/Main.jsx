@@ -39,6 +39,7 @@ class Main extends React.Component {
       <ChatContext.Provider value={this.state} className="main"> 
         <Helmet>
           <link href="https://fonts.googleapis.com/css?family=Noto+Sans&display=swap" rel="stylesheet"/> 
+          <link href="https://unpkg.com/emoji-mart@2.11.1/css/emoji-mart.css" rel="stylesheet"/>
         </Helmet>
         {this.props.currentUser && <div className="main-app">
           <Components.PlanetSidebar terms={{

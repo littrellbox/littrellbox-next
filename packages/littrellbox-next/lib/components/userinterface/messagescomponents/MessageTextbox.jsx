@@ -5,13 +5,19 @@ import Textarea from 'react-textarea-autosize';
 
 import { ChatContext } from '../../../contexts/ChatContext'
 
+import { Picker } from 'emoji-mart'
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSmile } from '@fortawesome/free-solid-svg-icons'
+
 class MessageTextbox extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
       textboxText: "",
-      shiftKeyDown: false
+      shiftKeyDown: false,
+      showEmojiPicker: false
     };
   }
   
@@ -58,11 +64,23 @@ class MessageTextbox extends React.Component {
     }
   }
 
-  onChange(event) {
-    this.setState({textboxText: event.target.value});
+  onChange(e) {
+    this.setState({textboxText: e.target.value});
   }
 
+  onEmojiPickerButtonClick(e) {
+    this.setState({showEmojiPicker: !this.state.showEmojiPicker})
+  }
+
+
+
   render() {
+    styleEmojiPicker = {
+      display: 'none'
+    }
+    if(this.state.showEmojiPicker)
+      styleEmojiPicker.display = "block"
+
     return (
       <ChatContext.Consumer>
         {({channel, planet}) => {
@@ -79,6 +97,15 @@ class MessageTextbox extends React.Component {
                 onKeyPress={(e) => this.handleKeyPress(e, planet, channel)} 
                 onChange={(e) => this.onChange(e)} 
               /> 
+              <div className="message-textbox-emoji-picker-button">
+                <FontAwesomeIcon icon={faSmile}/>
+                <div 
+                  className="message-textbox-emoji-picker"
+                  style={styleEmojiPicker}
+                >
+                  <Picker onSelect={this.addEmoji} />
+                </div>
+              </div>
             </div>
           )
         }}
