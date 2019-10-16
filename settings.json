@@ -3,9 +3,6 @@
 
     "title": "[DEV] Littrellbox",
     "tagline":"The fast and simple chat service.",
-
-    "faviconUrl": "/favicon.ico",
-
     "locale": "en"
 
   },

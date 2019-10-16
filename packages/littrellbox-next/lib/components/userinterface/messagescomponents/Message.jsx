@@ -20,8 +20,6 @@ class Message extends React.Component {
       }
     }
 
-    console.log(this.props.message)
-
     return(
       <div className="message">
         <div className="message-username">{document.username}</div>

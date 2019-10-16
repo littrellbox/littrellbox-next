@@ -46,6 +46,7 @@
     "dataloader": "^1.4.0",
     "deepmerge": "^1.2.0",
     "dot-object": "^1.7.0",
+    "emoji-mart": "^2.11.1",
     "escape-string-regexp": "^1.0.5",
     "express": "^4.16.4",
     "flat": "^4.0.0",

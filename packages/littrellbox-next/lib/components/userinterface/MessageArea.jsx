@@ -24,10 +24,15 @@ class MessageArea extends React.Component {
       if(this.props.results.length != 0 && this.props.results[0].userId == this.props.currentUser._id) {
         document = this.props.results[0]
         documentId = document._id
+        documentTextSplit = document.text.split("\n")
+        documentLastLine = documentTextSplit[documentTextSplit.length - 1]
+        text = this.state.textboxText
+        if(documentLastLine.startsWith("* ") || documentLastLine.startsWith("+ ") || documentLastLine.startsWith("- "))
+          text = "  \n" + this.state.textboxText
         this.props.updateMessage({
           selector: { documentId },
           data: {
-            text: document.text + "  \n" + this.state.textboxText
+            text: document.text + "  \n" + text
           }
         })
       } else {

@@ -50,7 +50,7 @@ class Main extends React.Component {
           <Components.MessageArea terms={{
             view: 'byChannel',
             channelId: this.state.channel._id,
-            limit: 100
+            limit: 25
           }}/>
         </div> }
         {!this.props.currentUser && <div style={{ maxWidth: "500px", margin: "20px auto" }}>
