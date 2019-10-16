@@ -14,27 +14,19 @@ class MessageList extends React.Component {
   }
 
   reverseWorkaround() {
-    return [...this.props.results].reverse()
+    return [...this.props.items].reverse()
   }
 
   render() {
     return (
       <div className="message-list">
-        {this.props.loading ?
-          <div>Loading</div>:
-          <div>
-            {this.reverseWorkaround().map(message => <Components.Message key={message._id} message={message} documentId={message.userId}/>)}
-          </div>
-        }
+        <div>
+          {this.reverseWorkaround().map(message => <Components.Message key={message._id} message={message} documentId={message.userId}/>)}
+        </div>
         <div ref={(el) => { this.messagesEnd = el; }}/>
       </div>
     )
   }
 }
 
-const options = {
-  collectionName: "Messages",
-  queryOptions: { pollInterval: 200 }
-};
-
-registerComponent({ name: 'MessageList', component: MessageList, hocs: [withCurrentUser, [withMulti, options]] });
+registerComponent({ name: 'MessageList', component: MessageList, hocs: [withCurrentUser] });
