@@ -20,16 +20,23 @@ class Message extends React.Component {
       }
     }
 
+    var date = new Date(this.props.message.createdAt)
+
+    var timeOptions = {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour:'numeric', minute: 'numeric'}
+
     return(
       <div className="message">
-        <div className="message-username">{document.username}</div>
-        <div className="message-content">
-          <ReactMarkdown
-            escapeHtml={true}
-            source={this.props.message.text.replaceAll("\\n", "  \n").replaceAll("---", "***")}
-            unwrapDisallowed={true}
-            plugins={[ gemojiToEmoji ]}
-          />
+        <div className="message-profile-picture"></div>
+        <div>
+          <div className="message-username">{document.username} <span className="message-date">- {date.toLocaleDateString(navigator.language, timeOptions)}</span></div>
+          <div className="message-content">
+            <ReactMarkdown
+              escapeHtml={true}
+              source={this.props.message.text.replaceAll("\\n", "  \n").replaceAll("---", "***")}
+              unwrapDisallowed={true}
+              plugins={[ gemojiToEmoji ]}
+            />
+          </div>
         </div>
       </div>
     )

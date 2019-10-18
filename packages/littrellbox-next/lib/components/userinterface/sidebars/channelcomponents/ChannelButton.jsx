@@ -9,6 +9,11 @@ import { faUserPlus, faHashtag } from '@fortawesome/free-solid-svg-icons'
 class ChannelButton extends React.Component {
   constructor(props) {
     super(props)
+
+    this.state = {
+      inviteDialogShow: false,
+      inviteId: ""
+    };
   }
 
   getInvite() {
@@ -16,7 +21,10 @@ class ChannelButton extends React.Component {
       return
     }
     if(this.props.results.length != 0) {
-      alert(window.location + "invite/" + this.props.results[0]._id + " (this will be less jank in the future)")
+      this.setState({
+        inviteDialogShow: !this.state.inviteDialogShow,
+        inviteId: this.props.results[0]._id
+      })
     } else {
       this.props.createInvite({
         data: {
@@ -24,9 +32,18 @@ class ChannelButton extends React.Component {
           planetId: this.props.buttonChannel.planetId
         }
       }).then(function(value) {
-        alert(window.location + "invite/" + value.data.createInvite.data._id + " (this will be less jank in the future)")
+        this.setState({
+          inviteDialogShow: !this.state.inviteDialogShow,
+          inviteId: value.data.createInvite.data._id
+        })
       })
     }
+  }
+
+  toggleDialog() {
+    this.setState({
+      inviteDialogShow: !this.state.inviteDialogShow
+    })
   }
 
   render() {
@@ -41,6 +58,14 @@ class ChannelButton extends React.Component {
           if(channel == this.props.buttonChannel) {
             return(
               <div className="channel-button-active">
+                {this.state.inviteDialogShow && <div className="dialog-transparent-background" onClick={() => this.toggleDialog()}>
+                  <div className="dialog">
+                    Your invite url is:
+                    <div className="invite-dialog-url">
+                    <a href={window.location + "invite/" + this.state.inviteId}>{window.location + "invite/" + this.state.inviteId}</a>
+                    </div>
+                  </div>
+                </div>}
                 <span className="channel-button-active-text">
                   <FontAwesomeIcon icon={faHashtag}/> {this.props.buttonChannel.name}
                 </span>

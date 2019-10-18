@@ -15,8 +15,9 @@
 
 .channel-sidebar {
   order: 1;
-  width: 16rem;
-  min-width: 16rem;
+  width: 16vw;
+  min-width: 13.5rem;
+  max-width: 18rem;
   height: 100%;
   background-color: #333333;
 }
@@ -128,4 +129,16 @@
 }
 .channel-button-active-text {
   margin-right: auto;
+}
+
+.new-channel-textbox {
+  margin: 0.5rem;
+  background-color: #444444;
+  color: #cccccc;
+  border-width: 0px;
+  border-radius: 5px;
+  padding: 0.25rem;
+  padding-left: 0.35rem;
+  position: relative;
+  width: calc(100% - 1rem);
 }

@@ -6,7 +6,62 @@ import './NewPlanetButton'
 
 import '../../../../modules/schemas/planets/collection'
 
-const NewPlanet = ({ currentUser, createPlanetMember, createChannel, closeModal }) => (
+class NewPlanet extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      showingNewPlanetDialog: false,
+      textboxText: ""
+    }
+  }
+
+  handleKeyPress(e) {
+    if(e.key == "Enter") {
+      this.setState({
+        showingNewPlanetDialog: false
+      })
+    }
+  }
+
+  handleChange(e) {
+    this.setState({
+      textboxText: e.target.value
+    })
+  }
+
+
+  handleClick() {
+    this.setState({
+      showingNewPlanetDialog: !this.state.showingNewPlanetDialog
+    })
+  }
+
+  render() {
+    return(
+      <div className="new-planet">
+        <Components.NewPlanetButton onClick={() => this.handleClick()}/>
+        {this.state.showingNewPlanetDialog && <div className="fullscreen">
+          <div 
+            onClick={() => this.handleClick()} 
+            className="dialog-semi-transparent-background"
+          />
+          <div className="dialog-no-bg">
+            <input 
+              type="text"
+              className="new-planet-textbox"
+              placeholder="Type a name and press Enter"
+              onChange={(e) => this.handleChange(e)}
+              onKeyPress={(e) => this.handleKeyPress(e)}
+            />
+          </div>
+        </div>}
+      </div>
+    )
+  }
+}
+
+/*const NewPlanet = ({ currentUser, createPlanetMember, createChannel, closeModal }) => (
   <div className="new-planet"> 
     <Components.ModalTrigger size="large" title="New Planet" component={<div><Components.NewPlanetButton/></div>}>
       <Components.SmartForm
@@ -20,13 +75,15 @@ const NewPlanet = ({ currentUser, createPlanetMember, createChannel, closeModal 
             }
           })
           createPlanetMember({
-            data: { planetId: document._id }
+            data: { 
+              planetId: document._id 
+            }
           })
         }}
       />
     </Components.ModalTrigger>
   </div>
-);
+);*/
 
 const optionsMember = {
   collectionName: 'PlanetMembers'
@@ -36,4 +93,8 @@ const optionsChannel = {
   collectionName: 'Channels'
 }
 
-registerComponent({ name: 'NewPlanet', component: NewPlanet, hocs: [withCurrentUser, [withCreate, optionsMember], [withCreate, optionsChannel]] });
+const optionsPlanet = {
+  collectionName: 'Planets'
+}
+
+registerComponent({ name: 'NewPlanet', component: NewPlanet, hocs: [withCurrentUser, [withCreate, optionsPlanet], [withCreate, optionsMember], [withCreate, optionsChannel]] });

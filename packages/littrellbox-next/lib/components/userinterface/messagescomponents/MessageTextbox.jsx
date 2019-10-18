@@ -72,38 +72,38 @@ class MessageTextbox extends React.Component {
     this.setState({showEmojiPicker: !this.state.showEmojiPicker})
   }
 
-
+  addEmoji(e) {
+    this.setState({textboxText: this.state.textboxText + " :" + e.id + ":"})
+  }
 
   render() {
-    styleEmojiPicker = {
-      display: 'none'
-    }
-    if(this.state.showEmojiPicker)
-      styleEmojiPicker.display = "block"
-
     return (
       <ChatContext.Consumer>
         {({channel, planet}) => {
           return(
-            <div className="message-textbox">
-              <Textarea 
-                value={this.state.textboxText} 
-                rows="1" 
-                tabIndex="1" 
-                placeholder={"Message #" + this.props.channelName}
-                className="message-textbox-textarea"
-                onKeyDown={(e) => this.handleKeyDown(e)} 
-                onKeyUp={(e) => this.handleKeyUp(e)} 
-                onKeyPress={(e) => this.handleKeyPress(e, planet, channel)} 
-                onChange={(e) => this.onChange(e)} 
-              /> 
-              <div className="message-textbox-emoji-picker-button">
-                <FontAwesomeIcon icon={faSmile}/>
-                <div 
-                  className="message-textbox-emoji-picker"
-                  style={styleEmojiPicker}
-                >
-                  <Picker onSelect={this.addEmoji} />
+            <div>
+              {this.state.showEmojiPicker && <div className="dialog-transparent-background" onClick={() => this.onEmojiPickerButtonClick()}/> }
+              {this.state.showEmojiPicker && <div className="message-textbox-emoji-picker">
+                <Picker 
+                  onSelect={(e) => this.addEmoji(e)} 
+                  native={true}
+                  title="Pick an emoji!"
+                />
+              </div>}
+              <div className="message-textbox">
+                <Textarea 
+                  value={this.state.textboxText} 
+                  rows="1" 
+                  tabIndex="1" 
+                  placeholder={"Message #" + this.props.channelName}
+                  className="message-textbox-textarea"
+                  onKeyDown={(e) => this.handleKeyDown(e)} 
+                  onKeyUp={(e) => this.handleKeyUp(e)} 
+                  onKeyPress={(e) => this.handleKeyPress(e, planet, channel)} 
+                  onChange={(e) => this.onChange(e)} 
+                /> 
+                <div className="message-textbox-emoji-picker-button">
+                  <FontAwesomeIcon icon={faSmile} onClick={() => this.onEmojiPickerButtonClick()}/>
                 </div>
               </div>
             </div>
