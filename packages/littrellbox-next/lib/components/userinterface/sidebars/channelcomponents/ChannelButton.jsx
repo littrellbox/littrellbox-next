@@ -55,7 +55,8 @@ class ChannelButton extends React.Component {
               name: "Loading..."
             }
           }
-          if(channel == this.props.buttonChannel) {
+
+          if(channel._id == this.props.buttonChannel._id) {
             return(
               <div className="channel-button-active">
                 {this.state.inviteDialogShow && <div className="dialog-transparent-background" onClick={() => this.toggleDialog()}>

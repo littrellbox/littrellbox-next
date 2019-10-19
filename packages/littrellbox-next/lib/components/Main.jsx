@@ -54,10 +54,11 @@ class Main extends React.Component {
             limit: 25
           }}/>
         </div> }
-        {!this.props.currentUser && <div style={{ maxWidth: "500px", margin: "20px auto" }}>
+        {!this.props.currentUser && <div className="login-main">
           <div className="login-form">
             <div>
-              <Components.AccountsLoginForm redirect={false} />
+              <Components.AccountsLoginForm redirect={false} className="login-alf"/>
+              (C) 2019 Littrellbox
             </div>
           </div>
         </div> }

@@ -1,3 +1,12 @@
+.message-list::-webkit-scrollbar {
+  width: 0.5rem;
+}
+
+.message-list::-webkit-scrollbar-thumb {
+  border-radius: 0.45rem;
+  background-color: #555555;
+}
+
 .main {
   font-family: 'Noto Sans', sans-serif;
   width: 100%;
@@ -39,7 +48,9 @@
 }
 
 .message-username {
+  width: 100%;
   font-weight: bold;
+  display: flex;
 }
 
 .message-textbox {
@@ -52,8 +63,6 @@
   color: #cccccc;
   border-width: 0px;
   border-radius: 5px;
-  padding: 0.5rem;
-  padding-left: 0.6rem;
   position: relative;
 }
 
@@ -64,11 +73,17 @@
   width: 100%;
   color: #cccccc;
   background-color: #555555;
+  padding-left: 0.6rem;
+  padding: 0.5rem;
+  padding-right: 0;
+  padding-left: 0.6rem;
+  border-width: 0px;
+  border-radius: 5px;
 }
 
 .message-textbox-emoji-picker-button {
-  padding-right: 0.1rem;
-  padding-left: 0.5rem;
+  padding-right: 0.6rem;
+  padding: 0.5rem;
   cursor: pointer;
   transition: 0.2s
 }
@@ -163,4 +178,11 @@
   top: 0;
   left: 0;
   z-index: 9;
+}
+
+img.twemoji {
+  height: 1em;
+  width: 1em;
+  margin: 0 .05em 0 .1em;
+  vertical-align: -0.1em;
 }

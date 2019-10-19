@@ -2,10 +2,15 @@ import React from 'react';
 import Helmet from 'react-helmet';
 import { Components, withCurrentUser, registerComponent, withSingle } from 'meteor/vulcan:core';
 
+//formatting
 const ReactMarkdown = require('react-markdown')
-const gemojiToEmoji = require('remark-gemoji-to-emoji');
+const emoji = require('remark-emoji');
 
-import { formatText } from '../../lib/FormatText'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEllipsisH } from '@fortawesome/free-solid-svg-icons'
+
+import Twemoji from 'react-twemoji'
+
 
 class Message extends React.Component {
   constructor(props) {
@@ -28,14 +33,23 @@ class Message extends React.Component {
       <div className="message">
         <div className="message-profile-picture"></div>
         <div>
-          <div className="message-username">{document.username} <span className="message-date">- {date.toLocaleDateString(navigator.language, timeOptions)}</span></div>
+          <div className="message-username">
+            <div className="message-userdate">
+              {document.username} 
+              <span className="message-date">
+                - {date.toLocaleDateString(navigator.language, timeOptions)}
+              </span> 
+            </div>
+          </div>
           <div className="message-content">
-            <ReactMarkdown
-              escapeHtml={true}
-              source={this.props.message.text.replaceAll("\\n", "  \n").replaceAll("---", "***")}
-              unwrapDisallowed={true}
-              plugins={[ gemojiToEmoji ]}
-            />
+            <Twemoji options={{ className: 'twemoji' }}>
+              <ReactMarkdown
+                escapeHtml={true}
+                source={this.props.message.text.replaceAll("\\n", "  \n").replaceAll("---", "***")}
+                unwrapDisallowed={true}
+                plugins={[ emoji ]}
+              />
+            </Twemoji>
           </div>
         </div>
       </div>
@@ -48,3 +62,7 @@ const options = {
 };
 
 registerComponent({ name: 'Message', component: Message, hocs: [withCurrentUser, [withSingle, options]] });
+
+//            <div className="message-dropdown">
+//<FontAwesomeIcon icon={faEllipsisH}/>
+//</div>

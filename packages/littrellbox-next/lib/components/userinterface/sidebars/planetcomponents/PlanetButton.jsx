@@ -4,7 +4,7 @@ import { Components, withCurrentUser, registerComponent, Loading, withMulti, wit
 
 import {ChatContext} from '../../../../contexts/ChatContext'
 
-const PlanetButton = ({withCurrentUser, document, loading}) => {
+const PlanetButton = ({withCurrentUser, document, loading, results = []}) => {
   if(!document) {
     return (
       <div className="planet-button">
@@ -17,8 +17,15 @@ const PlanetButton = ({withCurrentUser, document, loading}) => {
 
   return (
     <ChatContext.Consumer>
-      {({switchPlanet}) => (
-        <div className="planet-button" onClick={() => switchPlanet(document)}>
+      {({switchPlanet, switchChannel}) => (
+        <div 
+          className="planet-button" 
+          onClick={() => {
+              switchChannel(results[0])
+              switchPlanet(document)
+            }
+          }
+        >
           <div className="planet-button-inner">
             {loading ? 
               <Loading/> :
@@ -37,4 +44,9 @@ const options = {
   collectionName: "Planets"
 };
 
-registerComponent({ name: 'PlanetButton', component: PlanetButton, hocs: [withCurrentUser, [withSingle, options]] });
+const optionsMulti = {
+  collectionName: "Channels",
+  queryOptions: { pollInterval: 200 }
+}
+
+registerComponent({ name: 'PlanetButton', component: PlanetButton, hocs: [withCurrentUser, [withSingle, options], [withMulti, optionsMulti]] });
