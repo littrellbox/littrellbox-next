@@ -1,6 +1,6 @@
 import React from 'react';
 import Helmet from 'react-helmet';
-import { Components, withCurrentUser, registerComponent, withSingle } from 'meteor/vulcan:core';
+import { Components, withCurrentUser, registerComponent, withSingle, withDelete, withUpdate } from 'meteor/vulcan:core';
 
 //formatting
 const ReactMarkdown = require('react-markdown')
@@ -11,10 +11,41 @@ import { faEllipsisH } from '@fortawesome/free-solid-svg-icons'
 
 import Twemoji from 'react-twemoji'
 
+import './MessageEditTextbox'
 
 class Message extends React.Component {
   constructor(props) {
     super(props)
+  
+    this.state = {
+      showEditDropdown: false,
+      isEditing: false
+    }
+
+  }
+
+  deleteMessage() {
+    //this is litterally message suicide
+    document = this.props.message
+    documentId = document._id
+    this.props.updateMessage({
+      selector: { documentId },
+      data: {
+        text: "placeholder workaround"
+      }
+    })
+  }
+
+  toggleMenu() {
+    this.setState({
+      showEditDropdown: !this.state.showEditDropdown
+    })
+  }
+
+  toggleEdit() {
+    this.setState({
+      isEditing: !this.state.isEditing
+    })
   }
 
   render() {
@@ -32,16 +63,28 @@ class Message extends React.Component {
     return(
       <div className="message">
         <div className="message-profile-picture"></div>
-        <div>
-          <div className="message-username">
+        <div style={{width: "100%"}}>
+          <div className="message-header">
             <div className="message-userdate">
-              {document.username} 
+              {document.username}
               <span className="message-date">
-                - {date.toLocaleDateString(navigator.language, timeOptions)}
+                 - {date.toLocaleDateString(navigator.language, timeOptions)}
               </span> 
             </div>
+            {!this.props.loading && this.props.currentUser._id == this.props.document._id && <div className="message-dropdown" onClick={() => this.toggleMenu()}>
+              <FontAwesomeIcon icon={faEllipsisH}/>
+            </div>}
+            {this.state.showEditDropdown && <div className="message-dropdown-menu">
+              <div className="message-dropdown-item" onClick={() => this.toggleEdit()}>
+                Edit
+              </div>
+              <div className="message-dropdown-item" style={{color: "#cc1111"}} onClick={() => this.deleteMessage()}>
+                Delete
+              </div>
+            </div>}
           </div>
-          <div className="message-content">
+          {this.state.showEditDropdown && <div className="dialog-transparent-background" onClick={() => this.toggleMenu()}/>}
+          {!this.state.isEditing && !this.props.loading && <div className="message-content">
             <Twemoji options={{ className: 'twemoji' }}>
               <ReactMarkdown
                 escapeHtml={true}
@@ -50,7 +93,10 @@ class Message extends React.Component {
                 plugins={[ emoji ]}
               />
             </Twemoji>
-          </div>
+          </div>}
+          {this.state.isEditing && <div className="message-content"> 
+            <Components.MessageEditTextbox document={this.props.message} closeEditor={() => this.toggleEdit()}/>
+          </div>}
         </div>
       </div>
     )
@@ -61,8 +107,8 @@ const options = {
   collectionName: "Users"
 };
 
-registerComponent({ name: 'Message', component: Message, hocs: [withCurrentUser, [withSingle, options]] });
+const deleteOptions = {
+  collectionName: "Messages"
+};
 
-//            <div className="message-dropdown">
-//<FontAwesomeIcon icon={faEllipsisH}/>
-//</div>
+registerComponent({ name: 'Message', component: Message, hocs: [withCurrentUser, [withSingle, options], [withDelete, deleteOptions], [withUpdate, deleteOptions]] });

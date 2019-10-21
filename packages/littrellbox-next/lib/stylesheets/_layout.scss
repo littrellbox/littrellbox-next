@@ -7,6 +7,16 @@
   background-color: #555555;
 }
 
+.message-textbox-textarea::-webkit-scrollbar {
+  width: 0.5rem;
+}
+
+.message-textbox-textarea::-webkit-scrollbar-thumb {
+  border-radius: 0.45rem;
+  background-color: #666666;
+}
+
+
 .main {
   font-family: 'Noto Sans', sans-serif;
   width: 100%;
@@ -34,23 +44,30 @@
 }
 
 .message-list {
-  padding-top: 1rem;
+  width: 100%;
+  padding-top: 0.75rem;
+  padding-bottom: 0;
   overflow-y: auto;
   word-break: break-word;
+  overflow-x: none;
   margin-bottom: auto;
   scrollbar-color: #555555 #444444;
 }
 
 .message {
-  padding-bottom: 0.25rem;
+  padding-right: 0.5rem;
+  padding-top: 0.25rem;
   color: #cccccc;
   display: flex;
+  width: 100%;
 }
 
-.message-username {
+.message-header {
   width: 100%;
   font-weight: bold;
   display: flex;
+  flex-direction: row;
+  position: relative;
 }
 
 .message-textbox {
@@ -70,9 +87,11 @@
   border-width: 0px;
   white-space: pre-wrap;
   resize: none;
+  max-height: 10rem;
   width: 100%;
   color: #cccccc;
   background-color: #555555;
+  scrollbar-color: #666666 #555555;
   padding-left: 0.6rem;
   padding: 0.5rem;
   padding-right: 0;
@@ -108,6 +127,46 @@
   margin-right: 0.75rem;
 }
 
+.message-userdate {
+  margin-right: auto;
+}
+
+.message-dropdown {
+  position: relative;
+  color: #555555;
+  margin-left: auto;
+  transition: 0.2s;
+  cursor: pointer;
+}
+
+.message-dropdown:hover {
+  color: #cccccc
+}
+
+.message-dropdown-menu {
+  position: absolute;
+  right: 0;
+  top: 1.5rem;
+  border-radius: 0.25rem;
+  background-color: #555555;
+  padding-top: 0.425rem;
+  padding-bottom: 0.425rem;
+  z-index: 10;
+  font-weight: normal;
+}
+
+.message-dropdown-item {
+  cursor: pointer;
+  padding-bottom: 0.125rem;
+  padding-top: 0.125rem;
+  padding-left: 0.6rem;
+  padding-right: 0.6rem;
+}
+
+.message-dropdown-item:hover {
+  background-color: #666666;
+}
+
 .dialog-transparent-background {
   position: absolute;
   width: 100%;
@@ -115,6 +174,7 @@
   top: 0;
   left: 0;
   z-index: 9;
+  pointer-events: all;
 }
 
 .dialog {
@@ -136,6 +196,7 @@
 .message-date {
   font-weight: normal;
   color: #aaaaaa;
+  padding-left: 0.33em;
 }
 
 .dialog-no-bg {
@@ -185,4 +246,15 @@ img.twemoji {
   width: 1em;
   margin: 0 .05em 0 .1em;
   vertical-align: -0.1em;
+}
+
+pre {
+  color: #cccccc;
+  background: #555555;
+  border-radius: 0.5rem;
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  margin-left: 0;
 }
