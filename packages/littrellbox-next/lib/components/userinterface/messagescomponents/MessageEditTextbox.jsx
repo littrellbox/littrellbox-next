@@ -21,7 +21,15 @@ class MessageEditTextbox extends React.Component {
       hasBeenUpdated: false
     };
   }
+
+  componentDidUpdate() {
+    this.props.scrollToBottom();
+  }
   
+  componentDidMount() {
+    this.props.scrollToBottom();
+  }
+
   handleKeyPress(e) {
     if (e.key === 'Enter' && !this.state.shiftKeyDown)
       e.preventDefault()
@@ -66,7 +74,10 @@ class MessageEditTextbox extends React.Component {
   }
 
   addEmoji(e) {
-    this.setState({textboxText: this.state.textboxText + " :" + e.id + ":"})
+    this.setState({
+      textboxText: this.state.textboxText + " :" + e.id.replace("flag-", "") + ":",
+      showEmojiPicker: false
+    })
   }
 
   render() {
@@ -85,7 +96,7 @@ class MessageEditTextbox extends React.Component {
                 <Picker 
                   onSelect={(e) => this.addEmoji(e)} 
                   native={false}
-                  set="twitter"
+                  set="emojione"
                   title="Pick an emoji!"
                 />
               </div>}

@@ -73,7 +73,10 @@ class MessageTextbox extends React.Component {
   }
 
   addEmoji(e) {
-    this.setState({textboxText: this.state.textboxText + " :" + e.id + ":"})
+    this.setState({
+      textboxText: this.state.textboxText + " :" + e.id.replace("flag-", "") + ":",
+      showEmojiPicker: false
+    })
   }
 
   render() {
@@ -87,7 +90,7 @@ class MessageTextbox extends React.Component {
                 <Picker 
                   onSelect={(e) => this.addEmoji(e)} 
                   native={false}
-                  set="twitter"
+                  set="emojione"
                   title="Pick an emoji!"
                 />
               </div>}

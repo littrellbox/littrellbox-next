@@ -10,7 +10,8 @@ class MessageList extends React.Component {
   }
   
   componentDidUpdate() {
-    this.messagesEnd.scrollIntoView({ behavior: "auto" });
+    if(this.messagesEnd)
+      this.messagesEnd.scrollIntoView({ behavior: "auto" });
   }
 
   reverseWorkaround() {
@@ -21,7 +22,12 @@ class MessageList extends React.Component {
     return (
       <div className="message-list">
         <div>
-          {this.reverseWorkaround().map(message => <Components.Message key={message._id} message={message} documentId={message.userId}/>)}
+          {this.reverseWorkaround().map(message => <Components.Message 
+            key={message._id} 
+            message={message} 
+            documentId={message.userId}
+            scrollToBottom={() => this.componentDidUpdate()}
+          />)}
         </div>
         <div ref={(el) => { this.messagesEnd = el; }}/>
       </div>

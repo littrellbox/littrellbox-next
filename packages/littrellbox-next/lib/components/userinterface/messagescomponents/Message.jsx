@@ -3,8 +3,11 @@ import Helmet from 'react-helmet';
 import { Components, withCurrentUser, registerComponent, withSingle, withDelete, withUpdate } from 'meteor/vulcan:core';
 
 //formatting
-const ReactMarkdown = require('react-markdown')
+const ReactMarkdown = require('react-markdown/with-html')
 const emoji = require('remark-emoji');
+
+import joypixels from 'emoji-toolkit'
+import escapeHtml from 'escape-html'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEllipsisH } from '@fortawesome/free-solid-svg-icons'
@@ -12,6 +15,7 @@ import { faEllipsisH } from '@fortawesome/free-solid-svg-icons'
 import Twemoji from 'react-twemoji'
 
 import './MessageEditTextbox'
+import { formatApolloErrors } from 'apollo-server-core';
 
 class Message extends React.Component {
   constructor(props) {
@@ -22,6 +26,10 @@ class Message extends React.Component {
       isEditing: false
     }
 
+  }
+
+  componentDidUpdate() {
+    this.props.scrollToBottom();
   }
 
   deleteMessage() {
@@ -85,17 +93,18 @@ class Message extends React.Component {
           </div>
           {this.state.showEditDropdown && <div className="dialog-transparent-background" onClick={() => this.toggleMenu()}/>}
           {!this.state.isEditing && !this.props.loading && <div className="message-content">
-            <Twemoji options={{ className: 'twemoji' }}>
-              <ReactMarkdown
-                escapeHtml={true}
-                source={this.props.message.text.replaceAll("\\n", "  \n").replaceAll("---", "***")}
-                unwrapDisallowed={true}
-                plugins={[ emoji ]}
-              />
-            </Twemoji>
+          <ReactMarkdown
+            escapeHtml={false}
+            source={joypixels.shortnameToImage(escapeHtml(this.props.message.text.replaceAll("\\n", "  \n").replaceAll("---", "***")))}
+            unwrapDisallowed={true}
+          />
           </div>}
           {this.state.isEditing && <div className="message-content"> 
-            <Components.MessageEditTextbox document={this.props.message} closeEditor={() => this.toggleEdit()}/>
+            <Components.MessageEditTextbox 
+              document={this.props.message} 
+              closeEditor={() => this.toggleEdit()}
+              scrollToBottom={() => this.props.scrollToBottom()}
+            />
           </div>}
         </div>
       </div>
@@ -112,3 +121,6 @@ const deleteOptions = {
 };
 
 registerComponent({ name: 'Message', component: Message, hocs: [withCurrentUser, [withSingle, options], [withDelete, deleteOptions], [withUpdate, deleteOptions]] });
+
+//noWrapper: bool
+//tag: string, default: div
