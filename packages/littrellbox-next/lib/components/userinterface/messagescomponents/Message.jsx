@@ -1,6 +1,6 @@
 import React from 'react';
 import Helmet from 'react-helmet';
-import { Components, withCurrentUser, registerComponent, withSingle, withDelete, withUpdate } from 'meteor/vulcan:core';
+import { Components, withCurrentUser, registerComponent, withSingle, withDelete } from 'meteor/vulcan:core';
 
 //formatting
 const ReactMarkdown = require('react-markdown/with-html')
@@ -25,19 +25,23 @@ class Message extends React.Component {
   }
 
   componentDidUpdate() {
-    this.props.scrollToBottom();
+    if(this.state.showEditDropdown || this.state.isEditing) {
+      this.props.scrollToBottom();
+    }
   }
 
   deleteMessage() {
     //this is litterally message suicide
     document = this.props.message
     documentId = document._id
-    this.props.updateMessage({
-      selector: { documentId },
-      data: {
-        text: "placeholder workaround"
-      }
-    })
+    this.props.deleteMessage({documentId})
+    this.toggleMenu()
+  }
+
+  deleteUser() {
+    documentId = this.props.document._id
+    this.props.deleteUser({documentId})
+    this.toggleMenu()
   }
 
   toggleMenu() {
@@ -50,6 +54,7 @@ class Message extends React.Component {
     this.setState({
       isEditing: !this.state.isEditing
     })
+    this.toggleMenu()
   }
 
   render() {
@@ -57,6 +62,11 @@ class Message extends React.Component {
     if(!this.props.document) {
       document = {
         username: "Unknown User"
+      }
+    }
+    if(this.props.document && (!this.props.document.username || this.props.document.username == "")) {
+      document = {
+        username: "Deleted User"
       }
     }
 
@@ -78,6 +88,9 @@ class Message extends React.Component {
             {!this.props.loading && this.props.currentUser._id == this.props.document._id && <div className="message-dropdown" onClick={() => this.toggleMenu()}>
               <FontAwesomeIcon icon={faEllipsisH}/>
             </div>}
+            {!this.props.loading && this.props.currentUser._id != this.props.document._id && this.props.currentUser.isAdmin && <div className="message-dropdown" onClick={() => this.toggleMenu()}>
+              <FontAwesomeIcon icon={faEllipsisH}/>
+            </div>}
             {this.state.showEditDropdown && <div className="message-dropdown-menu">
               <div className="message-dropdown-item" onClick={() => this.toggleEdit()}>
                 Edit
@@ -85,6 +98,14 @@ class Message extends React.Component {
               <div className="message-dropdown-item" style={{color: "#cc1111"}} onClick={() => this.deleteMessage()}>
                 Delete
               </div>
+              {this.props.currentUser.isAdmin && <div>
+                <div className="message-dropdown-header">
+                  Mod Tools
+                </div>
+                <div className="message-dropdown-item" onClick={() => this.deleteUser()}>
+                  Global Ban
+                </div>
+              </div>}
             </div>}
           </div>
           {this.state.showEditDropdown && <div className="dialog-transparent-background" onClick={() => this.toggleMenu()}/>}
@@ -116,7 +137,11 @@ const deleteOptions = {
   collectionName: "Messages"
 };
 
-registerComponent({ name: 'Message', component: Message, hocs: [withCurrentUser, [withSingle, options], [withDelete, deleteOptions], [withUpdate, deleteOptions]] });
+const deleteOptionsUser = {
+  collectionName: "Users"
+}
+
+registerComponent({ name: 'Message', component: Message, hocs: [withCurrentUser, [withSingle, options], [withDelete, deleteOptions], [withDelete, deleteOptionsUser]] });
 
 //noWrapper: bool
 //tag: string, default: div

@@ -24,7 +24,8 @@ const PlanetSidebar = ({results = [], currentUser, loading, loadMore, count, tot
 );
 
 const options = {
-  collectionName: "PlanetMembers"
+  collectionName: "PlanetMembers",
+  queryOptions: { pollInterval: 200 }
 };
 
 registerComponent({ name: 'PlanetSidebar', component: PlanetSidebar, hocs: [withCurrentUser, [withMulti, options]] });
