@@ -4,15 +4,11 @@ import { Components, withCurrentUser, registerComponent, withSingle, withDelete,
 
 //formatting
 const ReactMarkdown = require('react-markdown/with-html')
-const emoji = require('remark-emoji');
-
-import joypixels from 'emoji-toolkit'
-import escapeHtml from 'escape-html'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEllipsisH } from '@fortawesome/free-solid-svg-icons'
 
-import Twemoji from 'react-twemoji'
+import formatText from '../../lib/FormatText'
 
 import './MessageEditTextbox'
 import { formatApolloErrors } from 'apollo-server-core';
@@ -95,7 +91,7 @@ class Message extends React.Component {
           {!this.state.isEditing && !this.props.loading && <div className="message-content">
           <ReactMarkdown
             escapeHtml={false}
-            source={joypixels.shortnameToImage(escapeHtml(this.props.message.text.replaceAll("\\n", "  \n").replaceAll("---", "***")))}
+            source={formatText(this.props.message.text)}
             unwrapDisallowed={true}
           />
           </div>}

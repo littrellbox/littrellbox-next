@@ -1,8 +1,10 @@
-import React from 'react';
-import Helmet from 'react-helmet';
-import { Components, withCurrentUser, registerComponent, withSingle } from 'meteor/vulcan:core';
+import escapeHtml from 'escape-html'
+import twemoji from 'twemoji'
+import emoji from 'node-emoji'
 
-export const formatText = (message) => {
-  processed = message.replace("\\n", "\n")
-  return processed;
+export default formatText = (message) => {
+  // we can't use DOM parsing, it bugs out too much
+  // sad face
+  // the uk emoji is weird, don't worry about it
+  return twemoji.parse(emoji.emojify(escapeHtml(message.replaceAll("\\n", "  \n").replaceAll("---", "***").replaceAll(":flag-uk:", ":uk:"))))
 }
