@@ -11,7 +11,8 @@ import { faEllipsisH } from '@fortawesome/free-solid-svg-icons'
 import formatText from '../../lib/FormatText'
 
 import './MessageEditTextbox'
-import { formatApolloErrors } from 'apollo-server-core';
+
+import CircleLoader from '../../lib/Loader'
 
 class Message extends React.Component {
   constructor(props) {
@@ -25,9 +26,11 @@ class Message extends React.Component {
   }
 
   componentDidUpdate() {
-    if(this.state.showEditDropdown || this.state.isEditing) {
-      this.props.scrollToBottom();
-    }
+    this.props.scrollToBottom();
+  }
+
+  componentDidMount() {
+    this.props.scrollToBottom();
   }
 
   deleteMessage() {
@@ -76,54 +79,59 @@ class Message extends React.Component {
 
     return(
       <div className="message">
-        <div className="message-profile-picture"></div>
-        <div style={{width: "100%"}}>
-          <div className="message-header">
-            <div className="message-userdate">
-              {document.username}
-              <span className="message-date">
-                 - {date.toLocaleDateString(navigator.language, timeOptions)}
-              </span> 
-            </div>
-            {!this.props.loading && this.props.currentUser._id == this.props.document._id && <div className="message-dropdown" onClick={() => this.toggleMenu()}>
-              <FontAwesomeIcon icon={faEllipsisH}/>
-            </div>}
-            {!this.props.loading && this.props.currentUser._id != this.props.document._id && this.props.currentUser.isAdmin && <div className="message-dropdown" onClick={() => this.toggleMenu()}>
-              <FontAwesomeIcon icon={faEllipsisH}/>
-            </div>}
-            {this.state.showEditDropdown && <div className="message-dropdown-menu">
-              <div className="message-dropdown-item" onClick={() => this.toggleEdit()}>
-                Edit
+        {this.props.loading && <div>
+          <CircleLoader/> <span className="loading-text">Loading...</span>
+        </div>}
+        {!this.props.loading && <div className="message">
+          <div className="message-profile-picture"></div>
+          <div style={{width: "100%"}}>
+            <div className="message-header">
+              <div className="message-userdate">
+                {document.username}
+                <span className="message-date">
+                   - {date.toLocaleDateString(navigator.language, timeOptions)}
+                </span> 
               </div>
-              <div className="message-dropdown-item" style={{color: "#cc1111"}} onClick={() => this.deleteMessage()}>
-                Delete
-              </div>
-              {this.props.currentUser.isAdmin && <div>
-                <div className="message-dropdown-header">
-                  Mod Tools
-                </div>
-                <div className="message-dropdown-item" onClick={() => this.deleteUser()}>
-                  Global Ban
-                </div>
+              {!this.props.loading && this.props.currentUser._id == this.props.document._id && <div className="message-dropdown" onClick={() => this.toggleMenu()}>
+                <FontAwesomeIcon icon={faEllipsisH}/>
               </div>}
+              {!this.props.loading && this.props.currentUser._id != this.props.document._id && this.props.currentUser.isAdmin && <div className="message-dropdown" onClick={() => this.toggleMenu()}>
+                <FontAwesomeIcon icon={faEllipsisH}/>
+              </div>}
+              {this.state.showEditDropdown && <div className="dropdown-menu message-dropdown-menu">
+                <div className="dropdown-item" onClick={() => this.toggleEdit()}>
+                  Edit
+                </div>
+                <div className="dropdown-item" style={{color: "#cc1111"}} onClick={() => this.deleteMessage()}>
+                  Delete
+                </div>
+                {this.props.currentUser.isAdmin && <div>
+                  <div className="dropdown-header">
+                    Mod Tools
+                  </div>
+                  <div className="dropdown-item" onClick={() => this.deleteUser()}>
+                    Global Ban
+                  </div>
+                </div>}
+              </div>}
+            </div>
+            {this.state.showEditDropdown && <div className="dialog-transparent-background" onClick={() => this.toggleMenu()}/>}
+            {!this.state.isEditing && !this.props.loading && <div className="message-content">
+            <ReactMarkdown
+              escapeHtml={false}
+              source={formatText(this.props.message.text)}
+              unwrapDisallowed={true}
+            />
+            </div>}
+            {this.state.isEditing && <div className="message-content"> 
+              <Components.MessageEditTextbox 
+                document={this.props.message} 
+                closeEditor={() => this.toggleEdit()}
+                scrollToBottom={() => this.props.scrollToBottom()}
+              />
             </div>}
           </div>
-          {this.state.showEditDropdown && <div className="dialog-transparent-background" onClick={() => this.toggleMenu()}/>}
-          {!this.state.isEditing && !this.props.loading && <div className="message-content">
-          <ReactMarkdown
-            escapeHtml={false}
-            source={formatText(this.props.message.text)}
-            unwrapDisallowed={true}
-          />
-          </div>}
-          {this.state.isEditing && <div className="message-content"> 
-            <Components.MessageEditTextbox 
-              document={this.props.message} 
-              closeEditor={() => this.toggleEdit()}
-              scrollToBottom={() => this.props.scrollToBottom()}
-            />
-          </div>}
-        </div>
+        </div>}
       </div>
     )
   }

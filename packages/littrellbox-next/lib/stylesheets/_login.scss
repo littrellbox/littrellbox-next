@@ -21,9 +21,74 @@
   top: 0;
   left: 0;
   color: #cccccc;
-  .form-control{
-    background-color: #444444;
-    border-color: #444444;
+}
+
+.form-control{
+  background-color: #444444;
+  border-width: 0px;
+  padding: 0.6rem;
+  width: 100%;
+  font-size: 1rem;
+  border-radius: 0.25rem;
+  color: #cccccc;
+}
+
+.btn {
+  background: #444444;
+  border-width: 0;
+  border-radius: 0.25rem;
+  padding: 0.6rem;
+  color: #cccccc;
+  font-size: 1rem;
+}
+
+.btn:hover {
+  background: #4c4c4c
+}
+
+.message-area {
+  .btn {
+    background: #555555;
     color: #cccccc;
   }
+  
+  .btn:hover {
+    background: #5c5c5c
+  }
+
+  .buttons{
+    a {
+      background: #555555;
+      padding: 0.6rem;
+      padding-top: 0.6rem;
+    }
+    a:hover {
+      background: #5c5c5c
+    }
+  }
+
+  .accounts-ui {
+    padding-top: 1rem;
+  }
+}
+
+.buttons{
+  a {
+    background: #444444;
+    border-width: 0;
+    border-radius: 0.25rem;
+    padding: 0.5rem;
+    padding-top: 0.45rem;
+    text-decoration: none;
+    color: #cccccc;
+    font-size: 1rem;
+    transition: 0.2s;
+  }
+  a:hover {
+    background: #4c4c4c
+  }
+}
+
+.accounts-ui {
+  padding-bottom: 0.5rem;
 }

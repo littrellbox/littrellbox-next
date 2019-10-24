@@ -1,0 +1,139 @@
+
+.message-area {
+  width: 100%;
+  order: 2;
+  background-color: #444444;
+  padding: 1rem;
+  padding-top: 0;
+  flex: 1 1 auto;
+  display: flex;
+  overflow-x: none;
+  flex-direction: column;
+}
+
+.message-list {
+  width: 100%;
+  padding-top: 0.75rem;
+  padding-bottom: 0;
+  overflow-y: auto;
+  word-break: break-word;
+  overflow-x: none;
+  margin-bottom: auto;
+  scrollbar-color: #555555 #444444;
+}
+
+.message {
+  padding-right: 0.5rem;
+  padding-top: 0.25rem;
+  color: #cccccc;
+  display: flex;
+  width: calc(100% - 0.5rem);
+  overflow-x: none;
+}
+
+.message-header {
+  width: 100%;
+  font-weight: bold;
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  overflow-x: none;
+}
+
+.message-textbox {
+  display: flex;
+  max-height: 10rem;
+  flex-shrink: 0;
+  min-height: 2rem;
+  margin-top: 1rem;
+  background-color: #555555;
+  color: #cccccc;
+  border-width: 0px;
+  border-radius: 5px;
+  position: relative;
+}
+
+.message-textbox-textarea {
+  border-width: 0px;
+  white-space: pre-wrap;
+  resize: none;
+  max-height: 10rem;
+  width: 100%;
+  color: #cccccc;
+  background-color: #555555;
+  scrollbar-color: #666666 #555555;
+  padding-left: 0.6rem;
+  padding: 0.5rem;
+  padding-right: 0;
+  padding-left: 0.6rem;
+  border-width: 0px;
+  border-radius: 5px;
+  font-family: 'Noto Sans', Helvetica, sans-serif;    
+}
+
+.message-textbox-emoji-picker-button {
+  padding-right: 0.6rem;
+  padding: 0.5rem;
+  cursor: pointer;
+  transition: 0.2s
+}
+
+.message-textbox-emoji-picker-button:hover {
+  color: #fafa00
+}
+
+.message-textbox-emoji-picker {
+  z-index: 10;
+  position: absolute;
+  top: calc(100% - 31rem);
+  left: calc(100% - 334px - 2rem);
+}
+
+.message-profile-picture {
+  width: 3rem;
+  height: 3rem;
+  background-color: #555555;
+  border-radius: 50%;
+  margin-top: 0.25rem;
+  margin-right: 0.75rem;
+}
+
+.message-userdate {
+  margin-right: auto;
+}
+
+.message-dropdown {
+  position: relative;
+  color: #555555;
+  margin-left: auto;
+  transition: 0.2s;
+  cursor: pointer;
+}
+
+.message-dropdown:hover {
+  color: #cccccc
+}
+
+.message-list::-webkit-scrollbar {
+  width: 0.5rem;
+}
+
+.message-list::-webkit-scrollbar-thumb {
+  border-radius: 0.45rem;
+  background-color: #555555;
+}
+
+.message-textbox-textarea::-webkit-scrollbar {
+  width: 0.5rem;
+}
+
+.message-textbox-textarea::-webkit-scrollbar-thumb {
+  border-radius: 0.45rem;
+  background-color: #666666;
+}
+
+.message-dropdown-menu {
+  position: absolute;
+  right: 0;
+  top: 1.5rem;
+}

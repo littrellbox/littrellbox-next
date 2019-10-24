@@ -2,7 +2,7 @@
   order: 0;
   width: 4.5rem;
   min-width: 4.5rem;
-  height: 100%;
+  height: calc(100% - 0.5rem);
   background-color: #222222;
   overflow-y: auto;
   scrollbar-width: none;
@@ -73,6 +73,7 @@
   padding: 0.5rem;
   padding-top: 0.2rem;
   padding-bottom: 0.4rem;
+  position: relative;
 }
 
 .channel-header-planet {
@@ -80,17 +81,24 @@
   font-size: 1.25rem;
 }
 
+.channel-header-dropdown-toggle {
+  position: absolute;
+  cursor: pointer;
+  top: calc(50% - 1.25rem);
+  right: 0.5rem;
+  font-size: 1.5rem;
+}
+
 .channel-header-user {
   font-size: 0.9rem;
 }
 
 .channel-list-title {
+  padding: 0.5rem;
   padding-top: 0.3rem;
-  padding-left: 0.5rem;
   color: #cccccc;
   font-weight: bold;
   display: flex;
-  padding-right: 0.5rem;
 }
 
 .channel-button {
