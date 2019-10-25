@@ -2,11 +2,6 @@ import React from 'react';
 import Helmet from 'react-helmet';
 import { Components, withCurrentUser, registerComponent } from 'meteor/vulcan:core';
 
-//import UI elements
-import './userinterface/sidebars/PlanetSidebar'
-import './userinterface/sidebars/ChannelSidebar'
-import './userinterface/MessageArea'
-
 //import context
 import {ChatContext} from '../contexts/ChatContext'
 

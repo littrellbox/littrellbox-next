@@ -4,9 +4,6 @@ import { Components, withCurrentUser, registerComponent, withCreate, withUpdate,
 
 import { ChatContext } from '../../contexts/ChatContext'
 
-import './messagescomponents/MessageList'
-import './messagescomponents/MessageTextbox'
-
 class MessageArea extends React.Component {
   constructor(props) {
     super(props);
@@ -29,7 +26,7 @@ class MessageArea extends React.Component {
           }
           return (
             <div className="message-area">
-              <Components.AccountsLoginForm redirect={false}/>
+              
             </div>
           )
         }}

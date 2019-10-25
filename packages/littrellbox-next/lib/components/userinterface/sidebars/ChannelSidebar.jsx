@@ -4,9 +4,6 @@ import { Components, withCurrentUser, registerComponent } from 'meteor/vulcan:co
 
 import {ChatContext} from '../../../contexts/ChatContext';
 
-import './channelcomponents/ChannelHeader'
-import './channelcomponents/ChannelList'
-
 const ChannelSidebar = ({ currentUser }) => {
   return (
     <ChatContext.Consumer>

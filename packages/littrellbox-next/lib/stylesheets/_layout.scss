@@ -19,7 +19,7 @@ p {
 }
 
 .dialog-transparent-background {
-  position: absolute;
+  position: fixed;
   width: 100%;
   height: 100%;
   top: 0;
@@ -83,7 +83,7 @@ p {
 }
 
 .dialog-semi-transparent-background {
-  position: absolute;
+  position: fixed;
   width: 100%;
   height: 100%;
   background: #00000099;

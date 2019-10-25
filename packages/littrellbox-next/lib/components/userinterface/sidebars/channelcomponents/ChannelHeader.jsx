@@ -9,13 +9,29 @@ class ChannelHeader extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      showDropdown: false
+      showDropdown: false,
+      showSettings: false,
+      showAbout: false
     }
   }
 
   toggleMenu() {
     this.setState({
       showDropdown: !this.state.showDropdown
+    })
+  }
+
+  toggleSettings() {
+    this.setState({
+      showSettings: !this.state.showSettings,
+      showDropdown: false
+    })
+  }
+
+  toggleAbout() {
+    this.setState({
+      showAbout: !this.state.showAbout,
+      showDropdown: false
     })
   }
 
@@ -29,8 +45,25 @@ class ChannelHeader extends React.Component {
           {this.props.currentUser.username}
         </div>
         <div className="channel-header-dropdown-toggle">
-            <FontAwesomeIcon icon={faAngleDown}/>
+          <FontAwesomeIcon icon={faAngleDown} onClick={() => this.toggleMenu()}/>
+          {this.state.showDropdown && <div className="dropdown-menu">
+            <div className="dropdown-item" onClick={() => this.toggleSettings()}>
+              Account Settings
+            </div>
+            <div className="dropdown-item" onClick={() => this.toggleAbout()}>
+              About Littrellbox
+            </div>
+          </div>}
+          {this.state.showSettings && <div>
+            <Components.SettingsModal toggleSettings={() => this.toggleSettings()}/>
+            <div className="dialog-semi-transparent-background" onClick={() => this.toggleSettings()}/>
+          </div>}
+          {this.state.showAbout && <div>
+            <Components.AboutModal/>
+            <div className="dialog-semi-transparent-background" onClick={() => this.toggleAbout()}/>
+          </div>}
         </div> 
+        {this.state.showDropdown && <div className="dialog-transparent-background" onClick={() => this.toggleMenu()}/>}
       </div>
     )
   }

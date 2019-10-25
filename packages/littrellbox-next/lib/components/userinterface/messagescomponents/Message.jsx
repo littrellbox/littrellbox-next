@@ -10,8 +10,6 @@ import { faEllipsisH } from '@fortawesome/free-solid-svg-icons'
 
 import formatText from '../../lib/FormatText'
 
-import './MessageEditTextbox'
-
 import CircleLoader from '../../lib/Loader'
 
 class Message extends React.Component {
@@ -26,7 +24,10 @@ class Message extends React.Component {
   }
 
   componentDidUpdate() {
-    this.props.scrollToBottom();
+    if(!this.state.showEditDropdown)
+      this.props.scrollToBottom();
+    if(this.state.isEditing && this.messagesEditBox)
+      this.messagesEditBox.scrollIntoView({ behavior: "auto" });
   }
 
   componentDidMount() {
@@ -129,6 +130,7 @@ class Message extends React.Component {
                 closeEditor={() => this.toggleEdit()}
                 scrollToBottom={() => this.props.scrollToBottom()}
               />
+              <div ref={(el) => { this.messagesEditBox = el; }}/>
             </div>}
           </div>
         </div>}

@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import Helmet from 'react-helmet';
 import { Components, withCurrentUser, registerComponent, withCreate } from 'meteor/vulcan:core';
 
-import './NewPlanetButton'
-
 import '../../../../modules/schemas/planets/collection'
 
 class NewPlanet extends React.Component {

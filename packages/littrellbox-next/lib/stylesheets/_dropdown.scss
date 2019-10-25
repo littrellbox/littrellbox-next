@@ -4,7 +4,10 @@
   padding-top: 0.425rem;
   padding-bottom: 0.425rem;
   z-index: 10;
+  width: max-content;
   font-weight: normal;
+  font-size: 1rem;
+  position: absolute;
 }
 
 .dropdown-item {

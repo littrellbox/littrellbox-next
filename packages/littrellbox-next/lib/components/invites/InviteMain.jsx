@@ -3,8 +3,6 @@ import Helmet from 'react-helmet';
 import { Components, withCurrentUser, registerComponent } from 'meteor/vulcan:core';
 //import context
 
-import './Invite'
-
 class InviteMain extends React.Component {
   constructor(props) {
     super(props);

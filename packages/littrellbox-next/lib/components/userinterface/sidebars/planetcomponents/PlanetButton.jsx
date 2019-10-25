@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import Helmet from 'react-helmet';
-import { Components, withCurrentUser, registerComponent, Loading, withMulti, withSingle } from 'meteor/vulcan:core';
+import { Components, withCurrentUser, registerComponent, withMulti, withSingle } from 'meteor/vulcan:core';
 
 import {ChatContext} from '../../../../contexts/ChatContext'
+
+import CircleLoader from '../../../lib/Loader'
 
 const PlanetButton = ({withCurrentUser, document, loading, results = []}) => {
   if(!document) {
@@ -14,6 +16,12 @@ const PlanetButton = ({withCurrentUser, document, loading, results = []}) => {
       </div>
     )
   }
+
+  textsplit = document.name.split(" ")
+  text = ""
+  textsplit.forEach(element => {
+    text = text + element.substring(0,1)
+  });
 
   return (
     <ChatContext.Consumer>
@@ -28,9 +36,9 @@ const PlanetButton = ({withCurrentUser, document, loading, results = []}) => {
         >
           <div className="planet-button-inner">
             {loading ? 
-              <Loading/> :
-              <div>
-                {document.name}
+              <CircleLoader/> :
+              <div className="planet-button-text">
+                {text}
               </div>
             }
           </div>

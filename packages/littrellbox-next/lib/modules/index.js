@@ -8,5 +8,9 @@ import './schemas/planets/collection.js';
 import './schemas/planetmembers/collection.js';
 import './schemas/invites/collection.js';
 
+
+//load components
+import './components.js';
+
 // Routes
 import './routes.js';

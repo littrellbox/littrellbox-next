@@ -2,9 +2,6 @@ import React, { Component } from 'react';
 import Helmet from 'react-helmet';
 import { Components, withCurrentUser, registerComponent, Loading, withMulti } from 'meteor/vulcan:core';
 
-import './planetcomponents/PlanetButton'
-import './planetcomponents/NewPlanet'
-
 const PlanetSidebar = ({results = [], currentUser, loading, loadMore, count, totalCount, terms }) => (
   <div className="scroll-container">
     <div className="planet-sidebar">

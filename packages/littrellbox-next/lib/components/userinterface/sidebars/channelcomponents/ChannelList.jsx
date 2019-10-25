@@ -2,8 +2,7 @@ import React from 'react';
 import Helmet from 'react-helmet';
 import { Components, withCurrentUser, registerComponent, Loading, withMulti, withCreate } from 'meteor/vulcan:core';
 
-import './ChannelButton'
-import './NewChannelForm'
+import CircleLoader from '../../../lib/Loader'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
@@ -67,7 +66,9 @@ class ChannelList extends React.Component {
           onKeyPress={(e) => this.handleKeyPress(e)}
         />}
         {this.props.loading ?
-          <div>Loading</div>:
+          <div className="channel-list-loader">
+            <CircleLoader/>
+          </div>:
           <div>
             {this.props.results.map(channel => <Components.ChannelButton key={channel._id} buttonChannel={channel} terms={{
               view: 'byChannelId',
