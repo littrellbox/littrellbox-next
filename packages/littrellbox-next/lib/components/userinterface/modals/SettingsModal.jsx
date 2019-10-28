@@ -2,7 +2,7 @@ import React from 'react'
 import { Components, withCurrentUser, registerComponent, withUpdate } from 'meteor/vulcan:core';
 
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faWindowClose} from '@fortawesome/free-solid-svg-icons'
+import {faWindowClose, faUpload} from '@fortawesome/free-solid-svg-icons'
 
 class SettingsModal extends React.Component {
   constructor(props) {
@@ -39,7 +39,14 @@ class SettingsModal extends React.Component {
     }
     return (
       <div className="settings-modal">
-        <input type="text" className="settings-modal-usertext" value={text} onChange={(e) => this.handleChange(e)} onKeyPress={(e) => this.handleKeyPress(e)}/>
+        <div className="settings-modal-user-info">
+          <div className="settings-modal-profile-picture">
+            <div className="settings-modal-profile-picture-hover">
+              <FontAwesomeIcon icon={faUpload} className="settings-modal-profile-picture-upload"/>
+            </div>
+          </div>
+          <input type="text" className="settings-modal-usertext" value={text} onChange={(e) => this.handleChange(e)} onKeyPress={(e) => this.handleKeyPress(e)}/>
+        </div>
         <Components.AccountsLoginForm redirect={false}/>
         <div className="btn close-button">
           <FontAwesomeIcon icon={faWindowClose} onClick={() => this.props.toggleSettings()}/>

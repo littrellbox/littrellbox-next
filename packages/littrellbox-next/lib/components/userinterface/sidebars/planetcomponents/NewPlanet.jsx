@@ -16,6 +16,23 @@ class NewPlanet extends React.Component {
 
   handleKeyPress(e) {
     if(e.key == "Enter") {
+      this.props.createPlanet({
+        data: {
+          name: this.state.textboxText
+        }
+      }).then((value) => {
+        this.props.createChannel({
+          data: {
+            planetId: value.data.createPlanet.data._id,
+            name: "general"
+          }
+        })
+        this.props.createPlanetMember({
+          data: { 
+            planetId: value.data.createPlanet.data._id
+          }
+        })
+      })
       this.setState({
         showingNewPlanetDialog: false
       })

@@ -4,15 +4,25 @@ import { Components, withCurrentUser, registerComponent, withCreate, withUpdate,
 
 import { ChatContext } from '../../contexts/ChatContext'
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
+import { faSmile } from '@fortawesome/free-solid-svg-icons'
+
 class MessageArea extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      attachments: []
+    }
+    
   }
 
   render() {
     return (
       <ChatContext.Consumer>
-        {({channel, planet}) => {
+        {({channel, attachments, onDrop, removeFile}) => {
+
           if(channel._id && !this.props.loading) {
             return (
               <div className="message-area"> 
@@ -20,6 +30,9 @@ class MessageArea extends React.Component {
                 <Components.MessageTextbox
                   channelName={channel.name}
                   document={this.props.results[0]}
+                  addFile={(acceptedFiles) => onDrop(acceptedFiles)}
+                  files={attachments}
+                  removeItem={(key) => removeFile(key)}
                 />
               </div>
             )

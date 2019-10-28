@@ -84,7 +84,7 @@ class Message extends React.Component {
           <CircleLoader/> <span className="loading-text">Loading...</span>
         </div>}
         {!this.props.loading && <div className="message">
-          <div className="message-profile-picture"></div>
+          <div className="message-profile-picture"/>
           <div style={{width: "100%"}}>
             <div className="message-header">
               <div className="message-userdate">

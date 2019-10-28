@@ -4,5 +4,8 @@ export const ChatContext = React.createContext({
   planet: {},
   channel: {},
   switchPlanet: (planetToSet) => {},
-  switchChannel: (channelToSet) => {}
+  switchChannel: (channelToSet) => {},
+  onDrop: (acceptedFiles) => {},
+  removeFile: (key) => {},
+  attachments: []
 });

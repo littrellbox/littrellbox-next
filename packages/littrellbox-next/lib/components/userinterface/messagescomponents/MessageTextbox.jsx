@@ -7,8 +7,10 @@ import { ChatContext } from '../../../contexts/ChatContext'
 
 import { Picker } from 'emoji-mart'
 
+import MessageTextboxAttachment from './MessageTextboxAttachment'
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSmile } from '@fortawesome/free-solid-svg-icons'
+import { faSmile, faPaperclip } from '@fortawesome/free-solid-svg-icons'
 
 class MessageTextbox extends React.Component {
   constructor(props) {
@@ -72,6 +74,10 @@ class MessageTextbox extends React.Component {
     this.setState({showEmojiPicker: !this.state.showEmojiPicker})
   }
 
+  onAttachmentButtonClick() {
+    this.fileDialog.click();
+  }
+
   addEmoji(e) {
     this.setState({
       textboxText: this.state.textboxText + " :" + e.id + ":",
@@ -80,6 +86,14 @@ class MessageTextbox extends React.Component {
   }
 
   render() {
+    messageAttachments = []
+    for(i = 0; i < this.props.files.length; i++) {
+      messageAttachments.push({
+        file: this.props.files[i],
+        key: i
+      })
+    }
+
     return (
       <ChatContext.Consumer>
         {({channel, planet}) => {
@@ -94,6 +108,9 @@ class MessageTextbox extends React.Component {
                   title="Pick an emoji!"
                 />
               </div>}
+              <div className="message-textbox-attachments">
+                {messageAttachments.map((fileObject) => <MessageTextboxAttachment key={fileObject.key} index={fileObject.key} file={fileObject.file} removeItem={(key) => this.props.removeItem(key)}/>)}
+              </div>
               <div className="message-textbox">
                 <Textarea 
                   value={this.state.textboxText} 
@@ -108,6 +125,10 @@ class MessageTextbox extends React.Component {
                 /> 
                 <div className="message-textbox-emoji-picker-button">
                   <FontAwesomeIcon icon={faSmile} onClick={() => this.onEmojiPickerButtonClick()}/>
+                </div>
+                <div className="message-textbox-attachment-button">
+                  <FontAwesomeIcon icon={faPaperclip} onClick={() => this.onAttachmentButtonClick()}/>
+                  <input type="file" id="file-dialog" ref={(el) => { this.fileDialog = el; }} style={{display: 'none'}} onChange={(e) => this.props.addFile(e.target.files)}/>
                 </div>
               </div>
             </div>
