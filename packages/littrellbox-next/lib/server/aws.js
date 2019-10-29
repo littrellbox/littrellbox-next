@@ -9,18 +9,32 @@ const fileType = require('file-type');
 const bluebird = require('bluebird');
 const multiparty = require('multiparty');
 
-const region = getSetting('digitalocean.region');
-const accessKey = getSetting('digitalocean.accessKey');
-const secret = getSetting('digitalocean.accessKeySecret');
-const bucket = getSetting('digitalocean.bucket');
-const host = `${region}.digitaloceanspaces.com`;
+var bucket = "lbn-default-bucket"
 
-const spacesEndpoint = new AWS.Endpoint(host);
-AWS.config.update({
-  endpoint: spacesEndpoint,
-  accessKeyId: accessKey,
-  secretAccessKey: secret
-});
+if(Meteor.isProduction) {
+  const region = getSetting('digitalocean.region');
+  const accessKey = getSetting('digitalocean.accessKey');
+  const secret = getSetting('digitalocean.accessKeySecret');
+  const host = `${region}.digitaloceanspaces.com`;
+  const spacesEndpoint = new AWS.Endpoint(host);
+  AWS.config.update({
+    endpoint: spacesEndpoint,
+    accessKeyId: accessKey,
+    secretAccessKey: secret
+  });
+  bucket = getSetting('digitalocean.bucket')
+} else {
+  const accessKey = getSetting('developmentBucket.accessKey');
+  const secret = getSetting('developmentBucket.accessKeySecret');
+  const spacesEndpoint = new AWS.Endpoint(getSetting('developmentBucket.endpoint'));
+  AWS.config.update({
+    endpoint: spacesEndpoint,
+    accessKeyId: accessKey,
+    secretAccessKey: secret,
+    s3ForcePathStyle: true
+  });
+  bucket = getSetting('developmentBucket.bucket')
+}
 
 AWS.config.setPromisesDependency(bluebird);
 
@@ -47,9 +61,11 @@ WebApp.connectHandlers.use((request, response, next) => {
         const buffer = fs.readFileSync(path);
         const data = await uploadFile(buffer, fields);
         response.statusCode = 200;
+        console.log(data)
         response.end(data.Location)
       } catch (error) {
         response.statusCode = 503;
+        console.log(error)
         response.end(error.toString())
       }
     });

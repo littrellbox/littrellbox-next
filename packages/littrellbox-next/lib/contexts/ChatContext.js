@@ -7,5 +7,6 @@ export const ChatContext = React.createContext({
   switchChannel: (channelToSet) => {},
   onDrop: (acceptedFiles) => {},
   removeFile: (key) => {},
+  removeAllFiles: () => {},
   attachments: []
 });

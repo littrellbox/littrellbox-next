@@ -21,7 +21,7 @@ class MessageArea extends React.Component {
   render() {
     return (
       <ChatContext.Consumer>
-        {({channel, attachments, onDrop, removeFile}) => {
+        {({channel, attachments, onDrop, removeFile, removeAllFiles}) => {
 
           if(channel._id && !this.props.loading) {
             return (
@@ -34,6 +34,7 @@ class MessageArea extends React.Component {
                   addFile={(acceptedFiles) => onDrop(acceptedFiles)}
                   files={attachments}
                   removeItem={(key) => removeFile(key)}
+                  removeAllItems={() => removeAllFiles()}
                 />
               </div>
             )

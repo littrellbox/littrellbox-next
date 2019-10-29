@@ -44,6 +44,22 @@ const schema = {
     canCreate: ['members'],
     canUpdate: ['members']
   },
+
+  fileType: {
+    type: String,
+    optional: true,
+    canRead: ['guests'],
+    canCreate: ['members'],
+    canUpdate: ['members']
+  },
+  
+  fileUrl: {
+    type: String,
+    optional: true,
+    canRead: ['guests'],
+    canCreate: ['members'],
+    canUpdate: ['members']
+  }
 };
 
 export default schema;

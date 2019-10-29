@@ -1,14 +1,14 @@
 import { createCollection, getDefaultResolvers, getDefaultMutations } from 'meteor/vulcan:core';
 import Users from 'meteor/vulcan:users';
-import schema from './schema.js.js';
+import schema from './schema.js';
 
-const files = createCollection({
-  collectionName: 'files',
-  typeName: 'file',
+const Files = createCollection({
+  collectionName: 'Files',
+  typeName: 'File',
   schema,
   
-  resolvers: getDefaultResolvers('files'),
-  mutations: getDefaultMutations('files'),
+  resolvers: getDefaultResolvers('Files'),
+  mutations: getDefaultMutations('Files'),
 
 });
 
@@ -21,7 +21,7 @@ const membersActions = [
 
 Users.groups.members.can(membersActions);
 
-files.addDefaultView(terms => ({
+Files.addDefaultView(terms => ({
   options: {
     sort: {
       //put the newest at the bottom
@@ -30,10 +30,10 @@ files.addDefaultView(terms => ({
   }
 }));
 
-files.addView('byPlanetId', terms => ({
+Files.addView('byPlanetId', terms => ({
   selector: {
     planetId: terms.planetId
   }
 }));
 
-export default files;
+export default Files;

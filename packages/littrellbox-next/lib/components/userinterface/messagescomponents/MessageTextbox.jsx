@@ -13,6 +13,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSmile, faPaperclip } from '@fortawesome/free-solid-svg-icons'
 
 import axios from 'axios';
+import Files from '../../../modules/schemas/files/collection';
 
 class MessageTextbox extends React.Component {
   constructor(props) {
@@ -36,8 +37,9 @@ class MessageTextbox extends React.Component {
           text: this.state.textboxText.replaceAll("\n", "  \n\n")
         }
       }).then((value) => {
-        this.props.files.forEach(element => {
-          console.log(element)
+        filesToUpload = this.props.files
+        this.props.removeAllItems()
+        filesToUpload.forEach(element => {
           const formData = new FormData();
           formData.append('file', element);
           formData.append('folder', this.props.channelId + "/" + value.data.createMessage.data._id);
@@ -49,7 +51,21 @@ class MessageTextbox extends React.Component {
             },
             transformResponse: res => res
           }).then(response => {
-            console.log(response)
+            this.props.createFile({
+              data: {
+                fileName: element.name,
+                fileUrl: response.data,
+                fileType: element.type
+              }
+            }).then(fileValue => {
+              this.props.createAttachment({
+                data: {
+                  postId: value.data.createMessage.data._id,
+                  type: "file",
+                  attachmentId: fileValue.data.createFile.data._id 
+                }
+              })
+            })
           }).catch(error => {
             // handle your error
           });
@@ -148,4 +164,12 @@ const createOptions = {
   collectionName: "Messages"
 };
 
-registerComponent({ name: 'MessageTextbox', component: MessageTextbox, hocs: [withCurrentUser, [withCreate, createOptions], [withUpdate, createOptions]] });
+const createAttachmentOptions = {
+  collectionName: "Attachments"
+}
+
+const createFileOptions = {
+  collectionName: "Files"
+}
+
+registerComponent({ name: 'MessageTextbox', component: MessageTextbox, hocs: [withCurrentUser, [withCreate, createOptions], [withCreate, createFileOptions], [withCreate, createAttachmentOptions], [withUpdate, createOptions]] });

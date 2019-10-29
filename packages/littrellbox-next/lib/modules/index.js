@@ -7,6 +7,8 @@ import './schemas/messages/collection.js';
 import './schemas/planets/collection.js';
 import './schemas/planetmembers/collection.js';
 import './schemas/invites/collection.js';
+import './schemas/files/collection.js';
+import './schemas/attachments/collection.js'
 
 
 //load components

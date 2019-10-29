@@ -47,6 +47,12 @@ class Main extends React.Component {
       })
     }
 
+    this.removeAllFiles = () => {
+      this.setState({
+        attachments: []
+      })
+    }
+
     this.state = {
       planet: {},
       channel: {},
@@ -54,6 +60,7 @@ class Main extends React.Component {
       switchChannel: this.switchChannel,
       onDrop: this.onDrop,
       removeFile: this.removeFile,
+      removeAllFiles: this.removeAllFiles,
       attachments: [],      
       showingDropDialog: false
     };
