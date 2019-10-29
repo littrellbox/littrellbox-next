@@ -12,6 +12,8 @@ import MessageTextboxAttachment from './MessageTextboxAttachment'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSmile, faPaperclip } from '@fortawesome/free-solid-svg-icons'
 
+import axios from 'axios';
+
 class MessageTextbox extends React.Component {
   constructor(props) {
     super(props);
@@ -27,29 +29,35 @@ class MessageTextbox extends React.Component {
     if (e.key === 'Enter' && !this.state.shiftKeyDown)
       e.preventDefault()
     if (e.key === 'Enter' && !this.state.shiftKeyDown && this.state.textboxText != "") {
-      if(this.props.document && this.props.document.userId == this.props.currentUser._id) {
-        document = this.props.document
-        documentId = document._id
-        documentTextSplit = document.text.split("\n")
-        documentLastLine = documentTextSplit[documentTextSplit.length - 1]
-        text = this.state.textboxText
-        if(documentLastLine.startsWith("* ") || documentLastLine.startsWith("+ ") || documentLastLine.startsWith("- "))
-          text = "  \n" + this.state.textboxText
-        this.props.updateMessage({
-          selector: { documentId },
-          data: {
-            text: document.text + "  \n" + text
-          }
-        })
-      } else {
-        this.props.createMessage({
-          data: {
-            planetId: planet._id,
-            channelId: channel._id,
-            text: this.state.textboxText.replaceAll("\n", "  \n\n")
-          }
-        })
+      if(this.props.files.length != 0) {
+        this.props.files.forEach(element => {
+          const formData = new FormData();
+          formData.append('file', element);
+          formData.append('planetId')
+        });
       }
+      this.props.createMessage({
+        data: {
+          planetId: planet._id,
+          channelId: channel._id,
+          text: this.state.textboxText.replaceAll("\n", "  \n\n")
+        }
+      }).then((value) => {
+        this.props.files.forEach(element => {
+          const formData = new FormData();
+          formData.append('file', element);
+          formData.append('folder', this.props.channelId + "/" + value.data.createMessage.data._id);
+          axios.post(`/api/aws-upload-endpoint`, formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            }
+          }).then(response => {
+            console.log(response)
+          }).catch(error => {
+            // handle your error
+          });
+        })
+      }) 
       this.setState({textboxText: ""})
     }
   }

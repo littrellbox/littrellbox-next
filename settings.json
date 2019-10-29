@@ -19,5 +19,12 @@
       "appId": "foo",
       "secret": "bar"
     }
+  },
+
+  "digitalocean": {
+    "region": "",
+    "accessKey": "",
+    "secret": "",
+    "bucket": "",
   }
 }

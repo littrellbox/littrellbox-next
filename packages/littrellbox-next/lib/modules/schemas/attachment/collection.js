@@ -2,26 +2,26 @@ import { createCollection, getDefaultResolvers, getDefaultMutations } from 'mete
 import Users from 'meteor/vulcan:users';
 import schema from './schema.js';
 
-const Channels = createCollection({
-  collectionName: 'Channels',
-  typeName: 'Channel',
+const Attachments = createCollection({
+  collectionName: 'Attachments',
+  typeName: 'Attachment',
   schema,
   
-  resolvers: getDefaultResolvers('Channels'),
-  mutations: getDefaultMutations('Channels'),
+  resolvers: getDefaultResolvers('Attachments'),
+  mutations: getDefaultMutations('Attachments'),
 
 });
 
 //set up some permissions
 const membersActions = [
-  'channels.new',
-  'channels.edit.own',
-  'channels.remove.own',
+  'attachments.new',
+  'attachments.edit.own',
+  'attachments.remove.own',
 ];
 
 Users.groups.members.can(membersActions);
 
-Channels.addDefaultView(terms => ({
+Attachments.addDefaultView(terms => ({
   options: {
     sort: {
       //put the newest at the bottom
@@ -30,10 +30,10 @@ Channels.addDefaultView(terms => ({
   }
 }));
 
-Channels.addView('byPlanetId', terms => ({
+Attachments.addView('byPlanetId', terms => ({
   selector: {
     planetId: terms.planetId
   }
 }));
 
-export default Channels;
+export default Attachments;

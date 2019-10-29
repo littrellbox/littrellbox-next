@@ -29,6 +29,7 @@ class MessageArea extends React.Component {
                 <Components.MessageList items={this.props.results}/>
                 <Components.MessageTextbox
                   channelName={channel.name}
+                  channelId={channel._id}
                   document={this.props.results[0]}
                   addFile={(acceptedFiles) => onDrop(acceptedFiles)}
                   files={attachments}

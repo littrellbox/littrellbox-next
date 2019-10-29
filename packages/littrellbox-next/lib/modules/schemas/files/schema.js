@@ -37,31 +37,13 @@ const schema = {
     },
   },
   
-  //identifiers
-  postId: {
+  fileName: {
     type: String,
     optional: true,
     canRead: ['guests'],
     canCreate: ['members'],
     canUpdate: ['members']
   },
-
-  //content
-  type: {
-    type: String,
-    optional: true,
-    canRead: ['guests'],
-    canCreate: ['members'],
-    canUpdate: ['members'],
-  },
-
-  attachmentId: {
-    type: String,
-    optional: true,
-    canRead: ['guests'],
-    canCreate: ['members'],
-    canUpdate: ['members'],
-  }
 };
 
 export default schema;

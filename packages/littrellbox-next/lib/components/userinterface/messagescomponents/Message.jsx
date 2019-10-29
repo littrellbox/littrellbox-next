@@ -68,15 +68,6 @@ class Message extends React.Component {
         username: "Unknown User"
       }
     }
-    if(this.props.document && (!this.props.document.username || this.props.document.username == "")) {
-      document = {
-        username: "Deleted User"
-      }
-    }
-
-    var date = new Date(this.props.message.createdAt)
-
-    var timeOptions = {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour:'numeric', minute: 'numeric'}
 
     return(
       <div className="message">
@@ -84,15 +75,8 @@ class Message extends React.Component {
           <CircleLoader/> <span className="loading-text">Loading...</span>
         </div>}
         {!this.props.loading && <div className="message">
-          <div className="message-profile-picture"/>
-          <div style={{width: "100%"}}>
+          <div style={{float: "right"}}>
             <div className="message-header">
-              <div className="message-userdate">
-                {document.username}
-                <span className="message-date">
-                   - {date.toLocaleDateString(navigator.language, timeOptions)}
-                </span> 
-              </div>
               {!this.props.loading && this.props.currentUser._id == this.props.document._id && <div className="message-dropdown" onClick={() => this.toggleMenu()}>
                 <FontAwesomeIcon icon={faEllipsisH}/>
               </div>}
