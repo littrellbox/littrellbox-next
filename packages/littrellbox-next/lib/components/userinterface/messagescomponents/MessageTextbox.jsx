@@ -29,13 +29,6 @@ class MessageTextbox extends React.Component {
     if (e.key === 'Enter' && !this.state.shiftKeyDown)
       e.preventDefault()
     if (e.key === 'Enter' && !this.state.shiftKeyDown && this.state.textboxText != "") {
-      if(this.props.files.length != 0) {
-        this.props.files.forEach(element => {
-          const formData = new FormData();
-          formData.append('file', element);
-          formData.append('planetId')
-        });
-      }
       this.props.createMessage({
         data: {
           planetId: planet._id,
@@ -44,13 +37,17 @@ class MessageTextbox extends React.Component {
         }
       }).then((value) => {
         this.props.files.forEach(element => {
+          console.log(element)
           const formData = new FormData();
           formData.append('file', element);
           formData.append('folder', this.props.channelId + "/" + value.data.createMessage.data._id);
+          formData.append('fileType', element.type)
+          formData.append('name', element.name)
           axios.post(`/api/aws-upload-endpoint`, formData, {
             headers: {
               'Content-Type': 'multipart/form-data'
-            }
+            },
+            transformResponse: res => res
           }).then(response => {
             console.log(response)
           }).catch(error => {

@@ -19,21 +19,20 @@ const spacesEndpoint = new AWS.Endpoint(host);
 AWS.config.update({
   endpoint: spacesEndpoint,
   accessKeyId: accessKey,
-  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+  secretAccessKey: secret
 });
 
 AWS.config.setPromisesDependency(bluebird);
 
 const s3 = new AWS.S3();
 
-const uploadFile = (buffer, name, type, fields) => {
-  console.log(fields)
-  const params = {
+const uploadFile = (buffer, fields) => {
+  const params = { 
     ACL: 'public-read',
     Body: buffer,
     Bucket: bucket,
-    ContentType: type.mime,
-    Key: `${name}.${type.ext}`
+    ContentType: fields.fileType[0],
+    Key: `${fields.folder[0]}/${fields.name[0]}`
   };
   return s3.upload(params).promise();
 };
@@ -42,18 +41,16 @@ WebApp.connectHandlers.use((request, response, next) => {
   if (request.url === '/api/aws-upload-endpoint') {
     const form = new multiparty.Form();
     form.parse(request, async (error, fields, files) => {
-      console.log(fields)
       if (error) throw new Error(error);
       try {
         const path = files.file[0].path;
         const buffer = fs.readFileSync(path);
-        const type = fileType(buffer);
-        const timestamp = Date.now().toString();
-        const fileName = `bucketFolder/${timestamp}-lg`;
-        const data = await uploadFile(buffer, fileName, type, fields);
-        return response.status(200).send(data);
+        const data = await uploadFile(buffer, fields);
+        response.statusCode = 200;
+        response.end(data.Location)
       } catch (error) {
-        return response.status(400).send(error);
+        response.statusCode = 503;
+        response.end(error.toString())
       }
     });
   } else {
