@@ -31,7 +31,8 @@ class Message extends React.Component {
   }
 
   componentDidMount() {
-    this.props.scrollToBottom();
+    //this.props.scrollToBottomMessageMount();
+    this.props.scrollToBottom()
   }
 
   deleteMessage() {
@@ -74,8 +75,8 @@ class Message extends React.Component {
         {this.props.loading && <div>
           <CircleLoader/> <span className="loading-text">Loading...</span>
         </div>}
-        {!this.props.loading && <div className="message">
-          <div style={{float: "right"}}>
+        {!this.props.loading && <div className="message-singular">
+          <div>
             <div className="message-header">
               {!this.props.loading && this.props.currentUser._id == this.props.document._id && <div className="message-dropdown" onClick={() => this.toggleMenu()}>
                 <FontAwesomeIcon icon={faEllipsisH}/>
@@ -106,6 +107,14 @@ class Message extends React.Component {
               escapeHtml={false}
               source={formatText(this.props.message.text)}
               unwrapDisallowed={true}
+            />
+            <Components.MessageAttachmentContainer 
+              terms={{
+                view: 'byPostId',
+                postId: this.props.message._id,
+                limit: 25
+              }}
+              scrollToBottom={() => this.props.scrollToBottom()}
             />
             </div>}
             {this.state.isEditing && <div className="message-content"> 

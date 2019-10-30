@@ -115,6 +115,7 @@
     "recursive-iterator": "^3.3.0",
     "redux": "^3.6.0",
     "remark-emoji": "^2.0.2",
+    "request": "^2.88.0",
     "rss": "^1.2.1",
     "sanitize-html": "^1.16.3",
     "sass-loader": "^7.1.0",

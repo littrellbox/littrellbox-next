@@ -32,6 +32,24 @@
   overflow-x: none;
 }
 
+.message-singular {
+  padding-right: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  width: 100%;
+  color: #cccccc;
+  overflow-x: none;
+  p {
+    margin-bottom: 0;
+  }
+}
+
+.message-singular:hover {
+  .message-dropdown{
+    display: block;
+  }
+}
+
 .message-header {
   width: 100%;
   font-weight: bold;
@@ -117,15 +135,18 @@
 }
 
 .message-dropdown {
-  position: relative;
+  position: absolute;
+  top: 0.25rem;
+  right: 0;
   color: #555555;
   margin-left: auto;
   transition: 0.2s;
   cursor: pointer;
+  display: none;
 }
 
 .message-dropdown:hover {
-  color: #cccccc
+  color: #cccccc;
 }
 
 .message-list::-webkit-scrollbar {
@@ -160,4 +181,41 @@
   padding-left: 0.3rem;
   cursor: pointer;
   z-index: 30000000;
+}
+
+.message-attachment-image {
+  padding: 0.5rem;
+  padding-top: 0.35rem;
+  background-color: #555555;
+  border-radius: 0.25rem;
+  width: max-content;
+  margin-top: 0.4rem;
+}
+
+.message-attachment-image-img {
+  max-width: 40vw;
+  max-height: 40vh;
+  display: block;
+  margin-top: 0.5rem;
+  border-radius: 0.25rem;
+}
+
+.message-attachment-file {
+  display: inline-block;
+  width: max-content;
+  padding: 0.5rem;
+  padding-top: 0.35rem;
+  padding-bottom: 0.35rem;
+  background-color: #555555;
+  border-radius: 0.25rem;
+  margin-right: 0.5rem;
+  margin-top: 0.4rem;
+}
+
+.message-attachment-filename {
+  padding-right: 0.5rem;
+}
+
+.message-attachment-image-name {
+  font-weight: bold;
 }

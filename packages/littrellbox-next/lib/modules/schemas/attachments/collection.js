@@ -30,9 +30,9 @@ Attachments.addDefaultView(terms => ({
   }
 }));
 
-Attachments.addView('byPlanetId', terms => ({
+Attachments.addView('byPostId', terms => ({
   selector: {
-    planetId: terms.planetId
+    postId: terms.postId
   }
 }));
 

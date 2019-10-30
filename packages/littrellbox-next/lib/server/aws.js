@@ -1,8 +1,6 @@
 import { WebApp } from 'meteor/webapp';
 import { getSetting } from 'meteor/vulcan:core';
 
-import aws4 from 'aws4';
-
 const AWS = require('aws-sdk');
 const fs = require('fs');
 const fileType = require('file-type');
@@ -61,7 +59,6 @@ WebApp.connectHandlers.use((request, response, next) => {
         const buffer = fs.readFileSync(path);
         const data = await uploadFile(buffer, fields);
         response.statusCode = 200;
-        console.log(data)
         response.end(data.Location)
       } catch (error) {
         response.statusCode = 503;

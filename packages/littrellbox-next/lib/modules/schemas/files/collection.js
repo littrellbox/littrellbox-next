@@ -30,10 +30,4 @@ Files.addDefaultView(terms => ({
   }
 }));
 
-Files.addView('byPlanetId', terms => ({
-  selector: {
-    planetId: terms.planetId
-  }
-}));
-
 export default Files;

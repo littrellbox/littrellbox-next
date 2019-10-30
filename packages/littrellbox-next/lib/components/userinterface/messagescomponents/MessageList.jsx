@@ -16,12 +16,17 @@ class MessageList extends React.Component {
       this.messagesEnd.scrollIntoView({ behavior: "auto" });
   }
 
+  messageMountScroll() {
+    if(this.messagesEnd)
+      this.messagesEnd.scrollIntoView({ behavior: "auto" });
+  }
+
   reverseWorkaround() {
     return [...this.props.items].reverse()
   }
 
   handleScroll(e) {
-    condition = e.target.scrollTop < (e.target.scrollTopMax - 100)
+    condition = e.target.scrollTop < (e.target.scrollTopMax - 10)
     if(condition && !this.state.isScrolled) { 
       this.setState({
         isScrolled: true
@@ -36,41 +41,45 @@ class MessageList extends React.Component {
 
   generateMessageObjects(messageObjects) {
     if(!this.props.loading) {
-      objectsArray = []
-      workingArray = []
-      messageLastId = ""
-      if(messageObjects.length == 1) {
-        workingArray.push(messageObjects[0])
-        objectsArray.push({
-          messages: workingArray,
-          key: 1
-        })
-        return objectsArray
-      }
-      for(i = 0; i < messageObjects.length; i++) {
-        if(messageObjects[i].userId == messageLastId) {
-          workingArray.push(messageObjects[i])
-        } else if(workingArray.length != 0) {
+      if(messageObjects.length != 0) {
+        objectsArray = []
+        workingArray = []
+        messageLastId = ""
+        if(messageObjects.length == 1) {
+          workingArray.push(messageObjects[0])
           objectsArray.push({
             messages: workingArray,
-            key: i
+            key: 1
           })
-          workingArray = []
+          return objectsArray
+        }
+        for(i = 0; i < messageObjects.length; i++) {
+          if(messageObjects[i].userId == messageLastId) {
+            workingArray.push(messageObjects[i])
+          } else if(workingArray.length != 0) {
+            objectsArray.push({
+              messages: workingArray,
+              key: i
+            })
+            workingArray = []
+          }
+          
+          if(messageObjects[i].userId != messageLastId) {
+            workingArray.push(messageObjects[i])
+            messageLastId = messageObjects[i].userId
+          }
         }
         
-        if(messageObjects[i].userId != messageLastId) {
-          workingArray.push(messageObjects[i])
-          messageLastId = messageObjects[i].userId
-        }
+        //push remaining content, if we have any
+        objectsArray.push({
+          messages: workingArray,
+          key: messageObjects.length
+        })
+  
+        return objectsArray
+      } else {
+        return []
       }
-      
-      //push remaining content, if we have any
-      objectsArray.push({
-        messages: workingArray,
-        key: messageObjects.length
-      })
-
-      return objectsArray
     }
   }
 
@@ -83,6 +92,7 @@ class MessageList extends React.Component {
             messages={messageObject.messages}
             documentId={messageObject.messages[0].userId}
             scrollToBottom={() => this.componentDidUpdate()}
+            scrollToBottomMessageMount={() => this.messageMountScroll()}
             isScrolled={this.state.isScrolled}
           />
           )}

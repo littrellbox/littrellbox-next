@@ -40,6 +40,7 @@ class MessageContainer extends React.Component {
               message={message} 
               documentId={message.userId}
               scrollToBottom={() => this.props.scrollToBottom()}
+              scrollToBottomMessageMount={() => this.props.scrollToBottomMessageMount()}
               isScrolled={this.props.isScrolled}
             />)}
           </div>

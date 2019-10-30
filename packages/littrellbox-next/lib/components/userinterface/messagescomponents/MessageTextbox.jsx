@@ -149,7 +149,7 @@ class MessageTextbox extends React.Component {
                 </div>
                 <div className="message-textbox-attachment-button">
                   <FontAwesomeIcon icon={faPaperclip} onClick={() => this.onAttachmentButtonClick()}/>
-                  <input type="file" id="file-dialog" ref={(el) => { this.fileDialog = el; }} style={{display: 'none'}} onChange={(e) => this.props.addFile(e.target.files)}/>
+                  <input type="file" id="file-dialog" multiple ref={(el) => { this.fileDialog = el; }} style={{display: 'none'}} onChange={(e) => this.props.addFile(e.target.files)}/>
                 </div>
               </div>
             </div>
