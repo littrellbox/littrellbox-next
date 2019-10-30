@@ -212,10 +212,27 @@
   margin-top: 0.4rem;
 }
 
+.message-attachment-filedownloadicon {
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.message-attachment-filedownloadicon:hover {
+  color: #ffffff;
+}
+
 .message-attachment-filename {
   padding-right: 0.5rem;
 }
 
 .message-attachment-image-name {
   font-weight: bold;
+}
+
+.message-textbox-attachment-button-toobig {
+  color: #ff3333;
+  padding: 0.5rem;
+  padding-left: 0rem;
+  cursor: pointer;
+  transition: 0.2s
 }

@@ -13,18 +13,27 @@ class MessageFileAttachment extends React.Component {
     this.props.scrollToBottom()
   }
 
+  componentDidMount() {
+    this.props.scrollToBottom()
+  }
+
   downloadFile() {
     this.downloadLink.click()
   }
 
+  createDownloadLink(originalUrl) {
+    urlSplit = originalUrl.split("/")
+    length = urlSplit.length
+    return(window.location + "download/" + urlSplit[length - 3] + "/" + urlSplit[length - 2] + "/" + urlSplit[length - 1])
+  }
+
   render() {
     if(!this.props.loading) {
-      console.log(this.props.document)
       if(this.props.document.fileType.startsWith("image/")) {
         return (
           <div className="message-attachment-image">
             <span className="message-attachment-image-name">{this.props.document.fileName}</span>
-            <img src={this.props.document.fileUrl} className="message-attachment-image-img"/>
+            <img src={this.props.document.fileUrl} className="message-attachment-image-img" onLoad={() => this.props.scrollToBottom()}/>
           </div>
         )
       } else {
@@ -32,7 +41,7 @@ class MessageFileAttachment extends React.Component {
           <div className="message-attachment-file">
             <span className="message-attachment-filename">{this.props.document.fileName}</span>
             <span className="message-attachment-filedownloadicon" onClick={() => this.downloadFile()}><FontAwesomeIcon icon={faDownload}/></span>
-            <a href={this.props.document.fileUrl} download ref={(el) => { this.downloadLink = el; }} style={{display: "none"}}/>
+            <a href={this.createDownloadLink(this.props.document.fileUrl)} download ref={(el) => { this.downloadLink = el; }} style={{display: "none"}}/>
           </div>
         )
       }

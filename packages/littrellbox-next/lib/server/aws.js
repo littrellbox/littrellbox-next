@@ -1,6 +1,8 @@
 import { WebApp } from 'meteor/webapp';
 import { getSetting } from 'meteor/vulcan:core';
 
+const request = require('request')
+
 const AWS = require('aws-sdk');
 const fs = require('fs');
 const fileType = require('file-type');
@@ -9,11 +11,13 @@ const multiparty = require('multiparty');
 
 var bucket = "lbn-default-bucket"
 
+var host = ""
+
 if(Meteor.isProduction) {
   const region = getSetting('digitalocean.region');
   const accessKey = getSetting('digitalocean.accessKey');
   const secret = getSetting('digitalocean.accessKeySecret');
-  const host = `${region}.digitaloceanspaces.com`;
+  host = `${region}.digitaloceanspaces.com`;
   const spacesEndpoint = new AWS.Endpoint(host);
   AWS.config.update({
     endpoint: spacesEndpoint,
@@ -24,7 +28,8 @@ if(Meteor.isProduction) {
 } else {
   const accessKey = getSetting('developmentBucket.accessKey');
   const secret = getSetting('developmentBucket.accessKeySecret');
-  const spacesEndpoint = new AWS.Endpoint(getSetting('developmentBucket.endpoint'));
+  host = getSetting('developmentBucket.endpoint')
+  const spacesEndpoint = new AWS.Endpoint(host);
   AWS.config.update({
     endpoint: spacesEndpoint,
     accessKeyId: accessKey,
@@ -56,12 +61,16 @@ WebApp.connectHandlers.use((request, response, next) => {
       if (error) throw new Error(error);
       try {
         const path = files.file[0].path;
+        if(files.file[0].size > 8*1024*1024) {
+          response.statusCode = 400;
+          response.end("file_too_buck")
+        }
         const buffer = fs.readFileSync(path);
         const data = await uploadFile(buffer, fields);
         response.statusCode = 200;
         response.end(data.Location)
       } catch (error) {
-        response.statusCode = 503;
+        response.statusCode = 500;
         console.log(error)
         response.end(error.toString())
       }
@@ -70,3 +79,21 @@ WebApp.connectHandlers.use((request, response, next) => {
     next();
   }
 });
+
+WebApp.connectHandlers.use((req, res, next) => {
+  if (req.url.startsWith("/download/")) {
+    url = req.url.substr(10);
+    fileNameList = req.url.split("/")
+    fileName = fileNameList[fileNameList.length - 1]
+    res
+    res.setHeader('Content-Disposition', 'attachment; filename="' +fileName + '"')
+    if(Meteor.isProduction) {
+      request("https://" + host + "/" + url).pipe(res)
+    } else {
+      console.log(host + "/" + url)
+      request(host + "/" + bucket + "/" + url).pipe(res)
+    }
+  } else {
+    next();
+  }
+})

@@ -6,7 +6,17 @@ class MessageAttachmentContainer extends React.Component {
     super(props)
   }
 
+  /*componentWillUpdate() {
+    if(this.props.forcePositionUpdate) {
+      this.props.forcePositionUpdate()
+    }
+  }*/
+
   componentDidUpdate() {
+    this.props.scrollToBottom()
+  }
+
+  componentDidMount() {
     this.props.scrollToBottom()
   }
 
@@ -23,7 +33,7 @@ class MessageAttachmentContainer extends React.Component {
     return(
       <div className="message-attachment-container">
         <span className="message-attachment-files">
-          {fileAttachments.map(attachment => <Components.MessageFileAttachment key={attachment} documentId={attachment} scrollToBottom={() => this.props.scrollToBottom()}/>)}
+          {fileAttachments.map(attachment => <Components.MessageFileAttachment key={attachment} documentId={attachment} forcePositionUpdate={() => this.props.forcePositionUpdate()} scrollToBottom={() => this.props.scrollToBottom()}/>)}
         </span>
       </div>
     )

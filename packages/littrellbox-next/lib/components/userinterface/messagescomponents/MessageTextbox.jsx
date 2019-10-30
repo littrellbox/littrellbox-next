@@ -22,7 +22,8 @@ class MessageTextbox extends React.Component {
     this.state = {
       textboxText: "",
       shiftKeyDown: false,
-      showEmojiPicker: false
+      showEmojiPicker: false,
+      fileTooBig: false
     };
   }
   
@@ -40,35 +41,43 @@ class MessageTextbox extends React.Component {
         filesToUpload = this.props.files
         this.props.removeAllItems()
         filesToUpload.forEach(element => {
-          const formData = new FormData();
-          formData.append('file', element);
-          formData.append('folder', this.props.channelId + "/" + value.data.createMessage.data._id);
-          formData.append('fileType', element.type)
-          formData.append('name', element.name)
-          axios.post(`/api/aws-upload-endpoint`, formData, {
-            headers: {
-              'Content-Type': 'multipart/form-data'
-            },
-            transformResponse: res => res
-          }).then(response => {
-            this.props.createFile({
-              data: {
-                fileName: element.name,
-                fileUrl: response.data,
-                fileType: element.type
-              }
-            }).then(fileValue => {
-              this.props.createAttachment({
-                data: {
-                  postId: value.data.createMessage.data._id,
-                  type: "file",
-                  attachmentId: fileValue.data.createFile.data._id 
-                }
-              })
+          if(element.size > 8*1024*1024) {
+            this.setState({
+              fileTooBig: true
             })
-          }).catch(error => {
-            // handle your error
-          });
+          } else {   
+            const formData = new FormData();
+            formData.append('file', element);
+            formData.append('folder', this.props.channelId + "/" + value.data.createMessage.data._id);
+            formData.append('fileType', element.type)
+            formData.append('name', element.name)
+            axios.post(`/api/aws-upload-endpoint`, formData, {
+              headers: {
+                'Content-Type': 'multipart/form-data'
+              },
+              transformResponse: res => res
+            }).then(response => {
+              if(response.data != "file_too_big") {
+                this.props.createFile({
+                  data: {
+                    fileName: element.name,
+                    fileUrl: response.data,
+                    fileType: element.type
+                  }
+                }).then(fileValue => {
+                  this.props.createAttachment({
+                    data: {
+                      postId: value.data.createMessage.data._id,
+                      type: "file",
+                      attachmentId: fileValue.data.createFile.data._id 
+                    }
+                  })
+                })
+              }
+            }).catch(error => {
+              // handle your error
+            });
+          }
         })
       }) 
       this.setState({textboxText: ""})
@@ -88,6 +97,11 @@ class MessageTextbox extends React.Component {
   }
 
   onChange(e) {
+    if (this.state.fileTooBig) {
+      this.setState({
+        fileTooBig: false
+      })
+    }
     this.setState({textboxText: e.target.value});
   }
 
@@ -97,6 +111,9 @@ class MessageTextbox extends React.Component {
 
   onAttachmentButtonClick() {
     this.fileDialog.click();
+    this.setState({
+      fileTooBig: false
+    })
   }
 
   addEmoji(e) {
@@ -113,6 +130,13 @@ class MessageTextbox extends React.Component {
         file: this.props.files[i],
         key: i
       })
+    }
+
+    addAttachmentClassName = "message-textbox-attachment-button"
+    placeholderText = "Message #" + this.props.channelName
+    if (this.state.fileTooBig) {
+      placeholderText = "File was too big to upload! Max size: 8MB."
+      addAttachmentClassName = "message-textbox-attachment-button-toobig"
     }
 
     return (
@@ -137,7 +161,7 @@ class MessageTextbox extends React.Component {
                   value={this.state.textboxText} 
                   rows="1" 
                   tabIndex="1" 
-                  placeholder={"Message #" + this.props.channelName}
+                  placeholder={placeholderText}
                   className="message-textbox-textarea"
                   onKeyDown={(e) => this.handleKeyDown(e)} 
                   onKeyUp={(e) => this.handleKeyUp(e)} 
@@ -147,7 +171,7 @@ class MessageTextbox extends React.Component {
                 <div className="message-textbox-emoji-picker-button">
                   <FontAwesomeIcon icon={faSmile} onClick={() => this.onEmojiPickerButtonClick()}/>
                 </div>
-                <div className="message-textbox-attachment-button">
+                <div className={addAttachmentClassName}>
                   <FontAwesomeIcon icon={faPaperclip} onClick={() => this.onAttachmentButtonClick()}/>
                   <input type="file" id="file-dialog" multiple ref={(el) => { this.fileDialog = el; }} style={{display: 'none'}} onChange={(e) => this.props.addFile(e.target.files)}/>
                 </div>

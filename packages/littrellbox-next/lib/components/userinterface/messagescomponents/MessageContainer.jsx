@@ -5,7 +5,7 @@ class MessageContainer extends React.Component {
   constructor(props) {
     super(props)
   }
-  
+
   render() {
     document = this.props.document
     if(!this.props.document) {
@@ -41,6 +41,7 @@ class MessageContainer extends React.Component {
               documentId={message.userId}
               scrollToBottom={() => this.props.scrollToBottom()}
               scrollToBottomMessageMount={() => this.props.scrollToBottomMessageMount()}
+              forcePositionUpdate={() => this.props.forcePositionUpdate()}
               isScrolled={this.props.isScrolled}
             />)}
           </div>

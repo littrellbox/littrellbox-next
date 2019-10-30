@@ -10,9 +10,33 @@ class MessageList extends React.Component {
       isScrolled: false
     }
   }
+
+  isAtBottom = false
+
+  forcePositionUpdate() {
+    if(this.messagesList) {
+      const messageList = this.messagesList;
+      const scrollPos = messageList.scrollTop;
+      const scrollBottom = (messageList.scrollHeight - messageList.clientHeight);
+      this.isAtBottom = (scrollBottom <= 0) || (scrollPos === scrollBottom); 
+    }
+  }
+
+  componentWillUpdate() {
+    const messageList = this.messagesList;
+    const scrollPos = messageList.scrollTop;
+    const scrollBottom = (messageList.scrollHeight - messageList.clientHeight);
+    this.isAtBottom = (scrollBottom <= 0) || (scrollPos === scrollBottom); 
+  }
   
+  componentDidMount() {
+    if(this.messagesEnd) {
+      this.messagesEnd.scrollIntoView({ behavior: "auto" })
+    }
+  }
+
   componentDidUpdate() {
-    if(this.messagesEnd && !this.state.isScrolled)
+    if(this.messagesEnd && this.isAtBottom)
       this.messagesEnd.scrollIntoView({ behavior: "auto" });
   }
 
@@ -26,16 +50,9 @@ class MessageList extends React.Component {
   }
 
   handleScroll(e) {
-    condition = e.target.scrollTop < (e.target.scrollTopMax - 10)
-    if(condition && !this.state.isScrolled) { 
-      this.setState({
-        isScrolled: true
-      })
-    }
-    if(!condition && this.state.isScrolled) {
-      this.setState({
-        isScrolled: false
-      })
+    condition = e.target.scrollTop == 0
+    if(condition && this.props.count != this.props.totalCount) {
+      this.props.loadMore()
     }
   }
 
@@ -85,7 +102,7 @@ class MessageList extends React.Component {
 
   render() {
     return (
-      <div className="message-list" onScroll={(e) => this.handleScroll(e)}>
+      <div className="message-list" ref={(el) => { this.messagesList = el; }}>
         <div>
           {!this.props.loading && this.generateMessageObjects(this.reverseWorkaround()).map(messageObject => <Components.MessageContainer
             key={messageObject.key}
@@ -93,6 +110,7 @@ class MessageList extends React.Component {
             documentId={messageObject.messages[0].userId}
             scrollToBottom={() => this.componentDidUpdate()}
             scrollToBottomMessageMount={() => this.messageMountScroll()}
+            forcePositionUpdate={() => this.forcePositionUpdate()}
             isScrolled={this.state.isScrolled}
           />
           )}

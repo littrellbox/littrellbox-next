@@ -114,6 +114,7 @@ class Message extends React.Component {
                 postId: this.props.message._id,
                 limit: 25
               }}
+              forcePositionUpdate={() => this.props.forcePositionUpdate()}
               scrollToBottom={() => this.props.scrollToBottom()}
             />
             </div>}
