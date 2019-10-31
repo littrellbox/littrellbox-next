@@ -7,6 +7,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 class MessageFileAttachment extends React.Component {
   constructor(props) {
     super(props)
+    this.state = {
+      showFullView: false
+    }
   }
 
   componentDidUpdate() {
@@ -21,6 +24,12 @@ class MessageFileAttachment extends React.Component {
     this.downloadLink.click()
   }
 
+  toggleFullView() {
+    this.setState({
+      showFullView: !this.state.showFullView
+    })
+  }
+
   createDownloadLink(originalUrl) {
     urlSplit = originalUrl.split("/")
     length = urlSplit.length
@@ -33,7 +42,11 @@ class MessageFileAttachment extends React.Component {
         return (
           <div className="message-attachment-image">
             <span className="message-attachment-image-name">{this.props.document.fileName}</span>
-            <img src={this.props.document.fileUrl} className="message-attachment-image-img" onLoad={() => this.props.scrollToBottom()}/>
+            <img src={this.props.document.fileUrl} className="message-attachment-image-img" onClick={() => this.toggleFullView()} onLoad={() => this.props.scrollToBottom()}/>
+            {this.state.showFullView && <div className="message-attachment-image-fullview">
+              <img src={this.props.document.fileUrl} className="message-attachment-fullview-img"/>
+              <div className="dialog-semi-transparent-background" onClick={() => this.toggleFullView()}/>
+            </div>}
           </div>
         )
       } else {

@@ -20,6 +20,7 @@ Package.onUse(function (api) {
     'vulcan:ui-bootstrap@1.13.5',
     'vulcan:admin@1.13.5',
     'vulcan:debug@1.13.5',
+    'vulcan:users@1.13.5'
 
   ]);
 

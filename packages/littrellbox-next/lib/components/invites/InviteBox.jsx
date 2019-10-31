@@ -17,7 +17,7 @@ class InviteBox extends React.Component {
       data: {
         planetId: this.props.document._id
       }
-    }).then(this.goHome())
+    })
   }
 
   render() {

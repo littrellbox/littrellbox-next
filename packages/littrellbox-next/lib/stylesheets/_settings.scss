@@ -61,12 +61,18 @@
  }
 
  .settings-modal-profile-picture {
-  width: 3.813rem; //get the profile picture icon to be the same size as the textbox
-  height: 3.813rem;
+  width: 3.8rem; //get the profile picture icon to be the same size as the textbox
+  height: 3.8rem;
   background-color: #555555;
   border-radius: 50%;
   margin-right: 0.75rem;
   position: relative;
+}
+
+.setttings-modal-pfp-image {
+  width: 3.8rem;
+  height: 3.8rem;
+  border-radius: 50%
 }
 
 .settings-modal-profile-picture-hover {
@@ -86,11 +92,20 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%)
+  transform: translate(-50%, -50%);
+  transition: 0.2s;
 }
 
 .settings-modal-profile-picture:hover {
   .settings-modal-profile-picture-hover {
     display: block;
   }
+}
+
+.settings-modal-notification {
+  color: #ff3333;
+  font-size: 1rem;
+  display: block;
+  padding-bottom: 0.25rem;
+  margin-top: -0.25rem;
 }

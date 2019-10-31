@@ -122,8 +122,8 @@
 }
 
 .message-profile-picture {
-  width: 3rem;
-  height: 3rem;
+  width: 2.75rem;
+  height: 2.75rem;
   background-color: #555555;
   border-radius: 50%;
   margin-top: 0.25rem;
@@ -190,6 +190,7 @@
   border-radius: 0.25rem;
   width: max-content;
   margin-top: 0.4rem;
+  cursor: pointer;
 }
 
 .message-attachment-image-img {
@@ -235,4 +236,29 @@
   padding-left: 0rem;
   cursor: pointer;
   transition: 0.2s
+}
+
+.message-pfp-image {
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+}
+
+.message-attachment-image-fullview {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 8;
+}
+
+.message-attachment-fullview-img {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 85vw;
+  max-height: 85vh;
+  z-index: 10
 }
