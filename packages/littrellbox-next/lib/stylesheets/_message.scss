@@ -122,8 +122,10 @@
 }
 
 .message-profile-picture {
-  width: 2.75rem;
-  height: 2.75rem;
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  max-width: 2.75rem;
+  max-height: 2.75rem; // work around ff width adjustment
   background-color: #555555;
   border-radius: 50%;
   margin-top: 0.25rem;

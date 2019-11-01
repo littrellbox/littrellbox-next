@@ -26,7 +26,12 @@ class MessageArea extends React.Component {
           if(channel._id && !this.props.loading) {
             return (
               <div className="message-area"> 
-                <Components.MessageList items={this.props.results}/>
+                <Components.MessageList 
+                  items={this.props.results}
+                  count={this.props.count}
+                  totalCount={this.props.totalCount}
+                  loadMore={() => this.props.loadMore()}
+                />
                 <Components.MessageTextbox
                   channelName={channel.name}
                   channelId={channel._id}

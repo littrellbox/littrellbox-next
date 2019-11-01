@@ -51,6 +51,7 @@ class MessageList extends React.Component {
 
   handleScroll(e) {
     condition = e.target.scrollTop == 0
+
     if(condition && this.props.count != this.props.totalCount) {
       this.props.loadMore()
     }
@@ -102,7 +103,7 @@ class MessageList extends React.Component {
 
   render() {
     return (
-      <div className="message-list" ref={(el) => { this.messagesList = el; }}>
+      <div className="message-list" ref={(el) => { this.messagesList = el; }} onScroll={(e) => this.handleScroll(e)}>
         <div>
           {!this.props.loading && this.generateMessageObjects(this.reverseWorkaround()).map(messageObject => <Components.MessageContainer
             key={messageObject.key}
