@@ -94,6 +94,11 @@ class Main extends React.Component {
   }
 
   render() {
+    channelIdToSet = ""
+    if(this.state.channel) {
+      channelIdToSet = this.state.channel._id
+    }
+
     return (
       <ChatContext.Provider 
         value={this.state} 
@@ -127,7 +132,7 @@ class Main extends React.Component {
           <Components.ChannelSidebar/>
           <Components.MessageArea terms={{
             view: 'byChannel',
-            channelId: this.state.channel._id,
+            channelId: channelIdToSet,
             limit: 35
           }}/>
         </div> }

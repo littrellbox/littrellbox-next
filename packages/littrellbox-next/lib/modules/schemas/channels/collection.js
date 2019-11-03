@@ -34,7 +34,7 @@ const Channels = createCollection({
 
         planet = Planets.findOne(document.data.planetId)
 
-        if(planet.userId != document.data.userId) {
+        if(planet.userId != document.currentUser._id) {
           errors.push("no_permission")
         }
 

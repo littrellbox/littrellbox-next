@@ -122,15 +122,18 @@ WebApp.connectHandlers.use((request, response, next) => {
 
 WebApp.connectHandlers.use((req, res, next) => {
   if (req.url.startsWith("/download/")) {
+    if(!req.cookies.meteor_login_token) {
+      //extremely lazy login check, it really isn't that important if they aren't logged in
+      res.statusCode = 403;
+      res.end("403 Unauthorized")
+    }
     url = req.url.substr(10);
     fileNameList = req.url.split("/")
     fileName = fileNameList[fileNameList.length - 1]
-    res
     res.setHeader('Content-Disposition', 'attachment; filename="' +fileName + '"')
     if(Meteor.isProduction) {
       request("https://" + bucket + "." + host + "/" + url).pipe(res)
     } else {
-      console.log(host + "/" + url)
       request(host + "/" + bucket + "/" + url).pipe(res)
     }
   } else {

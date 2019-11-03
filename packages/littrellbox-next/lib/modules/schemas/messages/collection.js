@@ -7,6 +7,19 @@ import PlanetMembers from '../planetmembers/collection'
 import Planets from '../planets/collection'
 import Channels from '../channels/collection'
 
+const canRead = ({ document, user }) => {
+  planetMember = PlanetMembers.findOne({
+    userId: user._id,
+    planetId: document.planetId
+  })
+
+  if(!planetMember) {
+    return false
+  }
+  
+  return true
+};
+
 const Messages = createCollection({
   collectionName: 'Messages',
   typeName: 'Message',
@@ -17,11 +30,9 @@ const Messages = createCollection({
 
   permissions: {
     canCreate: ['members'],
-    canRead: options => {
-      return true;
-    },
-    canUpdate: ['owners', 'admins', 'moderators'],
-    canDelete: ['owners', 'admins', 'moderators'],
+    canRead,
+    canUpdate: ['owners', 'moderators'],
+    canDelete: ['owners', 'moderators'],
   },
 
   callbacks: {
@@ -66,6 +77,9 @@ const Messages = createCollection({
         if(channel.planetId != document.data.planetId) {
           errors.push("wrong_planet")
         }
+
+        console.log(errors)
+        console.log("validated")
 
         return errors;
        }]

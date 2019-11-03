@@ -38,13 +38,15 @@ const Attachments = createCollection({
 
         post = Messages.findOne(document.data.postId)
 
-        if(post.userId != document.data.userId) {
+        if(post.userId != document.currentUser._id) {
           errors.push("no_permission")
         }
 
         if(document.currentUser.lb_filesAllowed && document.data.type == "file") {
           errors.push("no_permission")
         }
+
+        console.log(errors)
 
         return errors;
        }]

@@ -50,8 +50,12 @@ Users.addField([
 
 extendFragment('UsersCurrent', `
   lb_profilePicture
+  lb_muted
+  lb_filesAllowed
 `)
 
 extendFragment('UsersDefaultFragment', `
   lb_profilePicture
+  lb_muted
+  lb_filesAllowed
 `)
