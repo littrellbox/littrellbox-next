@@ -2,6 +2,8 @@ import { createCollection, getDefaultResolvers, getDefaultMutations } from 'mete
 import Users from 'meteor/vulcan:users';
 import schema from './schema.js';
 
+import Messages from '../messages/collection'
+
 const Attachments = createCollection({
   collectionName: 'Attachments',
   typeName: 'Attachment',
@@ -10,16 +12,45 @@ const Attachments = createCollection({
   resolvers: getDefaultResolvers('Attachments'),
   mutations: getDefaultMutations('Attachments'),
 
+  permissions: {
+    canCreate: ['members'],
+    canRead: ['members'],
+    canUpdate: ['owners', 'admins', 'moderators'],
+    canDelete: ['owners', 'admins', 'moderators'],
+  },
+
+  callbacks: {
+    create: {
+      validate: [(validationErrors, document, properties) => { 
+        errors = validationErrors
+
+        if(!document.data.postId) {
+          errors.push("missing_message_id")
+        }
+
+        if(!document.data.type) {
+          errors.push("missing_type")
+        }
+
+        if(!document.data.attachmentId) {
+          errors.push("missing_attachment_id")
+        }
+
+        post = Messages.findOne(document.data.postId)
+
+        if(post.userId != document.data.userId) {
+          errors.push("no_permission")
+        }
+
+        if(document.currentUser.lb_filesAllowed && document.data.type == "file") {
+          errors.push("no_permission")
+        }
+
+        return errors;
+       }]
+    }
+  }
 });
-
-//set up some permissions
-const membersActions = [
-  'attachments.new',
-  'attachments.edit.own',
-  'attachments.remove.own',
-];
-
-Users.groups.members.can(membersActions);
 
 Attachments.addDefaultView(terms => ({
   options: {

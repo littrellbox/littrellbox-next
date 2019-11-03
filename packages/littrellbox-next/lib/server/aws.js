@@ -128,7 +128,7 @@ WebApp.connectHandlers.use((req, res, next) => {
     res
     res.setHeader('Content-Disposition', 'attachment; filename="' +fileName + '"')
     if(Meteor.isProduction) {
-      request("https://" + host + "/" + url).pipe(res)
+      request("https://" + bucket + "." + host + "/" + url).pipe(res)
     } else {
       console.log(host + "/" + url)
       request(host + "/" + bucket + "/" + url).pipe(res)

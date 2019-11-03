@@ -2,6 +2,8 @@ import { createCollection, getDefaultResolvers, getDefaultMutations } from 'mete
 import Users from 'meteor/vulcan:users';
 import schema from './schema.js';
 
+import Planets from '../planets/collection'
+
 const Channels = createCollection({
   collectionName: 'Channels',
   typeName: 'Channel',
@@ -10,16 +12,37 @@ const Channels = createCollection({
   resolvers: getDefaultResolvers('Channels'),
   mutations: getDefaultMutations('Channels'),
 
+  permissions: {
+    canCreate: ['members'],
+    canRead: ['members'],
+    canUpdate: ['owners', 'admins', 'moderators'],
+    canDelete: ['owners', 'admins', 'moderators'],
+  },
+
+  callbacks: {
+    create: {
+      validate: [(validationErrors, document, properties) => { 
+        errors = validationErrors
+
+        if(!document.data.planetId) {
+          errors.push("missing_planet_id")
+        }
+
+        if(!document.data.name) {
+          errors.push("no_name")
+        }
+
+        planet = Planets.findOne(document.data.planetId)
+
+        if(planet.userId != document.data.userId) {
+          errors.push("no_permission")
+        }
+
+        return errors;
+       }]
+    }
+  }
 });
-
-//set up some permissions
-const membersActions = [
-  'channels.new',
-  'channels.edit.own',
-  'channels.remove.own',
-];
-
-Users.groups.members.can(membersActions);
 
 Channels.addDefaultView(terms => ({
   options: {

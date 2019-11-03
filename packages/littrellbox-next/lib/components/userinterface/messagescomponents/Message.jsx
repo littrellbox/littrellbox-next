@@ -103,20 +103,23 @@ class Message extends React.Component {
             </div>
             {this.state.showEditDropdown && <div className="dialog-transparent-background" onClick={() => this.toggleMenu()}/>}
             {!this.state.isEditing && !this.props.loading && <div className="message-content">
-            <ReactMarkdown
-              escapeHtml={false}
-              source={formatText(this.props.message.text)}
-              unwrapDisallowed={true}
-            />
-            <Components.MessageAttachmentContainer 
-              terms={{
-                view: 'byPostId',
-                postId: this.props.message._id,
-                limit: 25
-              }}
-              forcePositionUpdate={() => this.props.forcePositionUpdate()}
-              scrollToBottom={() => this.props.scrollToBottom()}
-            />
+              <div className="firefox-workaround" onLoad={() => this.componentDidUpdate()}>
+                <ReactMarkdown
+                  escapeHtml={false}
+                  source={formatText(this.props.message.text)}
+                  unwrapDisallowed={true}
+                  onLoad={() => this.props.scrollToBottom()}
+                />
+              </div>
+              <Components.MessageAttachmentContainer 
+                terms={{
+                  view: 'byPostId',
+                  postId: this.props.message._id,
+                  limit: 25
+                }}
+                forcePositionUpdate={() => this.props.forcePositionUpdate()}
+                scrollToBottom={() => this.props.scrollToBottom()}
+              />
             </div>}
             {this.state.isEditing && <div className="message-content"> 
               <Components.MessageEditTextbox 

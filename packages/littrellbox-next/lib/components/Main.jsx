@@ -128,7 +128,7 @@ class Main extends React.Component {
           <Components.MessageArea terms={{
             view: 'byChannel',
             channelId: this.state.channel._id,
-            limit: 50
+            limit: 35
           }}/>
         </div> }
         {!this.props.currentUser && <div className="login-main">

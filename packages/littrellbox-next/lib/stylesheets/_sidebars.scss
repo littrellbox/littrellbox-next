@@ -23,6 +23,7 @@
 }
 
 .new-planet-button {
+  padding-top: -0.2rem;
   width: 3.5rem;
   height: 3.5rem;
   margin-left: 0.5rem;
@@ -53,8 +54,6 @@
   background-color: #444444;
   color: #cccccc;
   border-radius: 5px;
-  padding-top: 0.1rem;
-  padding-bottom: 0.1rem;
   transition: 0.2s;
   overflow: hidden;
   cursor: pointer;

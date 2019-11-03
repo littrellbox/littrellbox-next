@@ -24,6 +24,7 @@
    width: fit-content;
    overflow: none;
    margin-bottom: 0.75rem;
+   font-family: 'Noto Sans', Helvetica, sans-serif;
  }
  
  .settings-modal-usertext:focus {
@@ -40,10 +41,12 @@
  .settings-modal {
   .btn {
     background-color: #4c4c4c;
+    font-family: 'Noto Sans', Helvetica, sans-serif;
   }
   a {
     padding: 0.6rem;
     background-color: #4c4c4c;
+    font-family: 'Noto Sans', Helvetica, sans-serif;
   }
  }
 
@@ -61,8 +64,8 @@
  }
 
  .settings-modal-profile-picture {
-  width: 3.8rem; //get the profile picture icon to be the same size as the textbox
-  height: 3.8rem;
+  width: 3.31rem; //get the profile picture icon to be the same size as the textbox
+  height: 3.31rem;
   background-color: #555555;
   border-radius: 50%;
   margin-right: 0.75rem;
@@ -70,8 +73,8 @@
 }
 
 .setttings-modal-pfp-image {
-  width: 3.8rem;
-  height: 3.8rem;
+  width: 3.31rem;
+  height: 3.31rem;
   border-radius: 50%
 }
 

@@ -10,16 +10,24 @@ const Files = createCollection({
   resolvers: getDefaultResolvers('Files'),
   mutations: getDefaultMutations('Files'),
 
+  permissions: {
+    canCreate: ['members'],
+    canRead: ['members'],
+    canUpdate: ['owners', 'admins', 'moderators'],
+    canDelete: ['owners', 'admins', 'moderators'],
+  },
+
+  callbacks: {
+    create: {
+      validate: [(validationErrors, document, properties) => { 
+        errors = validationErrors
+        if(document.currentUser.lb_filesAllowed) {
+          errors.push("no_permission")
+        }
+      }]
+    }
+  }
 });
-
-//set up some permissions
-const membersActions = [
-  'files.new',
-  'files.edit.own',
-  'files.remove.own',
-];
-
-Users.groups.members.can(membersActions);
 
 Files.addDefaultView(terms => ({
   options: {

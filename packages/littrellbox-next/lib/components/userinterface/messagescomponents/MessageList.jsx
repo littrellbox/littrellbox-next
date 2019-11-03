@@ -11,7 +11,7 @@ class MessageList extends React.Component {
     }
   }
 
-  isAtBottom = false
+  isAtBottom = true
 
   forcePositionUpdate() {
     if(this.messagesList) {
@@ -22,17 +22,12 @@ class MessageList extends React.Component {
     }
   }
 
-  componentWillUpdate() {
+  getSnapshotBeforeUpdate() {
     const messageList = this.messagesList;
     const scrollPos = messageList.scrollTop;
     const scrollBottom = (messageList.scrollHeight - messageList.clientHeight);
     this.isAtBottom = (scrollBottom <= 0) || (scrollPos === scrollBottom); 
-  }
-  
-  componentDidMount() {
-    if(this.messagesEnd) {
-      this.messagesEnd.scrollIntoView({ behavior: "auto" })
-    }
+    return null
   }
 
   componentDidUpdate() {

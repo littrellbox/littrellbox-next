@@ -1,3 +1,7 @@
+.message-container {
+  padding: 0.5rem;
+  overflow-x: hidden;
+}
 
 .message-area {
   width: 100%;
@@ -18,7 +22,7 @@
   padding-bottom: 0;
   overflow-y: auto;
   word-break: break-word;
-  overflow-x: none;
+  overflow-x: hidden;
   margin-bottom: auto;
   scrollbar-color: #555555 #444444;
 }
@@ -139,6 +143,7 @@
 .message-dropdown {
   position: absolute;
   top: 0.25rem;
+  padding-bottom: 0;
   right: 0;
   color: #555555;
   margin-left: auto;
@@ -172,7 +177,7 @@
 .message-dropdown-menu {
   position: absolute;
   right: 0;
-  top: 1.5rem;
+  top: 1rem;
 }
 
 .message-textbox-attachment {

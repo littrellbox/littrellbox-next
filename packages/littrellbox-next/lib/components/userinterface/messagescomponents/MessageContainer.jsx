@@ -6,6 +6,14 @@ class MessageContainer extends React.Component {
     super(props)
   }
 
+  componentDidUpdate() {
+    this.props.scrollToBottom()
+  }
+
+  componentDidMount() {
+    this.props.scrollToBottom()
+  }
+
   render() {
     document = this.props.document
     if(!this.props.document) {
@@ -23,7 +31,7 @@ class MessageContainer extends React.Component {
 
     var timeOptions = {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour:'numeric', minute: 'numeric'}
      return (
-      <div className="message">
+      <div className="message-container message">
         {this.props.document && !this.props.document.lb_profilePicture && <div className="message-profile-picture"/>}
         {this.props.document && this.props.document.lb_profilePicture && <div className="message-profile-picture">
           <img src={this.props.document.lb_profilePicture} className="message-pfp-image"/>

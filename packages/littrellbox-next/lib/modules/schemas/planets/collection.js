@@ -10,16 +10,13 @@ const Planets = createCollection({
   resolvers: getDefaultResolvers('Planets'),
   mutations: getDefaultMutations('Planets'),
 
+  permissions: {
+    canCreate: ['members'],
+    canRead: ['members'],
+    canUpdate: ['owners', 'admins', 'moderators'],
+    canDelete: ['owners', 'admins', 'moderators'],
+  },
 });
-
-//set up some permissions
-const membersActions = [
-  'planets.new',
-  'planets.edit.own',
-  'planets.remove.own',
-];
-
-Users.groups.members.can(membersActions);
 
 Planets.addDefaultView(terms => ({
   options: {

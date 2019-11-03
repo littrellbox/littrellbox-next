@@ -10,16 +10,13 @@ const Invites = createCollection({
   resolvers: getDefaultResolvers('Invites'),
   mutations: getDefaultMutations('Invites'),
 
+  permissions: {
+    canCreate: ['members'],
+    canRead: ['members'],
+    canUpdate: ['owners', 'admins', 'moderators'],
+    canDelete: ['owners', 'admins', 'moderators'],
+  },
 });
-
-//set up some permissions
-const membersActions = [
-  'invites.new',
-  'invites.edit.own',
-  'invites.remove.own',
-];
-
-Users.groups.members.can(membersActions);
 
 Invites.addDefaultView(terms => ({
   options: {

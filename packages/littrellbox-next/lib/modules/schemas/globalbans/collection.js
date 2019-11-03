@@ -10,15 +10,13 @@ const GlobalBans = createCollection({
   resolvers: getDefaultResolvers('GlobalBans'),
   mutations: getDefaultMutations('GlobalBans'),
 
+  permissions: {
+    canCreate: ['admins', 'moderators'],
+    canRead: ['members'],
+    canUpdate: ['owners', 'admins', 'moderators'],
+    canDelete: ['owners', 'admins', 'moderators'],
+  },
 });
-
-//set up some permissions
-const membersActions = [
-  'globalbans.edit.own',
-  'globalbans.remove.own',
-];
-
-Users.groups.members.can(membersActions);
 
 GlobalBans.addDefaultView(terms => ({
   options: {
