@@ -66,6 +66,24 @@ class Main extends React.Component {
     };
   }
 
+  //since Component.setState is run synchronously we need to stop it from repeating
+  preventInfiniteLoopsWorkaround = false
+
+  componentDidUpdate() {
+    if(!this.preventInfiniteLoopsWorkaround && !this.props.currentUser && (this.state.planet != {} || this.state.channel != {})) {
+      this.preventInfiniteLoopsWorkaround = true
+      this.setState({
+        planet: {},
+        channel: {}
+      })
+    }
+
+    //remove the flag once we login
+    if(this.props.currentUser && this.preventInfiniteLoopsWorkaround) {
+      this.preventInfiniteLoopsWorkaround = false
+    }
+  }
+
   onDragStart(evt) {
     evt.preventDefault()
     if(!this.state.showingDropDialog)
@@ -133,7 +151,7 @@ class Main extends React.Component {
           <Components.MessageArea terms={{
             view: 'byChannel',
             channelId: channelIdToSet,
-            limit: 35
+            limit: 32
           }}/>
         </div> }
         {!this.props.currentUser && <div className="login-main">

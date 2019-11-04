@@ -174,12 +174,6 @@
   background-color: #666666;
 }
 
-.message-dropdown-menu {
-  position: absolute;
-  right: 0;
-  top: 1rem;
-}
-
 .message-textbox-attachment {
   padding-right: 0.5rem;
 }
@@ -268,4 +262,56 @@
   max-width: 85vw;
   max-height: 85vh;
   z-index: 10
+}
+
+//message dropdown icons
+
+.message-dropdown-splitter {
+  display: inline-block;
+  width: 0.1rem;
+  margin-left: 0.33rem;
+  margin-right: 0.66rem;
+  background-color: #666666;
+  height: 1.25rem;
+  margin-bottom: -0.25rem;
+}
+
+.message-dropdown-edit {
+  margin-right: 0.33rem;
+  transition: 0.2s;
+  :hover {
+    color: #ffff88
+  }
+}
+
+.message-dropdown-delete {
+  margin-right: 0.33rem;
+  transition: 0.2s;
+  :hover {
+    color: #ff5577;
+  }
+}
+
+.message-dropdown-ban {
+  margin-right: 0.33rem;
+  transition: 0.2s;
+  :hover {
+    color: #ff5577;
+  }
+}
+
+.message-dropdown-mute {
+  margin-right: 0.33rem;
+  transition: 0.2s;
+  :hover {
+    color: #ff5577;
+  }
+}
+
+.message-dropdown-filestoggle {
+  margin-right: 0.33rem;
+  transition: 0.2s;
+  :hover {
+    color: #ff5577;
+  }
 }

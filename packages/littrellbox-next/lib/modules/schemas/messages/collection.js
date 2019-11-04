@@ -51,9 +51,11 @@ const Messages = createCollection({
           errors.push("no_content")
         }
 
-        if(document.currentUser.lb_muted) {
+        if(document.currentUser.lb_muted == 1) {
           errors.push("muted")
         }
+        
+        console.log(document.currentUser)
 
         channel = Channels.findOne(document.data.channelId)
         planet = Planets.findOne(document.data.planetId)

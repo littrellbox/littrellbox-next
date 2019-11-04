@@ -16,34 +16,26 @@ Users.addField([
       canUpdate: ['members']
     }
   },
-]);
-
-Users.addField([
   {
     fieldName: 'lb_muted',
     fieldSchema: { 
       label: 'Mute',
-      type: Boolean,
+      type: Number,
       optional: true,
-      defaultValue: "",
       canRead: ['guests'],
       canCreate: ['admins', 'moderators'],
-      canCreate: ['admins', 'moderators']
+      canUpdate: ['admins', 'moderators']
     }
   },
-]);
-
-Users.addField([
   {
-    fieldName: 'lb_filesAllowed',
+    fieldName: 'lb_filesBlocked',
     fieldSchema: { 
-      label: 'Allowed to upload',
-      type: Boolean,
+      label: 'Block Uploads',
+      type: Number,
       optional: true,
-      defaultValue: "",
       canRead: ['guests'],
       canCreate: ['admins', 'moderators'],
-      canCreate: ['admins', 'moderators']
+      canUpdate: ['admins', 'moderators']
     }
   },
 ]);
@@ -51,11 +43,11 @@ Users.addField([
 extendFragment('UsersCurrent', `
   lb_profilePicture
   lb_muted
-  lb_filesAllowed
+  lb_filesBlocked
 `)
 
 extendFragment('UsersDefaultFragment', `
   lb_profilePicture
   lb_muted
-  lb_filesAllowed
+  lb_filesBlocked
 `)
