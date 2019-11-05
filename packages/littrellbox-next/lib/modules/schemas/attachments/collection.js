@@ -25,25 +25,25 @@ const Attachments = createCollection({
         errors = validationErrors
 
         if(!document.data.postId) {
-          errors.push("missing_message_id")
+          errors.push("0013:MISSING_POST_ID")
         }
 
         if(!document.data.type) {
-          errors.push("missing_type")
+          errors.push("0014:MISSING_TYPE")
         }
 
         if(!document.data.attachmentId) {
-          errors.push("missing_attachment_id")
+          errors.push("0015:MISSING_ATTACHMENT_ID")
         }
 
         post = Messages.findOne(document.data.postId)
 
         if(post.userId != document.currentUser._id) {
-          errors.push("no_permission")
+          errors.push("0016:NO_PERMISSION")
         }
 
         if(document.currentUser.lb_filesAllowed && document.data.type == "file") {
-          errors.push("no_permission")
+          errors.push("0017:FILES_BLOCKED")
         }
 
         console.log(errors)

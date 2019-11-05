@@ -40,19 +40,19 @@ const Messages = createCollection({
       validate: [(validationErrors, document, properties) => { 
         errors = validationErrors
         if(!document.data.channelId) {
-          errors.push("missing_channel_id")
+          errors.push("0001:MISSING_CHANNEL_ID")
         }
 
         if(!document.data.planetId) {
-          errors.push("missing_planet_id")
+          errors.push("0002:MISSING_PLANET_ID")
         }
 
         if(!document.data.text) {
-          errors.push("no_content")
+          errors.push("0003:MISSING_TEXT")
         }
 
         if(document.currentUser.lb_muted == 1) {
-          errors.push("muted")
+          errors.push("0004:MUTED")
         }
         
         console.log(document.currentUser)
@@ -65,19 +65,19 @@ const Messages = createCollection({
         })
 
         if(!planet) {
-          errors.push("fake_planet")
+          errors.push("0005:FAKE_PLANET")
         }
 
         if(!channel) {
-          errors.push("fake_channel")
+          errors.push("0006:FAKE_CHANNEL")
         }
 
         if(!planetMember) {
-          errors.push("not_in_planet")
+          errors.push("0007:NOT_IN_PLANET")
         }
 
         if(channel.planetId != document.data.planetId) {
-          errors.push("wrong_planet")
+          errors.push("0008:CHANNEL_MISMATCH")
         }
 
         console.log(errors)

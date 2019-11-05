@@ -22,7 +22,7 @@ const Files = createCollection({
       validate: [(validationErrors, document, properties) => { 
         errors = validationErrors
         if(document.currentUser.lb_filesBlocked == 1) {
-          errors.push("no_permission")
+          errors.push("0009:NO_PERMISSION")
         }
       }]
     }

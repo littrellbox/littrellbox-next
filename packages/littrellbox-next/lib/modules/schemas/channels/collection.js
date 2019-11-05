@@ -25,17 +25,17 @@ const Channels = createCollection({
         errors = validationErrors
 
         if(!document.data.planetId) {
-          errors.push("missing_planet_id")
+          errors.push("0010:MISSING_PLANET_ID")
         }
 
         if(!document.data.name) {
-          errors.push("no_name")
+          errors.push("0011:NO_NAME")
         }
 
         planet = Planets.findOne(document.data.planetId)
 
         if(planet.userId != document.currentUser._id) {
-          errors.push("no_permission")
+          errors.push("0012:NO_PERMISSION")
         }
 
         return errors;
