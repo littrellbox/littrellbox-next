@@ -141,6 +141,10 @@
 }
 
 .message-dropdown {
+  padding-left: 0.4rem;
+  padding-bottom: 0.4rem;
+  border-bottom-left-radius: 0.2rem;
+  background-color: #444444;
   position: absolute;
   top: 0.25rem;
   padding-bottom: 0;
@@ -308,10 +312,26 @@
   }
 }
 
+.message-dropdown-unmute {
+  margin-right: 0.33rem;
+  transition: 0.2s;
+  :hover {
+    color: #55ff77;
+  }
+}
+
 .message-dropdown-filestoggle {
   margin-right: 0.33rem;
   transition: 0.2s;
   :hover {
     color: #ff5577;
+  }
+}
+
+.message-dropdown-filesenable {
+  margin-right: 0.33rem;
+  transition: 0.2s;
+  :hover {
+    color: #55ff77;
   }
 }

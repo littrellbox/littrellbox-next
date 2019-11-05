@@ -6,7 +6,7 @@ import { Components, withCurrentUser, registerComponent, withSingle, withDelete,
 const ReactMarkdown = require('react-markdown/with-html')
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEllipsisH, faPencilAlt, faTrash, faUser, faComment, faUpload, faSlash } from '@fortawesome/free-solid-svg-icons'
+import { faEllipsisH, faPencilAlt, faTrash, faUser, faComment, faUpload, faSlash, faCheck } from '@fortawesome/free-solid-svg-icons'
 
 import formatText from '../../lib/FormatText'
 
@@ -64,6 +64,7 @@ class Message extends React.Component {
   }
 
   muteUser() {
+    documentId = this.props.document._id
     if(!this.props.document.lb_muted) {
       this.props.updateUser({
         selector: { documentId },
@@ -85,6 +86,7 @@ class Message extends React.Component {
   }
 
   disableUploads() {
+    documentId = this.props.document._id
     if(!this.props.document.lb_filesBlocked) {
       this.props.updateUser({
         selector: { documentId },
@@ -130,14 +132,26 @@ class Message extends React.Component {
                       <FontAwesomeIcon icon={faUser}/>  
                       <FontAwesomeIcon icon={faSlash}/> 
                     </span>  
-                    <span className="message-dropdown-mute fa-layers fa-fw" onClick={() => this.muteUser()}>
-                      <FontAwesomeIcon icon={faComment}/>  
-                      <FontAwesomeIcon icon={faSlash}/> 
-                    </span>  
-                    <span className="message-dropdown-filestoggle fa-layers fa-fw"  onClick={() => this.disableUploads()}>
-                      <FontAwesomeIcon icon={faUpload}/> 
-                      <FontAwesomeIcon icon={faSlash}/>  
-                    </span>
+                    {this.props.document.lb_muted == 1 ? 
+                      <span className="message-dropdown-unmute fa-layers fa-fw" onClick={() => this.muteUser()}>
+                        <FontAwesomeIcon icon={faComment}/>  
+                        <FontAwesomeIcon icon={faCheck}/> 
+                      </span> :
+                      <span className="message-dropdown-mute fa-layers fa-fw" onClick={() => this.muteUser()}>
+                        <FontAwesomeIcon icon={faComment}/>  
+                        <FontAwesomeIcon icon={faSlash}/> 
+                      </span>
+                    } 
+                    {this.props.document.lb_filesBlocked == 1 ? 
+                      <span className="message-dropdown-filesenable fa-layers fa-fw"  onClick={() => this.disableUploads()}>
+                        <FontAwesomeIcon icon={faUpload}/> 
+                        <FontAwesomeIcon icon={faCheck}/>  
+                      </span> : 
+                      <span className="message-dropdown-filestoggle fa-layers fa-fw"  onClick={() => this.disableUploads()}>
+                        <FontAwesomeIcon icon={faUpload}/> 
+                        <FontAwesomeIcon icon={faSlash}/>  
+                      </span>
+                    }
                     <span className="message-dropdown-splitter"/>
                   </span>}
                   <span className="message-dropdown-edit">

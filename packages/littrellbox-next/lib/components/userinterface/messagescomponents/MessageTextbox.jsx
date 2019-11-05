@@ -134,6 +134,9 @@ class MessageTextbox extends React.Component {
 
     addAttachmentClassName = "message-textbox-attachment-button"
     placeholderText = "Message #" + this.props.channelName
+    if (this.props.currentUser.lb_muted == 1) {
+      placeholderText = "You've been muted."
+    }
     if (this.state.fileTooBig) {
       placeholderText = "File was too big to upload! Max size: 8MB."
       addAttachmentClassName = "message-textbox-attachment-button-toobig"
@@ -167,14 +170,15 @@ class MessageTextbox extends React.Component {
                   onKeyUp={(e) => this.handleKeyUp(e)} 
                   onKeyPress={(e) => this.handleKeyPress(e, planet, channel)} 
                   onChange={(e) => this.onChange(e)} 
+                  disabled={this.props.currentUser.lb_muted == 1}
                 /> 
-                <div className="message-textbox-emoji-picker-button">
+                {this.props.currentUser.lb_muted != 1 && <div className="message-textbox-emoji-picker-button">
                   <FontAwesomeIcon icon={faSmile} onClick={() => this.onEmojiPickerButtonClick()}/>
-                </div>
-                <div className={addAttachmentClassName}>
+                </div>}
+                {this.props.currentUser.lb_muted != 1 && this.props.currentUser.lb_filesBlocked != 1 && <div className={addAttachmentClassName}>
                   <FontAwesomeIcon icon={faPaperclip} onClick={() => this.onAttachmentButtonClick()}/>
                   <input type="file" id="file-dialog" multiple ref={(el) => { this.fileDialog = el; }} style={{display: 'none'}} onChange={(e) => this.props.addFile(e.target.files)}/>
-                </div>
+                </div>}
               </div>
             </div>
           )
