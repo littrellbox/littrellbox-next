@@ -8,5 +8,6 @@ export const ChatContext = React.createContext({
   onDrop: (acceptedFiles) => {},
   removeFile: (key) => {},
   removeAllFiles: () => {},
+  clearPlanet: () => {},
   attachments: []
 });

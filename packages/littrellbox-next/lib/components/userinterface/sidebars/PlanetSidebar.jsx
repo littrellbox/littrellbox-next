@@ -8,6 +8,7 @@ const PlanetSidebar = ({results = [], currentUser, loading, loadMore, count, tot
       {loading ?
         <Loading/>:
         <div> 
+          <Components.HomeButton/>
           {results.map(planetmember => <Components.PlanetButton terms={terms} key={planetmember._id} documentId={planetmember.planetId} terms={{
             view: 'byPlanetId',
             planetId: planetmember.planetId,

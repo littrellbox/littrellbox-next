@@ -30,6 +30,7 @@ import '../components/userinterface/sidebars/channelcomponents/ChannelList';
 import '../components/userinterface/sidebars/channelcomponents/NewChannelForm';
 
 //planet sidebar
+import '../components/userinterface/sidebars/planetcomponents/HomeButton';
 import '../components/userinterface/sidebars/planetcomponents/NewPlanet';
 import '../components/userinterface/sidebars/planetcomponents/NewPlanetButton';
 import '../components/userinterface/sidebars/planetcomponents/PlanetButton';

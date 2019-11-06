@@ -11,7 +11,7 @@ class FeaturedPlanets extends React.Component {
       <div className="featured-planets">
         <div className="featured-planets-header">Featured Planets</div>
         {this.props.results && this.props.results.map(planet => <Components.FeaturedPlanetButton
-          key={planet.id}
+          key={planet._id}
           planet={planet}
         />)}
       </div>
