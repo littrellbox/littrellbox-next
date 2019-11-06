@@ -1,9 +1,9 @@
 import React from 'react';
 import Helmet from 'react-helmet';
-import { Components, withCurrentUser, registerComponent } from 'meteor/vulcan:core';
+import { Components, withCurrentUser, registerComponent, withUpdate } from 'meteor/vulcan:core';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faAngleDown } from '@fortawesome/free-solid-svg-icons'
+import { faAngleDown, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 
 class ChannelHeader extends React.Component {
   constructor(props) {
@@ -35,11 +35,27 @@ class ChannelHeader extends React.Component {
     })
   }
 
+  toggleFeatured() {
+    featured = true
+    if(!this.props.planet.featured)
+      featured = true
+    documentId = this.props.planet._id
+    this.props.updatePlanet({
+      selector: {documentId},
+      data: {
+        featured: featured
+      }
+    })
+    this.setState({
+      showDropdown: false
+    })
+  }
+
   render() {
     return (
       <div className="channel-header">
         <div className="channel-header-planet">
-          {this.props.planet.name}
+          {this.props.planet.name} {this.props.planet.featured && <FontAwesomeIcon icon={faCheckCircle}/>}
         </div>
         <div className="channel-header-user">
           {this.props.currentUser.username}
@@ -53,6 +69,9 @@ class ChannelHeader extends React.Component {
             <div className="dropdown-item" onClick={() => this.toggleAbout()}>
               About Littrellbox
             </div>
+            {this.props.currentUser.isAdmin && <div className="dropdown-item" onClick={() => this.toggleFeatured()}>
+              {this.props.planet.featured ? <span>Unfeature Server</span> : <span>Feature Server</span>}
+            </div>}
           </div>}
           {this.state.showSettings && <div>
             <Components.SettingsModal toggleSettings={() => this.toggleSettings()}/>
@@ -69,4 +88,8 @@ class ChannelHeader extends React.Component {
   }
 }
 
-registerComponent({ name: 'ChannelHeader', component: ChannelHeader, hocs: [withCurrentUser] });
+const options = {
+  collectionName: "Planets"
+}
+
+registerComponent({ name: 'ChannelHeader', component: ChannelHeader, hocs: [withCurrentUser, [withUpdate, options]] });

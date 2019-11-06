@@ -33,3 +33,7 @@ import '../components/userinterface/sidebars/channelcomponents/NewChannelForm';
 import '../components/userinterface/sidebars/planetcomponents/NewPlanet';
 import '../components/userinterface/sidebars/planetcomponents/NewPlanetButton';
 import '../components/userinterface/sidebars/planetcomponents/PlanetButton';
+
+//featured planets
+import '../components/userinterface/featuredplanets/FeaturedPlanetButton'
+import '../components/userinterface/featuredplanets/FeaturedPlanets'

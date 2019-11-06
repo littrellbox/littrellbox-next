@@ -106,9 +106,8 @@ class Main extends React.Component {
       showingDropDialog: false
     })
 
-    console.log(evt.dataTransfer.files)
-    console.log(this.onDrop)
-    this.onDrop(Array.from(evt.dataTransfer.files))
+    if(this.props.currentUser.lb_muted != 1)
+      this.onDrop(Array.from(evt.dataTransfer.files))
   }
 
   render() {
@@ -122,7 +121,7 @@ class Main extends React.Component {
         value={this.state} 
         className="main"
       > 
-        <Helmet>
+        <Helmet> 
           <link href="https://unpkg.com/emoji-mart@2.11.1/css/emoji-mart.css" rel="stylesheet"/>
         </Helmet>
         
@@ -137,7 +136,7 @@ class Main extends React.Component {
           onDragCapture={(e) => {e.preventDefault()}}
           onDrop={(e) => this.onCCDrop(e)}
         >
-          {this.state.showingDropDialog && <div className="file-dropzone-upload">
+          {this.state.showingDropDialog && (this.props.currentUser.lb_muted != 1) && <div className="file-dropzone-upload">
             <div className="file-dropzone-icon"> 
               <FontAwesomeIcon icon={faUpload}/>
             </div>

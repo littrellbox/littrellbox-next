@@ -1,0 +1,20 @@
+.featured-planets {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.featured-planets-header {
+  font-size: 2rem;
+  font-variant: bold;
+  margin-bottom: 0.25rem;
+}
+
+.featured-planet-button {
+  padding: 0.6rem;
+  border-radius: 0.25rem;
+  background-color: #555555;
+  width: 20rem;
+  margin-bottom: 0.5rem;
+}

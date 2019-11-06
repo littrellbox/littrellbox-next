@@ -45,6 +45,14 @@ const schema = {
     canRead: ['guests'],
     canCreate: ['members'],
     canUpdate: ['members'],
+  },
+
+  featured: {
+    type: Boolean,
+    optional: true,
+    canRead: ['members'],
+    canCreate: ['admins'],
+    canUpdate: ['admins'],
   }
 
   //TODO: add sidebar image

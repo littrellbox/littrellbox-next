@@ -46,7 +46,11 @@ class MessageArea extends React.Component {
           }
           return (
             <div className="message-area">
-              
+              <Components.FeaturedPlanets terms={{
+                view: "byFeatured",
+                featured: true,
+                limit: 10
+              }}/>
             </div>
           )
         }}
