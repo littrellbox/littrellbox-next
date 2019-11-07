@@ -130,6 +130,10 @@ class Main extends React.Component {
         className="main"
       > 
         <Helmet> 
+          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"/>
+          <script>
+            {'google_adtest = "on"'}
+          </script>
           <link href="https://unpkg.com/emoji-mart@2.11.1/css/emoji-mart.css" rel="stylesheet"/>
         </Helmet>
         

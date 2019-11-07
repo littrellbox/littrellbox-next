@@ -38,3 +38,6 @@ import '../components/userinterface/sidebars/planetcomponents/PlanetButton';
 //featured planets
 import '../components/userinterface/featuredplanets/FeaturedPlanetButton'
 import '../components/userinterface/featuredplanets/FeaturedPlanets'
+
+//ads
+import '../components/userinterface/ads/RectangleAd'

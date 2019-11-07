@@ -5,7 +5,7 @@
   height: calc(100% - 0.5rem);
   background-color: #222222;
   overflow-y: auto;
-  scrollbar-width: none;
+  scrollbar-width: none;  
   padding-bottom: .5rem;
 }
 
@@ -14,12 +14,18 @@
 }
 
 .channel-sidebar {
+  position: relative;
+  display: flex;
+  flex-direction: column;
   order: 1;
   width: 16vw;
-  min-width: 13.5rem;
+  min-width: 250px;
   max-width: 18rem;
   height: 100%;
+  max-height: 100%;
+  overflow: hidden;
   background-color: #333333;
+  scrollbar-color: #444444 #333333FF;
 }
 
 .new-planet-button {
@@ -120,7 +126,8 @@
   padding-left: 0.5rem;
   cursor: pointer;
   padding-right: 0.5rem;
-  transition: 0.2s
+  transition: 0.2s;
+  overflow: hidden;
 }
 
 .channel-button:hover {
@@ -138,6 +145,7 @@
   cursor: pointer;
   display: flex;
   padding-right: 0.5rem;
+  overflow: hidden;
 }
 
 .new-channel-button {
@@ -168,6 +176,22 @@
 
 .channel-list {
   position: relative;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.channel-list::-webkit-scrollbar {
+  width: 0.8rem;
+  height: 0.8rem;
+}
+
+.channel-list::-webkit-scrollbar-thumb {
+  border-radius: 0.45rem;
+  width: 0.5rem;
+  background-clip: padding-box;
+  border: 0.15rem solid rgba(255,255,255,0);
+  background-color: #444444;
 }
 
 .channel-list-loader {

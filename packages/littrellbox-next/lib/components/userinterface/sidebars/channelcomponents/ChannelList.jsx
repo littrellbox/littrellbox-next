@@ -69,7 +69,7 @@ class ChannelList extends React.Component {
           <div className="channel-list-loader">
             <CircleLoader/>
           </div>:
-          <div>
+          <div className="channel-list-container">
             {this.props.results.map(channel => <Components.ChannelButton key={channel._id} buttonChannel={channel} terms={{
               view: 'byChannelId',
               channelId: channel._id
