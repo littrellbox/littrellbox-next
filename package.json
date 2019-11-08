@@ -111,6 +111,7 @@
     "react-stripe-checkout": "^2.4.0",
     "react-syntax-highlighter": "^6.1.2",
     "react-textarea-autosize": "^7.1.0",
+    "react-transition-group": "^4.3.0",
     "react-twemoji": "^0.2.3",
     "recompose": "^0.26.0",
     "recursive-iterator": "^3.3.0",

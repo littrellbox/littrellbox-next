@@ -54,8 +54,6 @@ const Messages = createCollection({
         if(document.currentUser.lb_muted == 1) {
           errors.push("0004:MUTED")
         }
-        
-        console.log(document.currentUser)
 
         channel = Channels.findOne(document.data.channelId)
         planet = Planets.findOne(document.data.planetId)
@@ -79,9 +77,6 @@ const Messages = createCollection({
         if(channel.planetId != document.data.planetId) {
           errors.push("0008:CHANNEL_MISMATCH")
         }
-
-        console.log(errors)
-        console.log("validated")
 
         return errors;
        }]

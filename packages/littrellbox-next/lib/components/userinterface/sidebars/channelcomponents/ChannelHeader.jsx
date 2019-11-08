@@ -3,7 +3,9 @@ import Helmet from 'react-helmet';
 import { Components, withCurrentUser, registerComponent, withUpdate } from 'meteor/vulcan:core';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faAngleDown, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
+import { faAngleDown, faStar } from '@fortawesome/free-solid-svg-icons'
+
+import Tooltip from '../../../lib/Tooltip'
 
 class ChannelHeader extends React.Component {
   constructor(props) {
@@ -55,7 +57,7 @@ class ChannelHeader extends React.Component {
     return (
       <div className="channel-header">
         <div className="channel-header-planet">
-          {this.props.planet.name} {this.props.planet.featured && <FontAwesomeIcon icon={faCheckCircle}/>}
+          {this.props.planet.name} {this.props.planet.featured && <Tooltip text="Featured Server"><FontAwesomeIcon icon={faStar}/></Tooltip>}
         </div>
         <div className="channel-header-user">
           {this.props.currentUser.username}

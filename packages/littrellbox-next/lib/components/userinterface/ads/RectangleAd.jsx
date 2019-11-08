@@ -22,12 +22,9 @@ class RectangleAd extends React.Component {
   }
   
   render() {
-    console.log(Meteor.isProduction)
-
-
     return(
       <div className="ad-rectangle">
-        <div className="ad-rectangle-ad">
+        {getSetting("adsense.client") && <div className="ad-rectangle-ad">
           {Meteor.isProduction ? 
             <ins 
               data-ad-format="fluid"
@@ -45,7 +42,7 @@ class RectangleAd extends React.Component {
               data-ad-test="on"
             />
           }
-        </div>
+        </div>}
       </div>
     )
   }

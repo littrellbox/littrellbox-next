@@ -31,6 +31,7 @@ class MessageArea extends React.Component {
                   count={this.props.count}
                   totalCount={this.props.totalCount}
                   loadMore={() => this.props.loadMore()}
+                  planet={this.props.planet}
                 />
                 <Components.MessageTextbox
                   channelName={channel.name}

@@ -159,11 +159,14 @@ class Main extends React.Component {
             limit: 10000
           }} />
           <Components.ChannelSidebar/>
-          <Components.MessageArea terms={{
-            view: 'byChannel',
-            channelId: channelIdToSet,
-            limit: 32
-          }}/>
+          <Components.MessageArea 
+            terms={{
+              view: 'byChannel',
+              channelId: channelIdToSet,
+              limit: 32
+            }}
+            planet={this.state.planet}
+          />
         </div> }
         {!this.props.currentUser && <div className="login-main">
           <div className="login-form">

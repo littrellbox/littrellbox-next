@@ -2,7 +2,9 @@ import React from 'react'
 import {Components, registerComponent, withCreate, withCurrentUser} from 'meteor/vulcan:core'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
+import { faStar } from '@fortawesome/free-solid-svg-icons'
+
+import Tooltip from '../../lib/Tooltip'
 
 class FeaturedPlanetButton extends React.Component {
   constructor(props) {
@@ -20,7 +22,7 @@ class FeaturedPlanetButton extends React.Component {
   render() {
     return(
       <div className="featured-planet-button">
-        <div className="featured-planet-text" onClick={() => this.joinPlanet()}>{this.props.planet.name} <FontAwesomeIcon icon={faCheckCircle}/></div>
+        <div className="featured-planet-text" onClick={() => this.joinPlanet()}>{this.props.planet.name} <Tooltip text="Featured Server"><FontAwesomeIcon icon={faStar}/></Tooltip></div>
       </div>
     )
   }

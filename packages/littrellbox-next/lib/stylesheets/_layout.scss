@@ -9,6 +9,34 @@ p {
   margin-top: 0;
 }
 
+.tooltip-container {
+  display: inline-block;
+  position: relative;
+  .tooltip {
+    display: none;
+    z-index: 100;
+    transition: 0.2s;
+    background-color: #00000000;
+  }
+}
+
+.tooltip-container:hover {
+  .tooltip {
+    display: block;
+    position: fixed;
+    width: max-content;
+    transform: translateX(-50%);
+    margin: 0.35rem;
+    border-radius: 0.25rem;
+    background-color: #222222;
+    padding: 0.4rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    font-weight: normal;
+    font-size: 0.9rem;
+  }
+}
+
 .main-app {
   display: flex;
   width: 100%;

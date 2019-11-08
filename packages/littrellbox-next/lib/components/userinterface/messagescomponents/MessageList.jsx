@@ -108,6 +108,7 @@ class MessageList extends React.Component {
             scrollToBottomMessageMount={() => this.messageMountScroll()}
             forcePositionUpdate={() => this.forcePositionUpdate()}
             isScrolled={this.state.isScrolled}
+            planet={this.props.planet}
           />
           )}
           {/*this.reverseWorkaround().map(message => <Components.Message 
