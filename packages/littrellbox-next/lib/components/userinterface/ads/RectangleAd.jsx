@@ -18,7 +18,7 @@ class RectangleAd extends React.Component {
   }
   
   componentDidMount() {
-    if(window) (window.adsbygoogle = window.adsbygoogle || []).push({});
+    if(window && getSetting("adsense.client")) (window.adsbygoogle = window.adsbygoogle || []).push({});
   }
   
   render() {

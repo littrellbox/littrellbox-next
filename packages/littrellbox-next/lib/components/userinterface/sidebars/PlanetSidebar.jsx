@@ -5,7 +5,7 @@ import { Components, withCurrentUser, registerComponent, Loading, withMulti } fr
 const PlanetSidebar = ({results = [], currentUser, loading, loadMore, count, totalCount, terms }) => (
   <div className="scroll-container">
     <div className="planet-sidebar">
-      {loading ?
+      { loading ?
         <Loading/>:
         <div> 
           <Components.HomeButton/>
