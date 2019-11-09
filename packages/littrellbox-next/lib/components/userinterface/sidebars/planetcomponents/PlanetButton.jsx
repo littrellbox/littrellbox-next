@@ -6,7 +6,7 @@ import {ChatContext} from '../../../../contexts/ChatContext'
 
 import CircleLoader from '../../../lib/Loader'
 
-const PlanetButton = ({withCurrentUser, document, loading, results = []}) => {
+const PlanetButton = ({member, document, loading, results = []}) => {
   if(!document) {
     return (
       <div className="planet-button">
@@ -25,12 +25,13 @@ const PlanetButton = ({withCurrentUser, document, loading, results = []}) => {
 
   return (
     <ChatContext.Consumer>
-      {({switchPlanet, switchChannel}) => (
+      {({switchPlanet, switchChannel, setPlanetMember}) => (
         <div 
           className="planet-button" 
           onClick={() => {
               switchChannel(results[0])
               switchPlanet(document)
+              setPlanetMember(member)
             }
           }
         >
@@ -57,4 +58,4 @@ const optionsMulti = {
   queryOptions: { pollInterval: 200 }
 }
 
-registerComponent({ name: 'PlanetButton', component: PlanetButton, hocs: [withCurrentUser, [withSingle, options], [withMulti, optionsMulti]] });
+registerComponent({ name: 'PlanetButton', component: PlanetButton, hocs: [[withSingle, options], [withMulti, optionsMulti]] });

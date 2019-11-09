@@ -47,9 +47,9 @@ const Messages = createCollection({
           errors.push("0002:MISSING_PLANET_ID")
         }
 
-        if(!document.data.text) {
+        /*if(!document.data.text) {
           errors.push("0003:MISSING_TEXT")
-        }
+        }*/
 
         if(document.currentUser.lb_muted == 1) {
           errors.push("0004:MUTED")

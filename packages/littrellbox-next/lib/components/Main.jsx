@@ -56,15 +56,24 @@ class Main extends React.Component {
     this.clearPlanet = () => {
       this.setState({
         planet: {},
-        channel: {}
+        channel: {},
+        planetMember: {}
+      })
+    }
+
+    this.setPlanetMember = (memberToSet) => {
+      this.setState({
+        planetMember: memberToSet
       })
     }
 
     this.state = {
       planet: {},
       channel: {},
+      planetMember: {},
       switchPlanet: this.switchPlanet,
       switchChannel: this.switchChannel,
+      setPlanetMember: this.setPlanetMember,
       onDrop: this.onDrop,
       removeFile: this.removeFile,
       removeAllFiles: this.removeAllFiles,

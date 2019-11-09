@@ -90,9 +90,9 @@
   padding-right: 0;
   padding-left: 0.6rem;
   border-width: 0px;
-  border-radius: 5px;
-  font-family: 'Noto Sans', Helvetica, sans-serif;    
+  border-radius: 5px;   
   font-size: 1rem;
+  font-family: $font;
   outline: none;
 }
 
@@ -126,10 +126,10 @@
 }
 
 .message-profile-picture {
-  min-width: 2.75rem;
-  min-height: 2.75rem;
-  max-width: 2.75rem;
-  max-height: 2.75rem; // work around ff width adjustment
+  min-width: 2.5rem;
+  min-height: 2.5rem;
+  max-width: 2.5rem;
+  max-height: 2.5rem; // work around ff width adjustment
   background-color: #555555;
   border-radius: 50%;
   margin-top: 0.25rem;
@@ -244,8 +244,8 @@
 }
 
 .message-pfp-image {
-  width: 2.75rem;
-  height: 2.75rem;
+  width: 2.5rem;
+  height: 2.5rem;
   border-radius: 50%;
 }
 
@@ -339,4 +339,26 @@
 .message-name-icon {
   margin-left: 0.3rem;
   font-size: 0.85rem;
+}
+
+@media screen and (max-height: 800px) {
+  .message {
+    font-size: 0.9rem;
+  }
+  .message-profile-picture {
+    min-width: 2rem;
+    min-height: 2rem;
+    max-width: 2rem;
+    max-height: 2rem;
+  }
+  .message-pfp-image {
+    width: 2rem;
+    height: 2rem;
+  }
+  .message-textbox {
+    font-size: 0.9rem;
+  }
+  .message-textbox-textarea {
+    font-size: 0.9rem;
+  }
 }

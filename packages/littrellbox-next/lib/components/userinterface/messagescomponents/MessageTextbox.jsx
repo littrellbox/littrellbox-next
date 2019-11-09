@@ -30,7 +30,7 @@ class MessageTextbox extends React.Component {
   handleKeyPress(e, planet, channel) {
     if (e.key === 'Enter' && !this.state.shiftKeyDown)
       e.preventDefault()
-    if (e.key === 'Enter' && !this.state.shiftKeyDown && this.state.textboxText != "") {
+    if (e.key === 'Enter' && !this.state.shiftKeyDown && (this.state.textboxText != "" || this.props.files.length != 0)) {
       this.props.createMessage({
         data: {
           planetId: planet._id,

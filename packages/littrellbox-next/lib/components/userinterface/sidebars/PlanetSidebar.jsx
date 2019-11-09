@@ -9,11 +9,16 @@ const PlanetSidebar = ({results = [], currentUser, loading, loadMore, count, tot
         <Loading/>:
         <div> 
           <Components.HomeButton/>
-          {results.map(planetmember => <Components.PlanetButton terms={terms} key={planetmember._id} documentId={planetmember.planetId} terms={{
-            view: 'byPlanetId',
-            planetId: planetmember.planetId,
-            limit: 1
-          }}/>)}
+          {results.map(planetmember => <Components.PlanetButton
+            key={planetmember._id} 
+            documentId={planetmember.planetId} 
+            member={planetmember}
+            terms={{
+              view: 'byPlanetId',
+              planetId: planetmember.planetId,
+              limit: 1
+            }}
+          />)}
         </div>
       }
         <Components.NewPlanet/>

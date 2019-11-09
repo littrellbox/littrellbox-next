@@ -41,22 +41,22 @@
 .settings-modal {
  .btn {
    background-color: #4c4c4c;
-   font-family: 'Noto Sans', Helvetica, sans-serif;
+   font-family: $font;
  }
  a {
    padding: 0.6rem;
    background-color: #4c4c4c;
-   font-family: 'Noto Sans', Helvetica, sans-serif;
+   font-family: $font;
  }
 }
 
 .settings-modal{
  .btn:hover {
    background-color: #555555;
-   font-family: 'Noto Sans', Helvetica, sans-serif;
+   font-family: $font;
  }
  a:hover {
    background-color: #555555;
-   font-family: 'Noto Sans', Helvetica, sans-serif;
+   font-family: $font;
  }
 }
