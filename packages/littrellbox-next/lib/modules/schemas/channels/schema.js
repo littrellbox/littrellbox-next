@@ -69,6 +69,22 @@ const schema = {
     canRead: ['guests'],
     canCreate: ['members'],
     canUpdate: ['members'],
+  },
+  
+  isDm: {
+    type: Boolean,
+    optional: true,
+    canRead: ['guests'],
+    canCreate: ['members'],
+    canUpdate: ['members'],
+  },
+
+  dmUserIds: {
+    type: [String],
+    optional: true,
+    canRead: ['guests'],
+    canCreate: ['members'],
+    canUpdate: ['members'],
   }
 };
 

@@ -24,8 +24,12 @@ const Channels = createCollection({
       validate: [(validationErrors, document, properties) => { 
         errors = validationErrors
 
-        if(!document.data.planetId) {
+        if(!document.data.planetId && !document.data.isDm) {
           errors.push("0010:MISSING_PLANET_ID")
+        }
+
+        if(document.data.isDm && !document.data.dmUserIds) {
+          errors.push("0019:MISSING_DM_USER_IDS")
         }
 
         if(!document.data.name) {
