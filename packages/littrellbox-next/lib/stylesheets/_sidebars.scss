@@ -218,3 +218,25 @@
   text-align: center;
   cursor: pointer;
 }
+
+//dm-sidebar
+
+.dm-sidebar-header {
+  color: #cccccc;
+  padding: 0.5rem;
+  padding-bottom: 0.4rem;
+  position: relative;
+}
+
+.dm-sidebar-header-username {
+  font-weight: bold;
+  font-size: 1.25rem;
+}
+
+.dm-sidebar-header-dropdown-toggle {
+  position: absolute;
+  cursor: pointer;
+  top: calc(50% - 1rem);
+  right: 0.5rem;
+  font-size: 1.5rem;
+}

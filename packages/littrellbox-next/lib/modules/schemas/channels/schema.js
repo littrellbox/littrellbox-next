@@ -80,12 +80,14 @@ const schema = {
   },
 
   dmUserIds: {
-    type: [String],
+    type: Array,
     optional: true,
     canRead: ['guests'],
     canCreate: ['members'],
     canUpdate: ['members'],
-  }
+  },
+  
+  'dmUserIds.$': String
 };
 
 export default schema;

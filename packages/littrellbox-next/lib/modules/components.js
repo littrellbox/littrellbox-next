@@ -23,6 +23,11 @@ import '../components/userinterface/modals/AboutModal';
 import '../components/userinterface/sidebars/ChannelSidebar';
 import '../components/userinterface/sidebars/PlanetSidebar';
 
+//dm sidebar
+import '../components/userinterface/sidebars/DMSidebar';
+import '../components/userinterface/sidebars/dmsidebarcomponents/DMSidebarHeader';
+import '../components/userinterface/sidebars/dmsidebarcomponents/DMHomeButton';
+
 //channel sidebar
 import '../components/userinterface/sidebars/channelcomponents/ChannelButton';
 import '../components/userinterface/sidebars/channelcomponents/ChannelHeader';

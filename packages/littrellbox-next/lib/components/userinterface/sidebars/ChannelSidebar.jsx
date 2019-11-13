@@ -22,6 +22,10 @@ const ChannelSidebar = ({ currentUser }) => {
               </div>
             </div>
           )
+        } else {
+          return (
+            <Components.DMSidebar/>
+          )
         }
       }}
     </ChatContext.Consumer>
