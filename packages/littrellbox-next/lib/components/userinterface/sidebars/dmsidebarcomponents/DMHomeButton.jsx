@@ -12,7 +12,7 @@ const DMHomeButton = ({ currentUser }) => (
     {({clearPlanet, channel}) => {
       if(!channel.name) {
         return (
-          <div className="channel-button-active" onClick={() => clearPlanet()}> 
+          <div className="channel-button-active"> 
             <div className="channel-button-active-text">
               <FontAwesomeIcon icon={faHome}/> Home
             </div>
@@ -20,7 +20,7 @@ const DMHomeButton = ({ currentUser }) => (
         )
       } else {
         return (
-          <div className="channel-button" onClick={() => switchChannel(this.props.buttonChannel)}>
+          <div className="channel-button" onClick={() => clearPlanet()}>
             <FontAwesomeIcon icon={faHome}/> Home
           </div>
         )

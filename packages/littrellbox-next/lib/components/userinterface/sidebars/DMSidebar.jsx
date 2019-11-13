@@ -9,6 +9,7 @@ const DMSidebar = ({ currentUser, planet }) => {
     <div className="channel-sidebar">
       <Components.DMSidebarHeader/>
       <Components.DMHomeButton/>
+      <Components.DMList/>
       {/*<Components.ChannelList planet={planet} terms={{
         view: 'byPlanetId',
         planetId: planet._id,
