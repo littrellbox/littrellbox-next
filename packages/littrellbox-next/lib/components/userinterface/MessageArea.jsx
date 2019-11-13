@@ -16,7 +16,7 @@ class MessageArea extends React.Component {
       attachments: []
     }
     
-  }
+  } 
 
   render() {
     return (

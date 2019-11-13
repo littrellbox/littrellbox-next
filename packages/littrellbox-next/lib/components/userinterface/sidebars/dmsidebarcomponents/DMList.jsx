@@ -20,7 +20,7 @@ class DMList extends React.Component {
             DIRECT MESSAGES
           </div>
         </div>
-        {this.props.loading ?
+        {!this.props.results ?
           <div className="channel-list-loader">
             <CircleLoader/>
           </div>:

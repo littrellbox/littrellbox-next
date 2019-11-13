@@ -45,9 +45,7 @@ const Attachments = createCollection({
         if(document.currentUser.lb_filesAllowed && document.data.type == "file") {
           errors.push("0017:FILES_BLOCKED")
         }
-
-        console.log(errors)
-
+        
         return errors;
        }]
     }

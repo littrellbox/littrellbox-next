@@ -133,6 +133,14 @@ class Main extends React.Component {
       channelIdToSet = this.state.channel._id
     }
 
+    messageLimit = 32
+    if(typeof(window) != 'undefined') {
+      if(window.innerHeight > 800)
+        messageLimit = 42
+      if(window.innerHeight > 1080)
+        messageLimit = 75
+    }
+
     return (
       <ChatContext.Provider 
         value={this.state} 
@@ -140,9 +148,6 @@ class Main extends React.Component {
       > 
         <Helmet> 
           <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"/>
-          <script>
-            {'google_adtest = "on"'}
-          </script>
           <link href="https://unpkg.com/emoji-mart@2.11.1/css/emoji-mart.css" rel="stylesheet"/>
         </Helmet>
         
@@ -172,7 +177,7 @@ class Main extends React.Component {
             terms={{
               view: 'byChannel',
               channelId: channelIdToSet,
-              limit: 32
+              limit: messageLimit
             }}
             planet={this.state.planet}
           />

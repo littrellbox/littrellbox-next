@@ -17,9 +17,6 @@ const ChannelSidebar = ({ currentUser }) => {
                 planetId: planet._id,
                 limit: 1000
               }}/>
-              <div className="channel-sidebar-ad">
-                <Components.RectangleAd/>
-              </div>
             </div>
           )
         } else {

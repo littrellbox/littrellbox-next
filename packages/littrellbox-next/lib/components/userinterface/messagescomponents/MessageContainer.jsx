@@ -11,6 +11,16 @@ class MessageContainer extends React.Component {
     super(props)
   }
 
+  shouldComponentUpdate(newProps) {
+    if(this.props.messages !== newProps.messages) 
+      return true;
+    if(this.props.document !== newProps.document)
+      return true;
+    if(this.props.planet !== newProps.planet)
+      return true;
+    return false;
+  }
+
   componentDidUpdate() {
     this.props.scrollToBottom()
   }
