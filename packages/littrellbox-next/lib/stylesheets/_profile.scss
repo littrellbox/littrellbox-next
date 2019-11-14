@@ -20,7 +20,7 @@
   font-size: 2rem;
   width: fit-content;
   overflow: none;
-  //margin-bottom: 0.75rem;
+  margin-bottom: 0.75rem;
   font-family: $font;
 }
 
@@ -41,4 +41,13 @@
  width: 3.8rem;
  height: 3.8rem;
  border-radius: 50%
+}
+
+.profile-button-dm {
+  color: #555555;
+  transition: 0.2s
+}
+
+.profile-button-dm:hover {
+  color: #cccccc;
 }

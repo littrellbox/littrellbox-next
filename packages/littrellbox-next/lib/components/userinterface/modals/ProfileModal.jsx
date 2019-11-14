@@ -1,16 +1,24 @@
 import React from 'react'
-import { Components, withCurrentUser, registerComponent, withUpdate } from 'meteor/vulcan:core';
+import { Components, withCurrentUser, registerComponent, withCreate } from 'meteor/vulcan:core';
 
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faWindowClose, faUpload} from '@fortawesome/free-solid-svg-icons'
+import {faComments} from '@fortawesome/free-solid-svg-icons'
 
 import axios from 'axios';
 
 class ProfileModal extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-    }
+  }
+
+  createDM() {
+    this.props.createChannel({
+      data: {
+        name: "directm",
+        isDm: true,
+        dmUserIds: [this.props.currentUser._id, this.props.user._id]
+      }
+    })
   }
 
   render() {
@@ -22,13 +30,18 @@ class ProfileModal extends React.Component {
           </div>
           <span className="profile-modal-username">{this.props.user.username}</span>
         </div>
+        <div className="profile-buttons">
+          <div className="profile-button-dm" onClick={() => this.createDM()}>
+            <FontAwesomeIcon icon={faComments}/>
+          </div>
+        </div>
       </div>
     )
   }
 }
 
 const options = {
-  collectionName: "Users"
+  collectionName: "Channels"
 }
 
-registerComponent({ name: 'ProfileModal', component: ProfileModal, hocs: [withCurrentUser, [withUpdate, options]] });
+registerComponent({ name: 'ProfileModal', component: ProfileModal, hocs: [withCurrentUser, [withCreate, options]] });
