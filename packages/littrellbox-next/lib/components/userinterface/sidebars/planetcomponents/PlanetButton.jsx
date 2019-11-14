@@ -54,8 +54,7 @@ const options = {
 };
 
 const optionsMulti = {
-  collectionName: "Channels",
-  queryOptions: { pollInterval: 200 }
+  collectionName: "Channels"
 }
 
 registerComponent({ name: 'PlanetButton', component: PlanetButton, hocs: [[withSingle, options], [withMulti, optionsMulti]] });

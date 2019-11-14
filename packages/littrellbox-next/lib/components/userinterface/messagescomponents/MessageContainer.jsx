@@ -9,9 +9,15 @@ import Tooltip from '../../lib/Tooltip'
 class MessageContainer extends React.Component {
   constructor(props) {
     super(props)
+    
+    this.state = {
+      showProfile: false
+    }
   }
 
-  shouldComponentUpdate(newProps) {
+  shouldComponentUpdate(newProps, newState) {
+    if(this.state !==  newState)
+      return true;
     if(this.props.messages !== newProps.messages) 
       return true;
     if(this.props.document !== newProps.document)

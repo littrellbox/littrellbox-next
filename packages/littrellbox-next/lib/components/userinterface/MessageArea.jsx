@@ -62,7 +62,7 @@ class MessageArea extends React.Component {
 
 const options = {
   collectionName: "Messages",
-  queryOptions: { pollInterval: 200 }
+  queryOptions: { pollInterval: 1000 }
 }
 
 registerComponent({ name: 'MessageArea', component: MessageArea, hocs: [withCurrentUser, [withMulti, options]]});

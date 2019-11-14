@@ -18,6 +18,7 @@ import '../components/userinterface/messagescomponents/MessageFileAttachment';
 //modals
 import '../components/userinterface/modals/SettingsModal';
 import '../components/userinterface/modals/AboutModal';
+import '../components/userinterface/modals/ProfileModal';
 
 //sidebars
 import '../components/userinterface/sidebars/ChannelSidebar';
