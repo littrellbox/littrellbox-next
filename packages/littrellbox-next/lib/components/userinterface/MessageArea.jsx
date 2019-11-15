@@ -66,4 +66,3 @@ const options = {
 }
 
 registerComponent({ name: 'MessageArea', component: MessageArea, hocs: [withCurrentUser, [withMulti, options]]});
-//[withMulti, multiOptions], [withCreate, createOptions]

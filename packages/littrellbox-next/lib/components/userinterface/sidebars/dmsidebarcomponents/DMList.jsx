@@ -12,6 +12,15 @@ class DMList extends React.Component {
     super(props)
   }
 
+  getUserId(channel) {
+    if (channel.dmUserIds.length != 2) {
+      return "" //no document will ever match this
+    }
+    arrayInPlace = [...channel.dmUserIds]
+    arrayInPlace.splice(channel.dmUserIds.indexOf(this.props.currentUser._id), 1)
+    return arrayInPlace
+  }
+
   render() {
     return (
       <div className="channel-list">
@@ -25,10 +34,15 @@ class DMList extends React.Component {
             <CircleLoader/>
           </div>:
           <div className="channel-list-container">
-            {this.props.results.map(channel => <Components.ChannelButton key={channel._id} buttonChannel={channel} terms={{
-              view: 'byChannelId',
-              channelId: channel._id
-            }}/>)}
+            {this.props.results.map(channel => <Components.DMButton
+              key={channel._id} 
+              buttonChannel={channel}
+              documentId={this.getUserId(channel)[0]}
+              terms={{
+                view: 'byChannelId',
+                channelId: channel._id
+              }}
+            />)}
           </div>
         }
       </div>

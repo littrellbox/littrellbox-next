@@ -29,6 +29,7 @@ import '../components/userinterface/sidebars/DMSidebar';
 import '../components/userinterface/sidebars/dmsidebarcomponents/DMSidebarHeader';
 import '../components/userinterface/sidebars/dmsidebarcomponents/DMHomeButton';
 import '../components/userinterface/sidebars/dmsidebarcomponents/DMList';
+import '../components/userinterface/sidebars/dmsidebarcomponents/DMButton';
 
 //channel sidebar
 import '../components/userinterface/sidebars/channelcomponents/ChannelButton';

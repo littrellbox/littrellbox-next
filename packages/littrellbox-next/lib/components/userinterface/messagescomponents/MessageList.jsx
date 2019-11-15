@@ -84,21 +84,21 @@ class MessageList extends React.Component {
           } else if(workingArray.length != 0) {
             objectsArray.push({
               messages: workingArray,
-              key: workingArray[workingArray.length - 1]
+              key: workingArray[workingArray.length - 1]._id
             })
             workingArray = []
           }
           
           if(messageObjects[i].userId != messageLastId) {
             workingArray.push(messageObjects[i])
-            messageLastId = messageObjects[i].userId
+            messageLastId = workingArray[workingArray.length - 1]._id
           }
         }
         
         //push remaining content, if we have any
         objectsArray.push({
           messages: workingArray,
-          key: workingArray[workingArray.length - 1]
+          key: workingArray[workingArray.length - 1]._id
         })
   
         return objectsArray
