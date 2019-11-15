@@ -122,7 +122,7 @@
 .channel-button {
   color: #cccccc;
   padding-bottom: 0.5rem;
-  padding-top: 0.4rem;
+  padding-top: 0.45rem;
   padding-left: 0.5rem;
   cursor: pointer;
   padding-right: 0.5rem;
@@ -139,7 +139,7 @@
   transition: 0.2s;
   color: #cccccc;
   padding-bottom: 0.5rem;
-  padding-top: 0.4rem;
+  padding-top: 0.45rem;
   padding-left: 0.5rem;
   background-color: #555555;
   cursor: pointer;
@@ -246,25 +246,24 @@
 }
 
 .dm-button-profile-picture {
-  width: 1rem;
-  height: 1rem;
+  width: 1.1rem;
+  height: 1.1rem;
+  margin-top: 0.1rem;
   margin-right: 0.23rem;
   border-radius: 50%;
-  margin-top: 0.2rem;
   display: inline-block;
   background-color: #555555;
 }
 
 .dm-button-pfp-image {
-  width: 1rem;
-  height: 1rem;
+  width: 1.1rem;
+  height: 1.1rem;
   border-radius: 50%;
-
 }
 
 .dm-button-group-icon {
-  width: 1rem;
-  height: 1rem;
+  width: 1.1rem;
+  height: 1.1rem;
 }
 
 .flex {

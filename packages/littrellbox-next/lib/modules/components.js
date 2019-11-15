@@ -14,6 +14,7 @@ import '../components/userinterface/messagescomponents/MessageTextbox';
 import '../components/userinterface/messagescomponents/MessageContainer';
 import '../components/userinterface/messagescomponents/MessageAttachmentContainer';
 import '../components/userinterface/messagescomponents/MessageFileAttachment';
+import '../components/userinterface/messagescomponents/MessageAreaHeader';
 
 //modals
 import '../components/userinterface/modals/SettingsModal';

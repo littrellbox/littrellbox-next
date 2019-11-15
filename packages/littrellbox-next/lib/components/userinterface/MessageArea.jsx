@@ -18,6 +18,18 @@ class MessageArea extends React.Component {
     
   } 
 
+  getUserId(channel) {
+    if (!channel.isDm) {
+      return ""
+    }
+    if (channel.dmUserIds.length != 2) {
+      return "" //no document will ever match this
+    }
+    arrayInPlace = [...channel.dmUserIds]
+    arrayInPlace.splice(channel.dmUserIds.indexOf(this.props.currentUser._id), 1)
+    return arrayInPlace
+  }
+
   render() {
     return (
       <ChatContext.Consumer>
@@ -25,28 +37,31 @@ class MessageArea extends React.Component {
 
           if(channel._id && !this.props.loading) {
             return (
-              <div className="message-area"> 
-                <Components.MessageList 
-                  items={this.props.results}
-                  count={this.props.count}
-                  totalCount={this.props.totalCount}
-                  loadMore={() => this.props.loadMore()}
-                  planet={this.props.planet}
-                />
-                <Components.MessageTextbox
-                  channelName={channel.name}
-                  channelId={channel._id}
-                  document={this.props.results[0]}
-                  addFile={(acceptedFiles) => onDrop(acceptedFiles)}
-                  files={attachments}
-                  removeItem={(key) => removeFile(key)}
-                  removeAllItems={() => removeAllFiles()}
-                />
+              <div className="message-area-container">
+                <Components.MessageAreaHeader documentId={this.getUserId(channel)}/>
+                <div className="message-area"> 
+                 <Components.MessageList 
+                   items={this.props.results}
+                   count={this.props.count}
+                   totalCount={this.props.totalCount}
+                   loadMore={() => this.props.loadMore()}
+                   planet={this.props.planet}
+                 />
+                 <Components.MessageTextbox
+                   channelName={channel.name}
+                   channelId={channel._id}
+                   document={this.props.results[0]}
+                   addFile={(acceptedFiles) => onDrop(acceptedFiles)}
+                   files={attachments}
+                   removeItem={(key) => removeFile(key)}
+                   removeAllItems={() => removeAllFiles()}
+                 />
+                </div>
               </div>
             )
           }
           return (
-            <div className="message-area">
+            <div className="message-area ma-height-fix">
               <Components.FeaturedPlanets terms={{
                 view: "byFeatured",
                 featured: true,

@@ -3,13 +3,25 @@
   overflow-x: hidden;
 }
 
-.message-area {
+.message-area-container {
   width: 100%;
+  order: 2;
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.ma-height-fix {
+  height: calc(100% - 1rem) !important;
+}
+
+.message-area {
+  width: calc(100% - 2rem);
+  height: 100%;
   order: 2;
   background-color: #444444;
   padding: 1rem;
   padding-top: 0;
-  flex: 1 1 auto;
   display: flex;
   overflow-x: none;
   flex-direction: column;
@@ -361,4 +373,12 @@
   .message-textbox-textarea {
     font-size: 0.9rem;
   }
+}
+
+//header
+.message-area-header {
+  color: #cccccc;
+  background-color: #444444;
+  padding: 1rem;
+  border-bottom: 0.1rem solid #333333;
 }
