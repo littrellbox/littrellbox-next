@@ -28,10 +28,8 @@ class DMButton extends React.Component {
                   {!this.props.document && <FontAwesomeIcon className="dm-button-group-icon" icon={faUsers}/>}
                   {this.props.document && this.props.document.lb_profilePicture && <img src={this.props.document.lb_profilePicture} className="dm-button-pfp-image"/>}
                 </span>
-                <span className="channel-button-active-text">
-                  {this.props.document && <span>{this.props.document.username}</span>}
-                  {!this.props.document && <span>{this.props.buttonChannel.name}</span>}
-                </span>
+                {this.props.document && <span className="channel-button-active-text dmb-text">{this.props.document.username}</span>}
+                {!this.props.document && <span className="channel-button-active-text dmb-text">{this.props.buttonChannel.name}</span>}
               </div>
             )
           }
@@ -43,8 +41,8 @@ class DMButton extends React.Component {
                 {this.props.document && this.props.document.lb_profilePicture && <img src={this.props.document.lb_profilePicture} className="dm-button-pfp-image"/>}
               </span>
               <span>
-                {this.props.document && <span>{this.props.document.username}</span>}
-                {!this.props.document && <span>{this.props.buttonChannel.name}</span>}
+                {this.props.document && <span className="channel-button-active-text dmb-text">{this.props.document.username}</span>}
+                {!this.props.document && <span className="channel-button-active-text dmb-text">{this.props.buttonChannel.name}</span>}
               </span>
             </div>
           )

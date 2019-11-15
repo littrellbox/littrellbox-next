@@ -248,8 +248,7 @@
 .dm-button-profile-picture {
   width: 1.1rem;
   height: 1.1rem;
-  margin-top: 0.1rem;
-  margin-right: 0.23rem;
+  margin-right: 0.33rem;
   border-radius: 50%;
   display: inline-block;
   background-color: #555555;
@@ -264,6 +263,13 @@
 .dm-button-group-icon {
   width: 1.1rem;
   height: 1.1rem;
+}
+
+.dmb-text {
+  height: 1.1rem;
+  display: inline-block;
+  padding-top: 0;
+  font-size: 1.1rem;
 }
 
 .flex {

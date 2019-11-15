@@ -38,7 +38,7 @@ class MessageArea extends React.Component {
           if(channel._id && !this.props.loading) {
             return (
               <div className="message-area-container">
-                <Components.MessageAreaHeader documentId={this.getUserId(channel)}/>
+                <Components.MessageAreaHeader documentId={this.getUserId(channel)[0]}/>
                 <div className="message-area"> 
                  <Components.MessageList 
                    items={this.props.results}

@@ -70,7 +70,7 @@ class MessageContainer extends React.Component {
         <div style={{width: "100%"}}>
           <div className="message-header">
             <div className="message-userdate">
-              <span onClick={() => this.toggleProfile()}>{document.username} </span>
+              <span className="message-username" onClick={() => this.toggleProfile()}>{document.username} </span>
               {this.props.document && this.props.document.isAdmin && <Tooltip text="Moderator" className="message-name-icon"><FontAwesomeIcon icon={faUserShield}/></Tooltip>}
               {this.props.document && (this.props.document._id == this.props.planet.userId) && <Tooltip text="Planet Owner" className="message-name-icon"><FontAwesomeIcon icon={faCrown}/></Tooltip>}
               <span className="message-date">
