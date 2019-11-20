@@ -11,8 +11,19 @@ class UserFinder extends React.Component {
     super(props)
   }
 
+  componentDidUpdate(oldProps) {
+    if(this.props.terms.username != oldProps.terms.username) {
+      this.props.refetch()
+    }
+  }
+
   render() {
-    if(this.props.document) {
+    if(this.props.results) {
+      if(this.props.results[0]) {
+        return(
+          <img src={this.props.results[0].lb_profilePicture} className="mah-add-user-pfp"/>
+        )
+      }
       return null
     } else {
       return (<div className="user-finder-loading">
