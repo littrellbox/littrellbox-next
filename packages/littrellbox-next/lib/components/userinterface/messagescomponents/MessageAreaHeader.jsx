@@ -4,11 +4,21 @@ import { Components, withCurrentUser, registerComponent, withSingle } from 'mete
 import { ChatContext } from '../../../contexts/ChatContext'
 
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faHashtag, faUsers} from '@fortawesome/free-solid-svg-icons'
+import {faHashtag, faUsers, faUserPlus} from '@fortawesome/free-solid-svg-icons'
 
 class MessageAreaHeader extends React.Component {
   constructor(props) {
     super(props)
+
+    this.state = {
+      showAddUser: false
+    }
+  }
+
+  toggleAddUser() {
+    this.setState({
+      showAddUser: !this.state.showAddUser
+    })
   }
 
   render() {
@@ -25,9 +35,16 @@ class MessageAreaHeader extends React.Component {
             icon = faUsers
           }
           return (<div className="message-area-header">
-            <span className="message-area-header-text">
+            <div className="message-area-header-text">
               <FontAwesomeIcon icon={icon} className="message-area-header-icon"/> {channelNameText}
-            </span>
+            </div>
+            <div className="message-area-header-buttons">
+              {channel.isDm && <div className="message-area-header-add-user-button">
+                <FontAwesomeIcon icon={faUserPlus} onClick={() => this.toggleAddUser()}/>
+                {this.state.showAddUser && <Components.MessageAreaHeaderAddUser/>}
+              </div>}
+            </div>
+            {this.state.showAddUser && <div className="dialog-transparent-background" onClick={() => this.toggleAddUser()}/>}
           </div>)
         }}
       </ChatContext.Consumer>

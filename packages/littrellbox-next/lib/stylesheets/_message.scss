@@ -375,14 +375,55 @@
   }
 }
 
+.message-username {
+  margin-right: -0.33rem;
+}
+
 //header
 .message-area-header {
   color: #cccccc;
   background-color: #444444;
   padding: 1rem;
   border-bottom: 0.1rem solid #333333;
+  display: flex;
 }
 
-.message-username {
-  margin-right: -0.33rem;
+.message-area-header-buttons {
+  margin-left: auto;
+}
+
+.message-area-header-add-user {
+  margin-top: 0.25rem;
+  position: fixed;
+  transform: translateX(calc(-100% + 1rem));
+  z-index: 100;
+  padding: 0.75rem;
+  background-color: #333333;
+  border-radius: 0.5rem;
+}
+
+.mah-add-user-textbox-div {
+  display: flex;
+  background-color: #444444;
+  color: #cccccc;
+  border-style: none;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  padding-top: 0.45rem;
+}
+
+.mah-add-user-textbox {
+  border-style: none;
+  background-color: #444444;
+  color: #cccccc;
+}
+
+.user-finder-loading {
+  display: inline-block
+}
+
+.mah-add-user-loader {
+  display: inline-block;
+  margin-top: 0.5rem;
+  margin-right: 0.25rem;
 }

@@ -15,6 +15,8 @@ import '../components/userinterface/messagescomponents/MessageContainer';
 import '../components/userinterface/messagescomponents/MessageAttachmentContainer';
 import '../components/userinterface/messagescomponents/MessageFileAttachment';
 import '../components/userinterface/messagescomponents/MessageAreaHeader';
+import '../components/userinterface/messagescomponents/macomponents/MessageAreaHeaderAddUser';
+import '../components/userinterface/messagescomponents/macomponents/UserFinder';
 
 //modals
 import '../components/userinterface/modals/SettingsModal';
