@@ -41,7 +41,7 @@ class MessageAreaHeader extends React.Component {
             <div className="message-area-header-buttons">
               {channel.isDm && <div className="message-area-header-add-user-button">
                 <FontAwesomeIcon icon={faUserPlus} onClick={() => this.toggleAddUser()}/>
-                {this.state.showAddUser && <Components.MessageAreaHeaderAddUser/>}
+                {this.state.showAddUser && <Components.MessageAreaHeaderAddUser channel={channel}/>}
               </div>}
             </div>
             {this.state.showAddUser && <div className="dialog-transparent-background" onClick={() => this.toggleAddUser()}/>}
