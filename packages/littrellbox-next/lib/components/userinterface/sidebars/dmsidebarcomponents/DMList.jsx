@@ -14,7 +14,7 @@ class DMList extends React.Component {
 
   getUserId(channel) {
     if (channel.dmUserIds.length != 2) {
-      return "" //no document will ever match this
+      return [""]
     }
     arrayInPlace = [...channel.dmUserIds]
     arrayInPlace.splice(channel.dmUserIds.indexOf(this.props.currentUser._id), 1)

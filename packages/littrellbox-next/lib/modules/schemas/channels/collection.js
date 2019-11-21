@@ -63,8 +63,8 @@ const Channels = createCollection({
             errors.push("0019:MISSING_DM_USER_IDS")
           }
 
-          if(document.data.dmUserIds.length = 2) {
-            channel = Channels.findOne({dmUserIds: {$all: document.data.dmUserIds, $size:2}})
+          if(document.data.dmUserIds.length == 2) {
+            channel = Channels.findOne({dmUserIds: {$all: document.data.dmUserIds}})
 
             if(channel) {
               errors.push("0020:DM_CHANNEL_ALREADY_EXISTS")

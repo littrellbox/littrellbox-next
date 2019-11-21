@@ -246,6 +246,7 @@
 }
 
 .dm-button-profile-picture {
+  position: relative;
   width: 1rem;
   height: 1rem;
   margin-right: 0.33rem;
@@ -261,8 +262,12 @@
 }
 
 .dm-button-group-icon {
-  width: 1rem;
-  height: 1rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0.5rem;
+  height: 0.5rem;
+  transform: translate(-50%, -50%)
 }
 
 .dmb-text {

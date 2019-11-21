@@ -25,11 +25,11 @@ class DMButton extends React.Component {
             return(
               <div className="channel-button-active">
                 <span className="dm-button-profile-picture">
-                  {!this.props.document && <FontAwesomeIcon className="dm-button-group-icon" icon={faUsers}/>}
-                  {this.props.document && this.props.document.lb_profilePicture && <img src={this.props.document.lb_profilePicture} className="dm-button-pfp-image"/>}
+                  {!this.props.documentId != "" && <FontAwesomeIcon className="dm-button-group-icon" icon={faUsers}/>}
+                  {this.props.documentId != "" && this.props.document && this.props.document.lb_profilePicture && <img src={this.props.document.lb_profilePicture} className="dm-button-pfp-image"/>}
                 </span>
-                {this.props.document && <span className="channel-button-active-text dmb-text">{this.props.document.username}</span>}
-                {!this.props.document && <span className="channel-button-active-text dmb-text">{this.props.buttonChannel.name}</span>}
+                {this.props.documentId != "" && this.props.document && <span className="channel-button-active-text dmb-text">{this.props.document.username}</span>}
+                {!this.props.documentId != "" && <span className="channel-button-active-text dmb-text">{this.props.buttonChannel.name}</span>}
               </div>
             )
           }
@@ -37,12 +37,12 @@ class DMButton extends React.Component {
           return(
             <div className="channel-button flex" onClick={() => switchChannel(this.props.buttonChannel)}>
               <span className="dm-button-profile-picture">
-                {!this.props.document && <FontAwesomeIcon className="dm-button-group-icon" icon={faUsers}/>}
-                {this.props.document && this.props.document.lb_profilePicture && <img src={this.props.document.lb_profilePicture} className="dm-button-pfp-image"/>}
+                {!this.props.documentId != "" && <FontAwesomeIcon className="dm-button-group-icon" icon={faUsers}/>}
+                {this.props.documentId != "" && this.props.document && this.props.document.lb_profilePicture && <img src={this.props.document.lb_profilePicture} className="dm-button-pfp-image"/>}
               </span>
               <span>
-                {this.props.document && <span className="channel-button-active-text dmb-text">{this.props.document.username}</span>}
-                {!this.props.document && <span className="channel-button-active-text dmb-text">{this.props.buttonChannel.name}</span>}
+                {this.props.documentId != "" && this.props.document && <span className="channel-button-active-text dmb-text">{this.props.document.username}</span>}
+                {!this.props.documentId != "" && <span className="channel-button-active-text dmb-text">{this.props.buttonChannel.name}</span>}
               </span>
             </div>
           )
