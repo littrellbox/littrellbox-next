@@ -23,7 +23,7 @@ class DMButton extends React.Component {
 
           if(channel._id == this.props.buttonChannel._id) {
             return(
-              <div className="channel-button-active">
+              <div className="channel-button-active dm-button">
                 <span className="dm-button-profile-picture">
                   {!this.props.documentId != "" && <FontAwesomeIcon className="dm-button-group-icon" icon={faUsers}/>}
                   {this.props.documentId != "" && this.props.document && this.props.document.lb_profilePicture && <img src={this.props.document.lb_profilePicture} className="dm-button-pfp-image"/>}
@@ -35,15 +35,13 @@ class DMButton extends React.Component {
           }
 
           return(
-            <div className="channel-button flex" onClick={() => switchChannel(this.props.buttonChannel)}>
+            <div className="channel-button dm-button flex" onClick={() => switchChannel(this.props.buttonChannel)}>
               <span className="dm-button-profile-picture">
                 {!this.props.documentId != "" && <FontAwesomeIcon className="dm-button-group-icon" icon={faUsers}/>}
                 {this.props.documentId != "" && this.props.document && this.props.document.lb_profilePicture && <img src={this.props.document.lb_profilePicture} className="dm-button-pfp-image"/>}
               </span>
-              <span>
-                {this.props.documentId != "" && this.props.document && <span className="channel-button-active-text dmb-text">{this.props.document.username}</span>}
-                {!this.props.documentId != "" && <span className="channel-button-active-text dmb-text">{this.props.buttonChannel.name}</span>}
-              </span>
+              {this.props.documentId != "" && this.props.document && <span className="channel-button-active-text dmb-text">{this.props.document.username}</span>}
+              {!this.props.documentId != "" && <span className="channel-button-active-text dmb-text">{this.props.buttonChannel.name}</span>}
             </div>
           )
         }}

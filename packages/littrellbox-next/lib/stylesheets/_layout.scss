@@ -13,27 +13,37 @@ p {
   display: inline-block;
   position: relative;
   .tooltip {
-    display: none;
     z-index: 100;
     transition: 0.2s;
     background-color: #00000000;
+    color: #00000000;
+    display: block;
+    position: absolute;
+    clear: both;
+    width: max-content;
+    transform: translateX(-50%);
+    right: initial;
+    left: 50%;
+    margin: 0.35rem;
+    margin-left: 0;
+    margin-top: -0.5rem;
+    border-radius: 0.25rem;
+    padding: 0.4rem;
+    padding-left: 0.5rem;
+    padding-bottom: 0.3rem;
+    padding-right: 0.5rem;
+    font-weight: normal;
+    font-size: 0.9rem;
+    pointer-events: none;
   }
 }
 
 .tooltip-container:hover {
   .tooltip {
-    display: block;
-    position: fixed;
-    width: max-content;
-    transform: translateX(-50%);
-    margin: 0.35rem;
-    border-radius: 0.25rem;
-    background-color: #222222;
-    padding: 0.4rem;
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
-    font-weight: normal;
-    font-size: 0.9rem;
+    margin-top: 0.2rem;
+    color: #cccccc;
+    pointer-events: default;
+    background-color: #222222CC;
   }
 }
 

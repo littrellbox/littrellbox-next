@@ -422,6 +422,7 @@
 
 .mah-add-user-textbox {
   border-style: none;
+  font-family: $font;
   background-color: #444444;
   color: #cccccc;
 }
@@ -444,4 +445,25 @@
   border-radius: 50%;
   background-color: #555555;
   border-style: none;
+}
+
+.message-area-header-textbox {
+  background-color: #444444;
+  color: #cccccc;
+  font-size: 1rem;
+  border: none;
+  margin-bottom: -0.05rem;
+  margin-left: 0.25rem;
+  transition: 0.2s;
+  font-family: $font;
+  border-radius: 0.25rem;
+}
+
+.message-area-header-textbox:focus {
+  background-color: #333333;
+  padding: 0.35rem;
+  padding-bottom: 0.25rem;
+  padding-top: 0.45rem;
+  margin-top: -0.50rem;
+  margin-bottom: -0.25rem;
 }

@@ -120,13 +120,13 @@
 }
 
 .channel-button {
+  transition: 0.2s;
   color: #cccccc;
   padding-bottom: 0.5rem;
   padding-top: 0.45rem;
   padding-left: 0.5rem;
   cursor: pointer;
   padding-right: 0.5rem;
-  transition: 0.2s;
   overflow: hidden;
 }
 
@@ -157,6 +157,7 @@
 .channel-list-title-text {
   margin-right: auto;
 }
+
 .channel-button-active-text {
   margin-right: auto;
 }
@@ -242,7 +243,8 @@
 }
 
 .dm-sidebar-home {
-  margin-bottom: 0.25rem;
+  font-size: 1rem;
+  margin-bottom: 0.35rem;
 }
 
 .dm-button-profile-picture {
@@ -271,12 +273,17 @@
 }
 
 .dmb-text {
-  height: 1.1rem;
+  height: 1rem;
   display: inline-block;
   padding-top: 0;
-  font-size: 1.1rem;
+  font-size: 1rem;
 }
 
 .flex {
   display: flex; // workaround for weird spacing issue
+}
+
+.dm-button {
+  padding-top: 0.58rem;
+  padding-bottom: 0.56rem;
 }

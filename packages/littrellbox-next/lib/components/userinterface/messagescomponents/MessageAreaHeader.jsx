@@ -1,5 +1,5 @@
 import React from 'react'
-import { Components, withCurrentUser, registerComponent, withSingle } from 'meteor/vulcan:core';
+import { Components, withCurrentUser, registerComponent, withSingle, withUpdate } from 'meteor/vulcan:core';
 
 import { ChatContext } from '../../../contexts/ChatContext'
 
@@ -17,6 +17,8 @@ class MessageAreaHeader extends React.Component {
     }
   }
 
+  _timeoutId;
+
   toggleAddUser() {
     this.setState({
       showAddUser: !this.state.showAddUser
@@ -30,12 +32,22 @@ class MessageAreaHeader extends React.Component {
     })
   }
 
-  handleKeyPress(e) {
-
+  handleKeyPress(e, id) {
+    documentId = id
+    if(e.key === 'Enter') {
+      this.props.updateChannel({
+        selector: {documentId},
+        data: {
+          name: this.state.textboxText
+        }
+      })
+    }
   }
 
-  handleBlur(e) {
-
+  handleBlur(name) {
+    this.setState({
+      textboxText: name
+    })
   }
 
   render() {
@@ -53,14 +65,15 @@ class MessageAreaHeader extends React.Component {
           return (<div className="message-area-header">
             <div className="message-area-header-text">
               <FontAwesomeIcon icon={icon} className="message-area-header-icon"/> 
-              {channel.isDm && channel.dmUserIds.length > 2 && <input 
+              {channel.isDm && channel.dmUserIds.length > 2 && channel.userId == this.props.currentUser._id && <input 
                 type="text" 
-                value={channelNameText} 
-                onBlur={(e) => this.handleBlur(e)}
-                onKeyPress={(e) => this.handleKeyPress(e)}
+                value={channelNameText}
+                onBlur={() => this.handleBlur(channel.name)}
+                onKeyPress={(e) => this.handleKeyPress(e, channel._id)}
                 onChange={(e) => this.handleChange(e)}
+                className="message-area-header-textbox"
               />}
-              {(!channel.isDm || channel.dmUserIds.length == 2) && <span> {channelNameText}</span>}
+              {(!channel.isDm || channel.dmUserIds.length == 2 || channel.userId != this.props.currentUser._id) && <span> {channelNameText}</span>}
             </div>
             <div className="message-area-header-buttons">
               {channel.isDm && <div className="message-area-header-add-user-button">
@@ -76,8 +89,12 @@ class MessageAreaHeader extends React.Component {
   }
 }
 
+const channelOptions = {
+  collectionName: "Channels"
+}
+
 const options = {
   collectionName: "Users"
 }
 
-registerComponent({ name: 'MessageAreaHeader', component: MessageAreaHeader, hocs: [withCurrentUser, [withSingle, options]]});
+registerComponent({ name: 'MessageAreaHeader', component: MessageAreaHeader, hocs: [withCurrentUser, [withSingle, options], [withUpdate, channelOptions]]});
