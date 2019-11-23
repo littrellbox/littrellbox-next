@@ -48,9 +48,9 @@ class MessageArea extends React.Component {
                    planet={this.props.planet}
                  />
                  <Components.MessageTextbox
-                   channelName={channel.name}
-                   channelId={channel._id}
                    document={this.props.results[0]}
+                   channel={channel}
+                   documentId={this.getUserId(channel)[0]}
                    addFile={(acceptedFiles) => onDrop(acceptedFiles)}
                    files={attachments}
                    removeItem={(key) => removeFile(key)}

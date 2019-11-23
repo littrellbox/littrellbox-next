@@ -104,8 +104,7 @@ class MessageEditTextbox extends React.Component {
                 <Textarea 
                   value={text} 
                   rows="1" 
-                  tabIndex="1" 
-                  placeholder={"Message #" + this.props.channelName}
+                  tabIndex="1"
                   className="message-textbox-textarea"
                   onKeyDown={(e) => this.handleKeyDown(e)} 
                   onKeyUp={(e) => this.handleKeyUp(e)} 
