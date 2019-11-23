@@ -22,6 +22,7 @@ import '../components/userinterface/messagescomponents/macomponents/UserFinder';
 import '../components/userinterface/modals/SettingsModal';
 import '../components/userinterface/modals/AboutModal';
 import '../components/userinterface/modals/ProfileModal';
+import '../components/userinterface/modals/profilemodalcomponents/CreateDMButton';
 
 //sidebars
 import '../components/userinterface/sidebars/ChannelSidebar';

@@ -34,7 +34,7 @@ class MessageAreaHeaderAddUser extends React.Component {
       arrayOfIds = [...this.props.channel.dmUserIds]
       arrayOfIds.push(ourUserId)
       if(this.props.channel.dmUserIds.length > 2) {
-        documentId = this.props.channel.userIds
+        documentId = this.props.channel._id
         this.props.updateChannel({
           selector: { documentId },
           data: {

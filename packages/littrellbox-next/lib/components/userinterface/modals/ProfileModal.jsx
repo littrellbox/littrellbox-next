@@ -4,21 +4,11 @@ import { Components, withCurrentUser, registerComponent, withCreate } from 'mete
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faComments} from '@fortawesome/free-solid-svg-icons'
 
-import axios from 'axios';
+import {ChatContext} from '../../../contexts/ChatContext'
 
 class ProfileModal extends React.Component {
   constructor(props) {
     super(props)
-  }
-
-  createDM() {
-    this.props.createChannel({
-      data: {
-        name: "directm",
-        isDm: true,
-        dmUserIds: [this.props.currentUser._id, this.props.user._id]
-      }
-    })
   }
 
   render() {
@@ -31,17 +21,14 @@ class ProfileModal extends React.Component {
           <span className="profile-modal-username">{this.props.user.username}</span>
         </div>
         <div className="profile-buttons">
-          <div className="profile-button-dm" onClick={() => this.createDM()}>
-            <FontAwesomeIcon icon={faComments}/>
-          </div>
+          <Components.CreateDMButton user={this.props.user} terms={{
+            view: 'findDm',
+            dmUserIds: [this.props.user._id, this.props.currentUser._id]
+          }}/>
         </div>
       </div>
     )
   }
 }
 
-const options = {
-  collectionName: "Channels"
-}
-
-registerComponent({ name: 'ProfileModal', component: ProfileModal, hocs: [withCurrentUser, [withCreate, options]] });
+registerComponent({ name: 'ProfileModal', component: ProfileModal, hocs: [withCurrentUser] });

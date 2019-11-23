@@ -64,7 +64,7 @@ const Channels = createCollection({
           }
 
           if(document.data.dmUserIds.length == 2) {
-            channel = Channels.findOne({dmUserIds: {$all: document.data.dmUserIds}})
+            channel = Channels.findOne({dmUserIds: {$all: document.data.dmUserIds, $size: 2}})
 
             if(channel) {
               errors.push("0020:DM_CHANNEL_ALREADY_EXISTS")
@@ -100,6 +100,12 @@ Channels.addView('byPlanetId', terms => ({
 Channels.addView("getDms", terms => ({
   selector: {
     dmUserIds: terms.userId
+  }
+}))
+
+Channels.addView("findDm", terms => ({
+  selector: {
+    dmUserIds: {$all: terms.dmUserIds, $size: 2}
   }
 }))
 
