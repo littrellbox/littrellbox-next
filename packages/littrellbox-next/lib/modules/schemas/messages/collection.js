@@ -8,6 +8,14 @@ import Planets from '../planets/collection'
 import Channels from '../channels/collection'
 
 const canRead = ({ document, user }) => {
+  channel = Channels.findOne(document.channelId)
+  
+  if(channel.isDm && !channel.dmUserIds.includes(user._id)) {
+    return false
+  } else if(channel.isDm) {
+    return true
+  }
+
   planetMember = PlanetMembers.findOne({
     userId: user._id,
     planetId: document.planetId
@@ -40,48 +48,48 @@ const Messages = createCollection({
       validate: [(validationErrors, document, properties) => { 
         errors = validationErrors
         if(!document.data.channelId) {
-          errors.push("missing_channel_id")
+          errors.push("0001:MISSING_CHANNEL_ID")
         }
-
-        if(!document.data.planetId) {
-          errors.push("missing_planet_id")
-        }
-
-        if(!document.data.text) {
-          errors.push("no_content")
-        }
-
-        if(document.currentUser.lb_muted == 1) {
-          errors.push("muted")
-        }
-        
-        console.log(document.currentUser)
 
         channel = Channels.findOne(document.data.channelId)
+
+        if(!channel.isDm && !document.data.planetId) {
+          errors.push("0002:MISSING_PLANET_ID")
+        }
+
+        if(channel.isDm && !channel.dmUserIds.includes(document.currentUser._id)) {
+          errors.push("0021:NOT_IN_DM")
+        }
+
+        /*if(!document.data.text) {
+          errors.push("0003:MISSING_TEXT")
+        }*/
+
+        if(document.currentUser.lb_muted == 1) {
+          errors.push("0004:MUTED")
+        }
+
         planet = Planets.findOne(document.data.planetId)
         planetMember = PlanetMembers.findOne({
           userId: document.currentUser._id,
           planetId: document.data.planetId
         })
 
-        if(!planet) {
-          errors.push("fake_planet")
+        if(!channel.isDm && !planet) {
+          errors.push("0005:FAKE_PLANET")
         }
 
         if(!channel) {
-          errors.push("fake_channel")
+          errors.push("0006:FAKE_CHANNEL")
         }
 
-        if(!planetMember) {
-          errors.push("not_in_planet")
+        if(!channel.isDm && !planetMember) {
+          errors.push("0007:NOT_IN_PLANET")
         }
 
         if(channel.planetId != document.data.planetId) {
-          errors.push("wrong_planet")
+          errors.push("0008:CHANNEL_MISMATCH")
         }
-
-        console.log(errors)
-        console.log("validated")
 
         return errors;
        }]

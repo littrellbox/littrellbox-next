@@ -53,14 +53,31 @@ class Main extends React.Component {
       })
     }
 
+    this.clearPlanet = () => {
+      this.setState({
+        planet: {},
+        channel: {},
+        planetMember: {}
+      })
+    }
+
+    this.setPlanetMember = (memberToSet) => {
+      this.setState({
+        planetMember: memberToSet
+      })
+    }
+
     this.state = {
       planet: {},
       channel: {},
+      planetMember: {},
       switchPlanet: this.switchPlanet,
       switchChannel: this.switchChannel,
+      setPlanetMember: this.setPlanetMember,
       onDrop: this.onDrop,
       removeFile: this.removeFile,
       removeAllFiles: this.removeAllFiles,
+      clearPlanet: this.clearPlanet,
       attachments: [],      
       showingDropDialog: false
     };
@@ -106,9 +123,8 @@ class Main extends React.Component {
       showingDropDialog: false
     })
 
-    console.log(evt.dataTransfer.files)
-    console.log(this.onDrop)
-    this.onDrop(Array.from(evt.dataTransfer.files))
+    if(this.props.currentUser.lb_muted != 1)
+      this.onDrop(Array.from(evt.dataTransfer.files))
   }
 
   render() {
@@ -117,12 +133,21 @@ class Main extends React.Component {
       channelIdToSet = this.state.channel._id
     }
 
+    messageLimit = 32
+    if(typeof(window) != 'undefined') {
+      if(window.innerHeight > 800)
+        messageLimit = 42
+      if(window.innerHeight > 1080)
+        messageLimit = 75
+    }
+
     return (
       <ChatContext.Provider 
         value={this.state} 
         className="main"
       > 
-        <Helmet>
+        <Helmet> 
+          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"/>
           <link href="https://unpkg.com/emoji-mart@2.11.1/css/emoji-mart.css" rel="stylesheet"/>
         </Helmet>
         
@@ -137,7 +162,7 @@ class Main extends React.Component {
           onDragCapture={(e) => {e.preventDefault()}}
           onDrop={(e) => this.onCCDrop(e)}
         >
-          {this.state.showingDropDialog && <div className="file-dropzone-upload">
+          {this.state.showingDropDialog && (this.props.currentUser.lb_muted != 1) && <div className="file-dropzone-upload">
             <div className="file-dropzone-icon"> 
               <FontAwesomeIcon icon={faUpload}/>
             </div>
@@ -148,11 +173,14 @@ class Main extends React.Component {
             limit: 10000
           }} />
           <Components.ChannelSidebar/>
-          <Components.MessageArea terms={{
-            view: 'byChannel',
-            channelId: channelIdToSet,
-            limit: 32
-          }}/>
+          <Components.MessageArea 
+            terms={{
+              view: 'byChannel',
+              channelId: channelIdToSet,
+              limit: messageLimit
+            }}
+            planet={this.state.planet}
+          />
         </div> }
         {!this.props.currentUser && <div className="login-main">
           <div className="login-form">

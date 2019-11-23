@@ -5,7 +5,7 @@
   height: calc(100% - 0.5rem);
   background-color: #222222;
   overflow-y: auto;
-  scrollbar-width: none;
+  scrollbar-width: none;  
   padding-bottom: .5rem;
 }
 
@@ -14,12 +14,18 @@
 }
 
 .channel-sidebar {
+  position: relative;
+  display: flex;
+  flex-direction: column;
   order: 1;
   width: 16vw;
-  min-width: 13.5rem;
+  min-width: 250px;
   max-width: 18rem;
   height: 100%;
+  max-height: 100%;
+  overflow: hidden;
   background-color: #333333;
+  scrollbar-color: #444444 #333333FF;
 }
 
 .new-planet-button {
@@ -96,7 +102,7 @@
 .channel-header-dropdown-toggle {
   position: absolute;
   cursor: pointer;
-  top: calc(50% - 1.25rem);
+  top: calc(50% - 0.75rem);
   right: 0.5rem;
   font-size: 1.5rem;
 }
@@ -114,13 +120,14 @@
 }
 
 .channel-button {
+  transition: 0.2s;
   color: #cccccc;
   padding-bottom: 0.5rem;
-  padding-top: 0.4rem;
+  padding-top: 0.45rem;
   padding-left: 0.5rem;
   cursor: pointer;
   padding-right: 0.5rem;
-  transition: 0.2s
+  overflow: hidden;
 }
 
 .channel-button:hover {
@@ -132,12 +139,13 @@
   transition: 0.2s;
   color: #cccccc;
   padding-bottom: 0.5rem;
-  padding-top: 0.4rem;
+  padding-top: 0.45rem;
   padding-left: 0.5rem;
   background-color: #555555;
   cursor: pointer;
   display: flex;
   padding-right: 0.5rem;
+  overflow: hidden;
 }
 
 .new-channel-button {
@@ -149,12 +157,13 @@
 .channel-list-title-text {
   margin-right: auto;
 }
+
 .channel-button-active-text {
   margin-right: auto;
 }
 
 .new-channel-textbox {
-  margin-top: 0;
+  margin-top: -0.5rem !important;
   margin: 0.5rem;
   background-color: #444444;
   color: #cccccc;
@@ -168,6 +177,22 @@
 
 .channel-list {
   position: relative;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.channel-list::-webkit-scrollbar {
+  width: 0.8rem;
+  height: 0.8rem;
+}
+
+.channel-list::-webkit-scrollbar-thumb {
+  border-radius: 0.45rem;
+  width: 0.5rem;
+  background-clip: padding-box;
+  border: 0.15rem solid rgba(255,255,255,0);
+  background-color: #444444;
 }
 
 .channel-list-loader {
@@ -183,4 +208,82 @@
 
 .message-area-file-dropzone:focus {
   outline: none;
+}
+
+.home-button-inner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.5rem;
+  text-align: center;
+  cursor: pointer;
+}
+
+//dm-sidebar
+
+.dm-sidebar-header {
+  color: #cccccc;
+  padding: 0.5rem;
+  padding-bottom: 0.4rem;
+  position: relative;
+}
+
+.dm-sidebar-header-username {
+  font-weight: bold;
+  font-size: 1.25rem;
+}
+
+.dm-sidebar-header-dropdown-toggle {
+  position: absolute;
+  cursor: pointer;
+  top: calc(50% - 0.75rem);
+  right: 0.5rem;
+  font-size: 1.5rem;
+}
+
+.dm-sidebar-home {
+  font-size: 1rem;
+  margin-bottom: 0.35rem;
+}
+
+.dm-button-profile-picture {
+  position: relative;
+  width: 1rem;
+  height: 1rem;
+  margin-right: 0.33rem;
+  border-radius: 50%;
+  display: inline-block;
+  background-color: #555555;
+}
+
+.dm-button-pfp-image {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+}
+
+.dm-button-group-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0.5rem;
+  height: 0.5rem;
+  transform: translate(-50%, -50%)
+}
+
+.dmb-text {
+  height: 1rem;
+  display: inline-block;
+  padding-top: 0;
+  font-size: 1rem;
+}
+
+.flex {
+  display: flex; // workaround for weird spacing issue
+}
+
+.dm-button {
+  padding-top: 0.58rem;
+  padding-bottom: 0.56rem;
 }

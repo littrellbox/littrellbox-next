@@ -16,6 +16,18 @@ class MessageArea extends React.Component {
       attachments: []
     }
     
+  } 
+
+  getUserId(channel) {
+    if (!channel.isDm) {
+      return ""
+    }
+    if (channel.dmUserIds.length != 2) {
+      return "" //no document will ever match this
+    }
+    arrayInPlace = [...channel.dmUserIds]
+    arrayInPlace.splice(channel.dmUserIds.indexOf(this.props.currentUser._id), 1)
+    return arrayInPlace
   }
 
   render() {
@@ -25,28 +37,36 @@ class MessageArea extends React.Component {
 
           if(channel._id && !this.props.loading) {
             return (
-              <div className="message-area"> 
-                <Components.MessageList 
-                  items={this.props.results}
-                  count={this.props.count}
-                  totalCount={this.props.totalCount}
-                  loadMore={() => this.props.loadMore()}
-                />
-                <Components.MessageTextbox
-                  channelName={channel.name}
-                  channelId={channel._id}
-                  document={this.props.results[0]}
-                  addFile={(acceptedFiles) => onDrop(acceptedFiles)}
-                  files={attachments}
-                  removeItem={(key) => removeFile(key)}
-                  removeAllItems={() => removeAllFiles()}
-                />
+              <div className="message-area-container">
+                <Components.MessageAreaHeader documentId={this.getUserId(channel)[0]}/>
+                <div className="message-area"> 
+                 <Components.MessageList 
+                   items={this.props.results}
+                   count={this.props.count}
+                   totalCount={this.props.totalCount}
+                   loadMore={() => this.props.loadMore()}
+                   planet={this.props.planet}
+                 />
+                 <Components.MessageTextbox
+                   document={this.props.results[0]}
+                   channel={channel}
+                   documentId={this.getUserId(channel)[0]}
+                   addFile={(acceptedFiles) => onDrop(acceptedFiles)}
+                   files={attachments}
+                   removeItem={(key) => removeFile(key)}
+                   removeAllItems={() => removeAllFiles()}
+                 />
+                </div>
               </div>
             )
           }
           return (
-            <div className="message-area">
-              
+            <div className="message-area ma-height-fix">
+              <Components.FeaturedPlanets terms={{
+                view: "byFeatured",
+                featured: true,
+                limit: 10
+              }}/>
             </div>
           )
         }}
@@ -57,8 +77,7 @@ class MessageArea extends React.Component {
 
 const options = {
   collectionName: "Messages",
-  queryOptions: { pollInterval: 200 }
+  queryOptions: { pollInterval: 500 }
 }
 
 registerComponent({ name: 'MessageArea', component: MessageArea, hocs: [withCurrentUser, [withMulti, options]]});
-//[withMulti, multiOptions], [withCreate, createOptions]

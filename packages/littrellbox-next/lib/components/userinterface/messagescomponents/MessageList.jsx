@@ -11,6 +11,18 @@ class MessageList extends React.Component {
     }
   }
 
+  shouldComponentUpdate(newProps) {
+    if(this.props.loading !== newProps.loading)
+      return true;
+    if(this.props.count !== newProps.count)
+      return true;
+    if(this.props.items !== newProps.items)
+      return true;
+    if(this.props.planet !== newProps.planet)
+      return true;
+    return false;
+  }
+
   isAtBottom = true
 
   forcePositionUpdate() {
@@ -72,21 +84,21 @@ class MessageList extends React.Component {
           } else if(workingArray.length != 0) {
             objectsArray.push({
               messages: workingArray,
-              key: i
+              key: workingArray[workingArray.length - 1]._id
             })
             workingArray = []
           }
           
           if(messageObjects[i].userId != messageLastId) {
             workingArray.push(messageObjects[i])
-            messageLastId = messageObjects[i].userId
+            messageLastId = workingArray[workingArray.length - 1].userId
           }
         }
         
         //push remaining content, if we have any
         objectsArray.push({
           messages: workingArray,
-          key: messageObjects.length
+          key: workingArray[workingArray.length - 1]._id
         })
   
         return objectsArray
@@ -108,6 +120,7 @@ class MessageList extends React.Component {
             scrollToBottomMessageMount={() => this.messageMountScroll()}
             forcePositionUpdate={() => this.forcePositionUpdate()}
             isScrolled={this.state.isScrolled}
+            planet={this.props.planet}
           />
           )}
           {/*this.reverseWorkaround().map(message => <Components.Message 

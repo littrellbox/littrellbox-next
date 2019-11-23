@@ -27,4 +27,10 @@ Planets.addDefaultView(terms => ({
   }
 }));
 
+Planets.addView('byFeatured', terms => ({
+  selector: {
+    featured: terms.featured
+  }
+}));
+
 export default Planets;

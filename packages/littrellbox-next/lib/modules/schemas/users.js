@@ -3,6 +3,12 @@ import { extendFragment } from 'meteor/vulcan:core'
 
 Users.createGroup('moderators')
 
+Users.addView('byUsername', terms => ({
+  selector: {
+    username: terms.username
+  }
+}));
+
 Users.addField([
   {
     fieldName: 'lb_profilePicture',

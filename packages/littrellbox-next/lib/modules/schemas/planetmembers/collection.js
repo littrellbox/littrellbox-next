@@ -16,6 +16,25 @@ const PlanetMembers = createCollection({
     canUpdate: ['owners', 'admins', 'moderators'],
     canDelete: ['owners', 'admins', 'moderators'],
   },
+
+  callbacks: {
+    create: {
+      validate: [(validationErrors, document, properties) => {
+        errors = validationErrors
+
+        planetMember = PlanetMembers.findOne({
+          userId: document.currentUser._id,
+          planetId: document.data.planetId
+        })
+
+        if(planetMember) {
+          errors.push("0018:ALREADY_IN_PLANET")
+        }
+
+        return errors
+      }]
+    }
+  }
 });
 
 PlanetMembers.addDefaultView(terms => ({

@@ -1,6 +1,6 @@
 import React from 'react';
 import Helmet from 'react-helmet';
-import { Components, withCurrentUser, registerComponent, withCreate, withUpdate, withMulti } from 'meteor/vulcan:core';
+import { Components, withCurrentUser, registerComponent, withCreate, withUpdate, withSingle } from 'meteor/vulcan:core';
 import Textarea from 'react-textarea-autosize';
 
 import { ChatContext } from '../../../contexts/ChatContext'
@@ -30,7 +30,7 @@ class MessageTextbox extends React.Component {
   handleKeyPress(e, planet, channel) {
     if (e.key === 'Enter' && !this.state.shiftKeyDown)
       e.preventDefault()
-    if (e.key === 'Enter' && !this.state.shiftKeyDown && this.state.textboxText != "") {
+    if (e.key === 'Enter' && !this.state.shiftKeyDown && (this.state.textboxText != "" || this.props.files.length != 0)) {
       this.props.createMessage({
         data: {
           planetId: planet._id,
@@ -48,7 +48,7 @@ class MessageTextbox extends React.Component {
           } else {   
             const formData = new FormData();
             formData.append('file', element);
-            formData.append('folder', this.props.channelId + "/" + value.data.createMessage.data._id);
+            formData.append('folder', this.props.channel._id + "/" + value.data.createMessage.data._id);
             formData.append('fileType', element.type)
             formData.append('name', element.name)
             axios.post(`/api/aws-upload-endpoint`, formData, {
@@ -133,7 +133,13 @@ class MessageTextbox extends React.Component {
     }
 
     addAttachmentClassName = "message-textbox-attachment-button"
-    placeholderText = "Message #" + this.props.channelName
+    placeholderText = "Message #" + this.props.channel.name
+    if (this.props.channel.isDm) {
+      placeholderText = "Message " + this.props.channel.name
+    }
+    if (this.props.channel.isDm && this.props.channel.dmUserIds.length == 2 && this.props.document && this.props.document.username) {
+      placeholderText = "Message " + this.props.document.username
+    }
     if (this.props.currentUser.lb_muted == 1) {
       placeholderText = "You've been muted."
     }
@@ -196,8 +202,12 @@ const createAttachmentOptions = {
   collectionName: "Attachments"
 }
 
+const options = {
+  collectionName: "Users"
+}
+
 const createFileOptions = {
   collectionName: "Files"
 }
 
-registerComponent({ name: 'MessageTextbox', component: MessageTextbox, hocs: [withCurrentUser, [withCreate, createOptions], [withCreate, createFileOptions], [withCreate, createAttachmentOptions], [withUpdate, createOptions]] });
+registerComponent({ name: 'MessageTextbox', component: MessageTextbox, hocs: [withCurrentUser, [withSingle, options], [withCreate, createOptions], [withCreate, createFileOptions], [withCreate, createAttachmentOptions], [withUpdate, createOptions]] });

@@ -40,7 +40,7 @@
   padding: 0.6rem;
   color: #cccccc;
   font-size: 1rem;
-  font-family: 'Noto Sans', Helvetica, sans-serif;
+  font-family: $font;
 }
 
 .btn:hover {
@@ -51,12 +51,12 @@
   .btn {
     background: #555555;
     color: #cccccc;
-    font-family: 'Noto Sans', Helvetica, sans-serif;
+    font-family: $font;
   }
   
   .btn:hover {
     background: #5c5c5c;
-    font-family: 'Noto Sans', Helvetica, sans-serif;
+    font-family: $font;
   }
 
   .buttons{
@@ -64,11 +64,11 @@
       background: #555555;
       padding: 0.6rem;
       padding-top: 0.6rem;
-      font-family: 'Noto Sans', Helvetica, sans-serif;
+      font-family: $font;
     }
     a:hover {
       background: #5c5c5c;
-      font-family: 'Noto Sans', Helvetica, sans-serif;
+      font-family: $font;
     }
   }
 
@@ -88,7 +88,7 @@
     color: #cccccc;
     font-size: 1rem;
     transition: 0.2s;
-    font-family: 'Noto Sans', Helvetica, sans-serif;
+    font-family: $font;
   }
   a:hover {
     background: #4c4c4c;

@@ -1,9 +1,36 @@
 import React from 'react'
 import { Components, withCurrentUser, registerComponent, withSingle } from 'meteor/vulcan:core';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCrown, faUserShield } from '@fortawesome/free-solid-svg-icons'
+
+import Tooltip from '../../lib/Tooltip'
+
 class MessageContainer extends React.Component {
   constructor(props) {
     super(props)
+    
+    this.state = {
+      showProfile: false
+    }
+  }
+
+  shouldComponentUpdate(newProps, newState) {
+    if(this.state !==  newState)
+      return true;
+    if(this.props.messages !== newProps.messages) 
+      return true;
+    if(this.props.document !== newProps.document)
+      return true;
+    if(this.props.planet !== newProps.planet)
+      return true;
+    return false;
+  }
+
+  toggleProfile() {
+    this.setState({
+      showProfile: !this.state.showProfile
+    })
   }
 
   componentDidUpdate() {
@@ -32,14 +59,20 @@ class MessageContainer extends React.Component {
     var timeOptions = {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour:'numeric', minute: 'numeric'}
      return (
       <div className="message-container message">
-        {this.props.document && !this.props.document.lb_profilePicture && <div className="message-profile-picture"/>}
-        {this.props.document && this.props.document.lb_profilePicture && <div className="message-profile-picture">
+        {this.state.showProfile && <div>
+          <Components.ProfileModal user={this.props.document}/>
+          <div className="dialog-semi-transparent-background" onClick={() => this.toggleProfile()}/>
+        </div>}
+        {this.props.document && !this.props.document.lb_profilePicture && <div className="message-profile-picture" onClick={() => this.toggleProfile()}/>}
+        {this.props.document && this.props.document.lb_profilePicture && <div className="message-profile-picture" onClick={() => this.toggleProfile()}>
           <img src={this.props.document.lb_profilePicture} className="message-pfp-image"/>
         </div>}
         <div style={{width: "100%"}}>
           <div className="message-header">
             <div className="message-userdate">
-              {document.username}
+              <span className="message-username" onClick={() => this.toggleProfile()}>{document.username} </span>
+              {this.props.document && this.props.document.isAdmin && <Tooltip text="Moderator" className="message-name-icon"><FontAwesomeIcon icon={faUserShield}/></Tooltip>}
+              {this.props.document && (this.props.document._id == this.props.planet.userId) && <Tooltip text="Planet Owner" className="message-name-icon"><FontAwesomeIcon icon={faCrown}/></Tooltip>}
               <span className="message-date">
                  - {date.toLocaleDateString(navigator.language, timeOptions)}
               </span> 

@@ -6,21 +6,29 @@
   width: max-content;
   font-weight: normal;
   font-size: 1rem;
-  position: absolute;
+  position: fixed;
   z-index: 1000;
 }
 
 .dropdown-item {
   cursor: pointer;
-  padding-bottom: 0.125rem;
-  padding-top: 0.125rem;
+  padding-bottom: 0.25rem;
+  padding-top: 0.25rem;
   padding-left: 0.6rem;
   padding-right: 0.6rem;
 }
 
+.dropdown-icon {
+  min-width: 1em;
+  min-height: 1em;
+  max-width: 1em;
+  max-height: 1em;
+  text-align: center;
+}
+
 .dropdown-header {
-  padding-bottom: 0.125rem;
-  padding-top: 0.125rem;
+  padding-bottom: 0.25rem;
+  padding-top: 0.25rem;
   padding-left: 0.6rem;
   padding-right: 0.6rem;
   cursor: default;
