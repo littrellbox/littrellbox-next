@@ -83,7 +83,7 @@ class ChannelList extends React.Component {
 
 const options = {
   collectionName: "Channels",
-  queryOptions: { pollInterval: 200 }
+  queryOptions: { pollInterval: 5000 }
 };
 
 registerComponent({ name: 'ChannelList', component: ChannelList, hocs: [withCurrentUser, [withMulti, options], [withCreate, options]] });

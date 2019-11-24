@@ -23,7 +23,7 @@
   padding: 1rem;
   padding-top: 0;
   display: flex;
-  overflow-x: none;
+  overflow: hidden;
   flex-direction: column;
 }
 
@@ -138,6 +138,7 @@
 }
 
 .message-profile-picture {
+  cursor: pointer;
   min-width: 2.5rem;
   min-height: 2.5rem;
   max-width: 2.5rem;
@@ -376,6 +377,7 @@
 }
 
 .message-username {
+  cursor: pointer;
   margin-right: -0.33rem;
 }
 
