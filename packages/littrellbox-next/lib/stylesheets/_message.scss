@@ -355,9 +355,7 @@
 }
 
 @media screen and (max-height: 800px) {
-  .message {
-    font-size: 0.9rem;
-  }
+  .message { font-size: 0.9rem; }
   .message-profile-picture {
     min-width: 2rem;
     min-height: 2rem;
@@ -368,10 +366,10 @@
     width: 2rem;
     height: 2rem;
   }
-  .message-textbox {
-    font-size: 0.9rem;
-  }
-  .message-textbox-textarea {
+  .message-textbox { font-size: 0.9rem; }
+  .message-textbox-textarea { font-size: 0.9rem; }
+  .message-area-header {
+    padding: 0.75rem !important;
     font-size: 0.9rem;
   }
 }

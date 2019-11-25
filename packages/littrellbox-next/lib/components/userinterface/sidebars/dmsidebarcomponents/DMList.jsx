@@ -51,7 +51,8 @@ class DMList extends React.Component {
 }
 
 const options = {
-  collectionName: "Channels"
+  collectionName: "Channels",
+  queryOptions: { pollInterval: 5000 }
 };
 
 registerComponent({ name: 'DMList', component: DMList, hocs: [withCurrentUser, [withMulti, options], [withCreate, options]] });

@@ -20,7 +20,9 @@ class MessageContainer extends React.Component {
       return true;
     if(this.props.messages !== newProps.messages) 
       return true;
-    if(this.props.document !== newProps.document)
+    if(this.props.document && this.props.document.username !== newProps.document.username)
+      return true;
+    if(this.props.document && this.props.document.lb_profilePicture !== newProps.document.lb_profilePicture)
       return true;
     if(this.props.planet !== newProps.planet)
       return true;

@@ -29,8 +29,10 @@ class Message extends React.Component {
       return true;
     if(this.props.message.text !== newProps.message.text)
       return true;
-    if(this.props.document !== newProps.document)
+    /*if(this.props.document.username !== newProps.document.username)
       return true;
+    if(this.props.document.lb_profilePicture !== newProps.document.lb_profilePicture)
+      return true;*/
     return false;
   }
 

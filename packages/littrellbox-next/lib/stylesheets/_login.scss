@@ -38,6 +38,7 @@
   border-width: 0;
   border-radius: 0.25rem;
   padding: 0.6rem;
+  padding-bottom: 0.4rem;
   color: #cccccc;
   font-size: 1rem;
   font-family: $font;
@@ -47,35 +48,35 @@
   background: #4c4c4c
 }
 
-.message-area {
-  .btn {
-    background: #555555;
-    color: #cccccc;
-    font-family: $font;
-  }
-  
-  .btn:hover {
-    background: #5c5c5c;
-    font-family: $font;
-  }
-
-  .buttons{
-    a {
-      background: #555555;
-      padding: 0.6rem;
-      padding-top: 0.6rem;
-      font-family: $font;
-    }
-    a:hover {
-      background: #5c5c5c;
-      font-family: $font;
-    }
-  }
-
-  .accounts-ui {
-    padding-top: 1rem;
-  }
-}
+// .message-area {
+//   .btn {
+//     background: #555555;
+//     color: #cccccc;
+//     font-family: $font;
+//   }
+//   
+//   .btn:hover {
+//     background: #5c5c5c;
+//     font-family: $font;
+//   }
+// 
+//   .buttons{
+//     a {
+//       background: #555555;
+//       padding: 0.6rem;
+//       padding-top: 0.65rem;
+//       font-family: $font;
+//     }
+//     a:hover {
+//       background: #5c5c5c;
+//       font-family: $font;
+//     }
+//   }
+// 
+//   .accounts-ui {
+//     padding-top: 1rem;
+//   }
+// }
 
 .buttons{
   a {
@@ -83,7 +84,8 @@
     border-width: 0;
     border-radius: 0.25rem;
     padding: 0.6rem;
-    padding-top: 0.55rem;
+    padding-top: 0.65rem;
+    padding-bottom: 0.45rem;
     text-decoration: none;
     color: #cccccc;
     font-size: 1rem;
