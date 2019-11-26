@@ -16,15 +16,19 @@ class MessageContainer extends React.Component {
   }
 
   shouldComponentUpdate(newProps, newState) {
-    if(this.state !==  newState)
+    if(this.state !== newState)
       return true;
     if(this.props.messages !== newProps.messages) 
       return true;
-    if(this.props.document && this.props.document.username !== newProps.document.username)
+    if(typeof(this.props.document) != typeof(newProps.document))
       return true;
-    if(this.props.document && this.props.document.lb_profilePicture !== newProps.document.lb_profilePicture)
+    if(typeof(this.props.channel) != typeof(newProps.channel))
       return true;
-    if(this.props.planet !== newProps.planet)
+    if(newProps.document && this.props.document && this.props.document.username !== newProps.document.username)
+      return true;
+    if(newProps.document && this.props.document && this.props.document.lb_profilePicture !== newProps.document.lb_profilePicture)
+      return true;
+    if(newProps.channel && this.props.channel && this.props.channel._id !== newProps.channel._Id)
       return true;
     return false;
   }
