@@ -25,6 +25,9 @@ class MessageList extends React.Component {
 
   isAtBottom = true
 
+  keysTopId = []
+  keysBottomId = []
+
   forcePositionUpdate() {
     if(this.messagesList) {
       const messageList = this.messagesList;
@@ -66,6 +69,8 @@ class MessageList extends React.Component {
 
   generateMessageObjects(messageObjects) {
     if(!this.props.loading) {
+      newKeysTop = []
+      newKeysBottom = []
       if(messageObjects.length != 0) {
         objectsArray = []
         workingArray = []
@@ -82,9 +87,21 @@ class MessageList extends React.Component {
           if(messageObjects[i].userId == messageLastId) {
             workingArray.push(messageObjects[i])
           } else if(workingArray.length != 0) {
+            //get a static key
+            key = Math.floor(Math.random() * 10000000000).toString()
+            if(this.keysTopId[workingArray[workingArray.length - 1]._id]) {
+              key = this.keysTopId[workingArray[workingArray.length - 1]._id]
+            } else {
+              this.keysTopId[workingArray[workingArray.length - 1]._id] = key
+            }
+            if(this.keysBottomId[workingArray[0]._id]) {
+              key = this.keysBottomId[workingArray[0]._id]
+            } else {
+              this.keysBottomId[workingArray[0]._id] = key
+            }
             objectsArray.push({
               messages: workingArray,
-              key: workingArray[workingArray.length - 1]._id
+              key: key
             })
             workingArray = []
           }
@@ -96,10 +113,24 @@ class MessageList extends React.Component {
         }
         
         //push remaining content, if we have any
-        objectsArray.push({
-          messages: workingArray,
-          key: workingArray[workingArray.length - 1]._id
-        })
+        if(workingArray[0]) {
+          //get a static key
+          key = Math.floor(Math.random() * 10000000000).toString()
+          if(this.keysTopId[workingArray[workingArray.length - 1]._id]) {
+            key = this.keysTopId[workingArray[workingArray.length - 1]._id]
+          } else {
+            this.keysTopId[workingArray[workingArray.length - 1]._id] = key
+          }
+          if(this.keysBottomId[workingArray[0]._id]) {
+            key = this.keysBottomId[workingArray[0]._id]
+          } else {
+            this.keysBottomId[workingArray[0]._id] = key
+          }
+          objectsArray.push({
+            messages: workingArray,
+            key: key
+          })
+        }
   
         return objectsArray
       } else {

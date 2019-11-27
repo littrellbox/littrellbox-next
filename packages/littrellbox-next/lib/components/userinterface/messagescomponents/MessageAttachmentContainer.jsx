@@ -12,6 +12,12 @@ class MessageAttachmentContainer extends React.Component {
     }
   }*/
 
+  shouldComponentUpdate(newProps, newState) {
+    if(this.props.results != newProps.results)
+      return true
+    return false
+  }
+
   componentDidUpdate() {
     this.props.scrollToBottom()
   }

@@ -27,6 +27,22 @@ class MessageTextbox extends React.Component {
     };
   }
   
+  shouldComponentUpdate(newProps, newState) {
+    if(this.state != newState)
+      return true
+    if(this.props.document && newProps.document && this.props.document.username != newProps.document.username)
+      return true
+    if(this.props.channel.name != newProps.channel.name)
+      return true
+    if(this.props.channel._id != newProps.channel._id)
+      return true
+    if(this.props.attachments != newProps.files)
+      return true
+    if(typeof(this.props.document) != typeof(this.props.document))
+      return true
+    return false
+  } 
+
   handleKeyPress(e, planet, channel) {
     if (e.key === 'Enter' && !this.state.shiftKeyDown)
       e.preventDefault()

@@ -23,7 +23,7 @@
   padding: 1rem;
   padding-top: 0;
   display: flex;
-  overflow-x: none;
+  overflow: hidden;
   flex-direction: column;
 }
 
@@ -138,6 +138,7 @@
 }
 
 .message-profile-picture {
+  cursor: pointer;
   min-width: 2.5rem;
   min-height: 2.5rem;
   max-width: 2.5rem;
@@ -354,9 +355,7 @@
 }
 
 @media screen and (max-height: 800px) {
-  .message {
-    font-size: 0.9rem;
-  }
+  .message { font-size: 0.9rem; }
   .message-profile-picture {
     min-width: 2rem;
     min-height: 2rem;
@@ -367,15 +366,16 @@
     width: 2rem;
     height: 2rem;
   }
-  .message-textbox {
-    font-size: 0.9rem;
-  }
-  .message-textbox-textarea {
+  .message-textbox { font-size: 0.9rem; }
+  .message-textbox-textarea { font-size: 0.9rem; }
+  .message-area-header {
+    padding: 0.75rem !important;
     font-size: 0.9rem;
   }
 }
 
 .message-username {
+  cursor: pointer;
   margin-right: -0.33rem;
 }
 
