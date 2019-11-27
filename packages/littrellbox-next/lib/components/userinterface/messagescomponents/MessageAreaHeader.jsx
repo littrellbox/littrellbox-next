@@ -5,6 +5,7 @@ import { ChatContext } from '../../../contexts/ChatContext'
 
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faHashtag, faUsers, faUserPlus} from '@fortawesome/free-solid-svg-icons'
+import { Visible, HiddenWithMoveUp } from '../../lib/AnimationStyles';
 
 class MessageAreaHeader extends React.Component {
   constructor(props) {
@@ -78,7 +79,7 @@ class MessageAreaHeader extends React.Component {
             <div className="message-area-header-buttons">
               {channel.isDm && <div className="message-area-header-add-user-button">
                 <FontAwesomeIcon icon={faUserPlus} onClick={() => this.toggleAddUser()}/>
-                {this.state.showAddUser && <Components.MessageAreaHeaderAddUser channel={channel}/>}
+                <Components.MessageAreaHeaderAddUser style={this.state.showAddUser ? Visible : HiddenWithMoveUp} channel={channel} toggleAddUser={() => this.toggleAddUser()}/>
               </div>}
             </div>
             {this.state.showAddUser && <div className="dialog-transparent-background" onClick={() => this.toggleAddUser()}/>}

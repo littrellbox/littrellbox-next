@@ -13,6 +13,7 @@ import formatText from '../../lib/FormatText'
 import CircleLoader from '../../lib/Loader'
 
 import Tooltip from '../../lib/Tooltip';
+import { HiddenWithMoveRight, Visible } from '../../lib/AnimationStyles';
 
 class Message extends React.Component {
   constructor(props) {
@@ -143,56 +144,44 @@ class Message extends React.Component {
           <div>
             <div className="message-header">
               {(dropdownCondition1 || dropdownCondition2) && <div className="message-dropdown" onClick={() => this.toggleMenu()}>
-                {this.state.showEditDropdown && <span>
-                  {dropdownCondition2 && <span>
-                    <Tooltip text="Ban User">
+                {!this.state.isEditing && <div>
+                  <span style={this.state.showEditDropdown ? Visible : HiddenWithMoveRight}>
+                    {dropdownCondition2 && <span>
                       <span className="message-dropdown-ban fa-layers fa-fw" onClick={() => this.deleteUser()}>
                         <FontAwesomeIcon icon={faUser}/>  
                         <FontAwesomeIcon icon={faSlash}/> 
                       </span>  
-                    </Tooltip>
-                    {this.props.document.lb_muted == 1 ? 
-                      <Tooltip text="Unmute User">
+                      {this.props.document.lb_muted == 1 ? 
                         <span className="message-dropdown-unmute fa-layers fa-fw" onClick={() => this.muteUser()}>
                           <FontAwesomeIcon icon={faComment}/>  
                           <FontAwesomeIcon icon={faCheck}/> 
-                        </span>
-                      </Tooltip> :
-                      <Tooltip text="Mute User">
+                        </span> :
                         <span className="message-dropdown-mute fa-layers fa-fw" onClick={() => this.muteUser()}>
                           <FontAwesomeIcon icon={faComment}/>  
                           <FontAwesomeIcon icon={faSlash}/> 
                         </span>
-                      </Tooltip>
-                    } 
-                    {this.props.document.lb_filesBlocked == 1 ? 
-                      <Tooltip text="Enable Files">
+                      } 
+                      {this.props.document.lb_filesBlocked == 1 ? 
                         <span className="message-dropdown-filesenable fa-layers fa-fw"  onClick={() => this.disableUploads()}>
                           <FontAwesomeIcon icon={faUpload}/> 
                           <FontAwesomeIcon icon={faCheck}/>  
-                        </span>
-                      </Tooltip> : 
-                      <Tooltip text="Disable Files">
+                        </span> : 
                         <span className="message-dropdown-filestoggle fa-layers fa-fw"  onClick={() => this.disableUploads()}>
                           <FontAwesomeIcon icon={faUpload}/> 
                           <FontAwesomeIcon icon={faSlash}/>  
                         </span>
-                      </Tooltip>
-                    }
-                    <span className="message-dropdown-splitter"/>
-                  </span>}
-                  <Tooltip text="Edit">
+                      }
+                      <span className="message-dropdown-splitter"/>
+                    </span>}
                     <span className="message-dropdown-edit">
                       <FontAwesomeIcon icon={faPencilAlt} onClick={() => this.toggleEdit()}/>  
                     </span> 
-                  </Tooltip> 
-                  <Tooltip text="Delete">
                     <span className="message-dropdown-delete" onClick={() => this.deleteMessage()}>
                       <FontAwesomeIcon icon={faTrash}/>  
                     </span> 
-                  </Tooltip> 
-                </span>}
-                <FontAwesomeIcon icon={faEllipsisH}/>
+                  </span>
+                  <FontAwesomeIcon icon={faEllipsisH}/>
+                </div>}
               </div>}
             </div>
             {!this.state.isEditing && !this.props.loading && <div className="message-content">

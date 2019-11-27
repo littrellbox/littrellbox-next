@@ -50,12 +50,13 @@ class MessageAreaHeaderAddUser extends React.Component {
           }
         })
       }
+      this.props.toggleAddUser()
     }
   }
 
   render() {
     return (
-      <div className="message-area-header-add-user">
+      <div className="message-area-header-add-user" style={this.props.style}>
         <div className="mah-add-user-textbox-div">
           <Components.UserFinder updateId={(id) => this.updateId(id)} terms={{
             view: 'byUsername',

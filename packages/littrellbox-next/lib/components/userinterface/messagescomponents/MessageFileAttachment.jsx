@@ -4,7 +4,7 @@ import { Components, registerComponent, withSingle, withCurrentUser } from 'mete
 import { faDownload } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-import { HiddenWithMoveUp, Visible, Hidden } from '../../lib/AnimationStyles'
+import { HiddenWithMoveUp, Visible, Hidden, PointerEventsWorkaround } from '../../lib/AnimationStyles'
 
 class MessageFileAttachment extends React.Component {
   constructor(props) {
@@ -45,7 +45,7 @@ class MessageFileAttachment extends React.Component {
           <div className="message-attachment-image">
             <span className="message-attachment-image-name">{this.props.document.fileName}</span>
             <img src={this.props.document.fileUrl} className="message-attachment-image-img" onClick={() => this.toggleFullView()} onLoad={() => this.props.scrollToBottom()}/>
-            <div className="message-attachment-image-fullview">
+            <div className="message-attachment-image-fullview" style={this.state.showFullView ? {} : PointerEventsWorkaround}>
               <img src={this.props.document.fileUrl} className="message-attachment-fullview-img" style={this.state.showFullView ? Visible : HiddenWithMoveUp}/>
               <div className="dialog-semi-transparent-background" style={this.state.showFullView ? Visible : Hidden} onClick={() => this.toggleFullView()}/>
             </div>

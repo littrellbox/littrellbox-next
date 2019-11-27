@@ -18,3 +18,20 @@ export const HiddenWithMoveUp = {
   pointerEvents: 'none',
   visibility: 'hidden'
 }
+
+export const HiddenWithMoveRight = {
+  opacity: '0',
+  marginRight: '-0.5rem',
+  transition: '0.2s',
+  pointerEvents: 'none',
+  visibility: 'hidden'
+}
+
+export const HiddenWorkaround = {
+  visibility: 'hidden',
+  opacity: '0'
+}
+
+export const PointerEventsWorkaround = {
+  pointerEvents: 'none'
+}

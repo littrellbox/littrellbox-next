@@ -18,4 +18,9 @@
   width: 20rem;
   margin-bottom: 0.5rem;
   cursor: pointer;
+  transition: 0.2s;
+}
+
+.featured-planet-button:hover {
+  background-color: #666666;
 }
