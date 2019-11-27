@@ -93,7 +93,7 @@ class SettingsModal extends React.Component {
       text = this.props.currentUser.username
     }
     return (
-      <div className="settings-modal">
+      <div className="settings-modal" style={this.props.style}>
         <div className="settings-modal-user-info">
           <div className="settings-modal-profile-picture" onClick={() => this.onAttachmentButtonClick()}>
            {this.props.currentUser.lb_profilePicture && <img src={this.props.currentUser.lb_profilePicture} className="setttings-modal-pfp-image"/>}

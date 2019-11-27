@@ -37,8 +37,8 @@
   background: #444444;
   border-width: 0;
   border-radius: 0.25rem;
-  padding: 0.6rem;
-  padding-bottom: 0.4rem;
+  padding: 0.6rem !important;
+  padding-bottom: 0.4rem !important;
   color: #cccccc;
   font-size: 1rem;
   font-family: $font;
@@ -83,9 +83,9 @@
     background: #444444;
     border-width: 0;
     border-radius: 0.25rem;
-    padding: 0.6rem;
-    padding-top: 0.65rem;
-    padding-bottom: 0.45rem;
+    padding: 0.6rem !important;
+    padding-top: 0.65rem !important;
+    padding-bottom: 0.45rem !important;
     text-decoration: none;
     color: #cccccc;
     font-size: 1rem;

@@ -38,7 +38,7 @@ class AboutModal extends React.Component {
       text = this.props.currentUser.username
     }
     return (
-      <div className="about-modal">
+      <div className="about-modal" style={this.props.style}>
         <div className="about-header">
           Littrellbox
         </div>

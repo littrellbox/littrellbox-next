@@ -13,19 +13,21 @@ class ProfileModal extends React.Component {
 
   render() {
     return (
-      <div className="profile-modal">
-        <div className="profile-modal-user-info">
-          <div className="profile-modal-profile-picture">
-            {this.props.user.lb_profilePicture && <img src={this.props.user.lb_profilePicture} className="profile-modal-pfp-image"/>}
+      <div className="profile-modal" style={this.props.style}>
+        {this.props.user && <div> 
+          <div className="profile-modal-user-info">
+            <div className="profile-modal-profile-picture">
+              {this.props.user.lb_profilePicture && <img src={this.props.user.lb_profilePicture} className="profile-modal-pfp-image"/>}
+            </div>
+            <span className="profile-modal-username">{this.props.user.username}</span>
           </div>
-          <span className="profile-modal-username">{this.props.user.username}</span>
-        </div>
-        <div className="profile-buttons">
-          <Components.CreateDMButton user={this.props.user} terms={{
-            view: 'findDm',
-            dmUserIds: [this.props.user._id, this.props.currentUser._id]
-          }}/>
-        </div>
+          <div className="profile-buttons">
+            <Components.CreateDMButton user={this.props.user} terms={{
+              view: 'findDm',
+              dmUserIds: [this.props.user._id, this.props.currentUser._id]
+            }}/>
+          </div>
+        </div>}
       </div>
     )
   }

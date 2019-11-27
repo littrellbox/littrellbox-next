@@ -4,14 +4,17 @@ import { Components, withCurrentUser, registerComponent, withSingle } from 'mete
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCrown, faUserShield } from '@fortawesome/free-solid-svg-icons'
 
+import { Hidden, Visible, HiddenWithMoveUp } from '../../lib/AnimationStyles'
+
 import Tooltip from '../../lib/Tooltip'
+
 
 class MessageContainer extends React.Component {
   constructor(props) {
     super(props)
     
     this.state = {
-      showProfile: false
+      showProfile: false,
     }
   }
 
@@ -47,6 +50,12 @@ class MessageContainer extends React.Component {
     this.props.scrollToBottom()
   }
 
+  hideProfile() {
+    this.setState({
+      showProfile: false
+    })
+  }
+
   render() {
     document = this.props.document
     if(!this.props.document) {
@@ -65,10 +74,10 @@ class MessageContainer extends React.Component {
     var timeOptions = {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour:'numeric', minute: 'numeric'}
      return (
       <div className="message-container message">
-        {this.state.showProfile && <div>
-          <Components.ProfileModal user={this.props.document}/>
-          <div className="dialog-semi-transparent-background" onClick={() => this.toggleProfile()}/>
-        </div>}
+        <div>
+          <Components.ProfileModal user={this.props.document} style={this.state.showProfile ? Visible : HiddenWithMoveUp}/>
+          <div className="dialog-semi-transparent-background" style={this.state.showProfile ? Visible : Hidden} onClick={() => this.toggleProfile()}/>
+        </div>
         {this.props.document && !this.props.document.lb_profilePicture && <div className="message-profile-picture" onClick={() => this.toggleProfile()}/>}
         {this.props.document && this.props.document.lb_profilePicture && <div className="message-profile-picture" onClick={() => this.toggleProfile()}>
           <img src={this.props.document.lb_profilePicture} className="message-pfp-image"/>

@@ -5,6 +5,8 @@ import { Components, withCurrentUser, registerComponent, withUpdate, withDelete 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleDown, faStar, faCog, faInfo, faTimes } from '@fortawesome/free-solid-svg-icons'
 
+import { HiddenWithMoveUp, Visible, Hidden } from '../../../lib/AnimationStyles'
+
 import { ChatContext } from '../../../../contexts/ChatContext'
 
 import Tooltip from '../../../lib/Tooltip'
@@ -71,7 +73,7 @@ class ChannelHeader extends React.Component {
         </div>
         <div className="channel-header-dropdown-toggle">
           <FontAwesomeIcon icon={faAngleDown} onClick={() => this.toggleMenu()}/>
-          {this.state.showDropdown && <div className="dropdown-menu">
+          <div className="dropdown-menu" style={this.state.showDropdown ? Visible : HiddenWithMoveUp}>
             <div className="dropdown-item" onClick={() => this.toggleSettings()}>
             <FontAwesomeIcon icon={faCog} className="dropdown-icon"/> Account Settings
             </div>
@@ -88,15 +90,15 @@ class ChannelHeader extends React.Component {
             {this.props.currentUser.isAdmin && <div className="dropdown-item" onClick={() => this.toggleFeatured()}>
             <FontAwesomeIcon icon={faStar} className="dropdown-icon"/> {this.props.planet.featured ? <span>Unfeature Server</span> : <span>Feature Server</span>}
             </div>}
-          </div>}
-          {this.state.showSettings && <div>
-            <Components.SettingsModal toggleSettings={() => this.toggleSettings()}/>
-            <div className="dialog-semi-transparent-background" onClick={() => this.toggleSettings()}/>
-          </div>}
-          {this.state.showAbout && <div>
-            <Components.AboutModal/>
-            <div className="dialog-semi-transparent-background" onClick={() => this.toggleAbout()}/>
-          </div>}
+          </div>
+          <div>
+            <Components.SettingsModal style={this.state.showSettings ? Visible : HiddenWithMoveUp} toggleSettings={() => this.toggleSettings()}/>
+            <div className="dialog-semi-transparent-background" style={this.state.showSettings ? Visible : Hidden} onClick={() => this.toggleSettings()}/>
+          </div>
+          <div>
+            <Components.AboutModal style={this.state.showAbout ? Visible: HiddenWithMoveUp}/>
+            <div className="dialog-semi-transparent-background" style={this.state.showAbout ? Visible: Hidden} onClick={() => this.toggleAbout()}/>
+          </div>
         </div> 
         {this.state.showDropdown && <div className="dialog-transparent-background" onClick={() => this.toggleMenu()}/>}
       </div>
