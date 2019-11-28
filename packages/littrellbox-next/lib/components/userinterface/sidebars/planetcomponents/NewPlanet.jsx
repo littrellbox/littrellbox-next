@@ -4,6 +4,8 @@ import { Components, withCurrentUser, registerComponent, withCreate } from 'mete
 
 import '../../../../modules/schemas/planets/collection'
 
+import { Hidden, HiddenWithMoveUp, Visible, PointerEventsWorkaround} from '../../../lib/AnimationStyles'
+
 class NewPlanet extends React.Component {
   constructor(props) {
     super(props)
@@ -56,12 +58,13 @@ class NewPlanet extends React.Component {
     return(
       <div className="new-planet">
         <Components.NewPlanetButton onClick={() => this.handleClick()}/>
-        {this.state.showingNewPlanetDialog && <div className="fullscreen">
+        <div className="fullscreen" style={this.state.showingNewPlanetDialog ? {} : PointerEventsWorkaround}>
           <div 
             onClick={() => this.handleClick()} 
             className="dialog-semi-transparent-background"
+            style={this.state.showingNewPlanetDialog ? Visible : Hidden}
           />
-          <div className="dialog-no-bg">
+          <div className="dialog-no-bg" style={this.state.showingNewPlanetDialog ? Visible : HiddenWithMoveUp}>
             <input 
               type="text"
               className="new-planet-textbox"

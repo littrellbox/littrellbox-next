@@ -24,7 +24,7 @@ class DMList extends React.Component {
   render() {
     return (
       <div className="channel-list">
-        <div className="channel-list-title">
+        <div className="dm-list-title">
           <div className="channel-list-title-text">
             DIRECT MESSAGES
           </div>

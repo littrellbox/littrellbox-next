@@ -114,6 +114,15 @@
   color: #cccccc;
   font-weight: bold;
   display: flex;
+  margin-bottom: -1.3rem;
+}
+
+.dm-list-title {
+  padding: 0.5rem;
+  padding-top: 0.3rem;
+  color: #cccccc;
+  font-weight: bold;
+  display: flex;
 }
 
 .channel-button {
@@ -160,8 +169,8 @@
 }
 
 .new-channel-textbox {
-  margin-top: -0.5rem !important;
   margin: 0.5rem;
+  margin-top: 1.2rem;
   background-color: #444444;
   color: #cccccc;
   border-width: 0px;

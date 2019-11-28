@@ -6,6 +6,7 @@ import CircleLoader from '../../../lib/Loader'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import { Visible, HiddenNoHeight } from '../../../lib/AnimationStyles';
 
 class ChannelList extends React.Component {
   constructor(props) {
@@ -53,18 +54,14 @@ class ChannelList extends React.Component {
           {this.props.currentUser._id == this.props.planet.userId && <div>
             <span className="new-channel-button" onClick={() => this.toggleTextbox()}><FontAwesomeIcon icon={faPlus}/></span>
           </div>}
-
-          {//currentUser._id == planet.userId && <Components.ModalTrigger size="large" title="New Planet" className="new-channel-trigger" component={<span className="new-channel-button"><FontAwesomeIcon icon={faPlus}/></span>}>
-            //<Components.NewChannelForm/>
-          //</Components.ModalTrigger> 
-          }
         </div>
-        {this.state.showNewChannelTextbox && <input 
+        <input 
           type="text" 
           className="new-channel-textbox"
           onChange={(e) => this.handleChange(e)}
           onKeyPress={(e) => this.handleKeyPress(e)}
-        />}
+          style={this.state.showNewChannelTextbox ? Visible : HiddenNoHeight}
+        />
         {this.props.loading ?
           <div className="channel-list-loader">
             <CircleLoader/>

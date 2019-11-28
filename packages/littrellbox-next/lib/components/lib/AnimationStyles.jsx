@@ -27,9 +27,16 @@ export const HiddenWithMoveRight = {
   visibility: 'hidden'
 }
 
-export const HiddenWorkaround = {
+export const HiddenNoHeight = {
+  opacity: '0',
+  transition: '0.2s',
   visibility: 'hidden',
-  opacity: '0'
+  maxHeight: '0rem',
+  marginTop: '0',
+  marginBottom: '0',
+  paddingTop: '0',
+  paddingBottom: '0',
+  pointerEvents: 'none',
 }
 
 export const PointerEventsWorkaround = {
