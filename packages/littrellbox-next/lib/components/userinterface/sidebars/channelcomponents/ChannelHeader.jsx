@@ -17,7 +17,8 @@ class ChannelHeader extends React.Component {
     this.state = {
       showDropdown: false,
       showSettings: false,
-      showAbout: false
+      showAbout: false,
+      showPlanet: false,
     }
   }
 
@@ -37,6 +38,13 @@ class ChannelHeader extends React.Component {
   toggleAbout() {
     this.setState({
       showAbout: !this.state.showAbout,
+      showDropdown: false
+    })
+  }
+
+  togglePlanet() {
+    this.setState({
+      showPlanet: !this.state.showPlanet,
       showDropdown: false
     })
   }
@@ -75,7 +83,7 @@ class ChannelHeader extends React.Component {
           <FontAwesomeIcon icon={faAngleDown} onClick={() => this.toggleMenu()}/>
           <div className="dropdown-menu" style={this.state.showDropdown ? Visible : HiddenWithMoveUp}>
             <div className="dropdown-item" onClick={() => this.toggleSettings()}>
-            <FontAwesomeIcon icon={faCog} className="dropdown-icon"/> Account Settings
+              <FontAwesomeIcon icon={faCog} className="dropdown-icon"/> Account Settings
             </div>
             <ChatContext.Consumer>
               {({planetMember, clearPlanet}) => (
@@ -84,6 +92,9 @@ class ChannelHeader extends React.Component {
                 </div>
               )}
             </ChatContext.Consumer>
+            {this.props.planet.userId == this.props.currentUser._id && <div className="dropdown-item" onClick={() => this.togglePlanet()}>
+              <FontAwesomeIcon icon={faCog} className="dropdown-icon"/> Planet Settings
+            </div>}
             <div className="dropdown-item" onClick={() => this.toggleAbout()}>
               <FontAwesomeIcon icon={faInfo} className="dropdown-icon"/> About Littrellbox
             </div>
@@ -94,6 +105,10 @@ class ChannelHeader extends React.Component {
           <div>
             <Components.SettingsModal style={this.state.showSettings ? Visible : HiddenWithMoveUp} toggleSettings={() => this.toggleSettings()}/>
             <div className="dialog-semi-transparent-background" style={this.state.showSettings ? Visible : Hidden} onClick={() => this.toggleSettings()}/>
+          </div>
+          <div>
+            <Components.PlanetModal style={this.state.showPlanet ? Visible : HiddenWithMoveUp} planet={this.props.planet}/>
+            <div className="dialog-semi-transparent-background" style={this.state.showPlanet ? Visible : Hidden} onClick={() => this.togglePlanet()}/>
           </div>
           <div>
             <Components.AboutModal style={this.state.showAbout ? Visible: HiddenWithMoveUp}/>
