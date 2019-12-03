@@ -2,6 +2,10 @@ import { createCollection, getDefaultResolvers, getDefaultMutations } from 'mete
 import Users from 'meteor/vulcan:users';
 import schema from './schema.js';
 
+import Channels from '../channels/collection'
+import Messages from '../messages/collection'
+import PlanetMembers from '../planetmembers/collection'
+
 const Planets = createCollection({
   collectionName: 'Planets',
   typeName: 'Planet',
@@ -16,6 +20,17 @@ const Planets = createCollection({
     canUpdate: ['owners', 'admins', 'moderators'],
     canDelete: ['owners', 'admins', 'moderators'],
   },
+
+  callbacks: {
+    delete: {
+      after: [(document, properties) => {
+        Channels.remove({planetId: document._id})
+        PlanetMembers.remove({planetId: document._id})
+        Messages.remove({planetId: document._id})
+        return null
+      }]
+    }
+  }
 });
 
 Planets.addDefaultView(terms => ({

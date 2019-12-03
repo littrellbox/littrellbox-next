@@ -90,6 +90,7 @@ class PlanetModal extends React.Component {
   deletePlanet() {
     documentId = this.props.planet._id
     this.props.deletePlanet({documentId})
+    console.log("planet-deleted")
   }
 
   render() {
@@ -113,7 +114,7 @@ class PlanetModal extends React.Component {
         {this.state.error != "" && <div className="settings-modal-notification">{this.state.error}</div>}
         <div className="buttons">
           <div>
-            <div className="button button-red" onClick={() => this.deletePlanet()}>
+            <div className="btn button-red" onClick={() => this.deletePlanet()}>
               Delete Planet
             </div>
           </div>
