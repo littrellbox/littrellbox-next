@@ -35,20 +35,19 @@ const PlanetButton = ({member, document, loading, results = []}) => {
             }
           }
         >
-          <div className="planet-button-inner">
-            {loading ? 
-              <CircleLoader/> :
-              <div className="planet-button-text">
-                {text}
-              </div>
-            }
-          </div>
+        {(!document.image && !loading) ? <div className="planet-button-inner">
+          {loading ? 
+            <CircleLoader/> :
+            <div className="planet-button-text">
+              {text}
+            </div>
+          }
+          </div> : <img className="planet-button-image" src={document.image}/>}
         </div>
       )}
     </ChatContext.Consumer>
   )
 };
-
 const options = {
   collectionName: "Planets"
 };

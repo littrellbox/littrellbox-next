@@ -65,6 +65,19 @@
 
 .planet-button:hover {
   background-color: #333333;
+  .planet-button-image {
+    opacity: 0.5;
+  }
+}
+
+.planet-button-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  cursor: pointer;
+  transition: 0.2s;
 }
 
 .planet-button-inner {

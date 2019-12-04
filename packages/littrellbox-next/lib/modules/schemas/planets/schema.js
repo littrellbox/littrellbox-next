@@ -53,7 +53,7 @@ const schema = {
     canRead: ['members'],
     canCreate: ['admins'],
     canUpdate: ['admins'],
-  }
+  },
 
   image: {
     type: String,
