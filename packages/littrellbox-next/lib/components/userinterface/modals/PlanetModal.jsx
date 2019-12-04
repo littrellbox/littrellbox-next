@@ -65,7 +65,7 @@ class PlanetModal extends React.Component {
     }).then(response => {
       if(response.data != "file_too_big" || response.data != "invalid_file_type") {
         documentId = this.props.planet._id
-        this.props.updateUser({
+        this.props.updatePlanet({
           selector: {documentId},
           data: {
             image: response.data

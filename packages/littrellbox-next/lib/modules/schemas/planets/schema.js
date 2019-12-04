@@ -55,6 +55,14 @@ const schema = {
     canUpdate: ['admins'],
   }
 
+  image: {
+    type: String,
+    optional: true,
+    canRead: ['guests'],
+    canCreate: ['members'],
+    canUpdate: ['members'],
+  }
+
   //TODO: add sidebar image
 };
 

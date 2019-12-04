@@ -120,6 +120,39 @@ WebApp.connectHandlers.use((request, response, next) => {
   }
 });
 
+WebApp.connectHandlers.use((request, response, next) => {
+    if (request.url === '/api/aws-upload-endpoint-planetpic') {
+        const form = new multiparty.Form();
+        form.parse(request, async (error, fields, files) => {
+            if (error) throw new Error(error);
+            try {
+                const path = files.file[0].path;
+                if(files.file[0].size > 8*1024*1024) {
+                    response.statusCode = 400;
+                    response.end("file_too_big")
+                    return
+                } 
+
+                if(!checkIsBrowserRenderable(files.file[0].headers['content-type'])) {
+                    response.statusCode = 400;
+                    response.end("invalid_file_type")
+                    return
+                }
+                const buffer = fs.readFileSync(path);
+                const data = await uploadFile(buffer, fields);
+                response.statusCode = 200;
+                response.end(data.Location)
+            } catch (error) {
+                response.statusCode = 500;
+                console.log(error)
+                response.end(error.toString())
+            }
+        });
+    } else {
+        next();
+    }
+});
+
 WebApp.connectHandlers.use((req, res, next) => {
   if (req.url.startsWith("/download/")) {
     if(!req.cookies.meteor_login_token) {
