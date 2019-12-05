@@ -44,16 +44,33 @@ Users.addField([
       canUpdate: ['admins', 'moderators']
     }
   },
+  {
+    fieldName: 'lb_usersBlocked',
+    fieldSchema: {
+      label: 'Blocked Users',
+      type: Array,
+      optional: true,
+      canRead: ['guests'],
+      canCreate: ['members'],
+      canUpdate: ['members'],
+    }
+  },
+  {
+    fieldName: 'lb_usersBlocked.$',
+    fieldSchema: String
+  }
 ]);
 
 extendFragment('UsersCurrent', `
   lb_profilePicture
   lb_muted
   lb_filesBlocked
+  lb_usersBlocked
 `)
 
 extendFragment('UsersDefaultFragment', `
   lb_profilePicture
   lb_muted
   lb_filesBlocked
+  lb_usersBlocked
 `)

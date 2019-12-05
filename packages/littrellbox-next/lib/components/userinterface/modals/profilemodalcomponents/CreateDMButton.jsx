@@ -6,6 +6,8 @@ import {faComments} from '@fortawesome/free-solid-svg-icons'
 
 import {ChatContext} from '../../../../contexts/ChatContext'
 
+import Tooltip from '../../../lib/Tooltip.jsx'
+
 class CreateDMButton extends React.Component {
   constructor(props) {
     super(props)
@@ -35,7 +37,9 @@ class CreateDMButton extends React.Component {
         {({switchPlanet, switchChannel}) => {
           return(
             <div className="profile-button-dm" onClick={() => this.createDM((channel) => switchChannel(channel), (planet) => switchPlanet(planet))}>
-              <FontAwesomeIcon icon={faComments}/>
+              <Tooltip text="Direct Message">
+                <FontAwesomeIcon icon={faComments}/>
+              </Tooltip>
             </div>
           )
         }}
