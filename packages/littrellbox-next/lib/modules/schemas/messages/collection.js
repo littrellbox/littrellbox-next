@@ -1,4 +1,4 @@
-import { createCollection, getDefaultResolvers, getDefaultMutations } from 'meteor/vulcan:core';
+import { createCollection, getDefaultResolvers, Connectors, getDefaultMutations } from 'meteor/vulcan:core';
 import Users from 'meteor/vulcan:users';
 import schema from './schema.js';
 import { PathErrorStats } from 'apollo-engine-reporting-protobuf';
@@ -92,7 +92,18 @@ const Messages = createCollection({
         }
 
         return errors;
-       }]
+      }],
+      after:[(document, properties) => {
+        planet = Planets.findOne(document.planetId)
+        if(!planet.lastMessagesArray)
+          planet.lastMessagesArray = []
+
+        planet.lastMessagesArray[document.channelId] = new Date()
+        console.log(planet) 
+        Connectors['mongo'].update(Planets, document.planetId, {lastMessagesArray: planet.lastMessagesArray})
+
+        return document;
+      }]
     }
   }
 

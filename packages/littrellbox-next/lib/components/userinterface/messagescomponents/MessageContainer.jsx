@@ -79,7 +79,7 @@ class MessageContainer extends React.Component {
 
     var timeOptions = {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour:'numeric', minute: 'numeric'}
     
-    if(this.props.document && !this.state.showBlockedMessages && this.props.currentUser.lb_usersBlocked.includes(this.props.document._id)) {
+    if(this.props.document && !this.state.showBlockedMessages && this.props.currentUser.lb_usersBlocked && this.props.currentUser.lb_usersBlocked.includes(this.props.document._id)) {
       return (
         <div className="btn" onClick={() => this.toggleBlocked()}>
           Show blocked messages from {this.props.document.username}
@@ -106,7 +106,7 @@ class MessageContainer extends React.Component {
              <span className="message-date">
                 - {date.toLocaleDateString(navigator.language, timeOptions)}
              </span> 
-            {this.props.document && this.props.currentUser.lb_usersBlocked.includes(this.props.document._id) && <span onClick={() => this.toggleBlocked()}> Hide Messages</span>}
+            {this.props.document && this.props.currentUser.lb_usersBlocked && this.props.currentUser.lb_usersBlocked.includes(this.props.document._id) && <span onClick={() => this.toggleBlocked()}> Hide Messages</span>}
            </div>
          </div>
          <div className="message-content">

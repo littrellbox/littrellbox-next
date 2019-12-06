@@ -61,9 +61,17 @@ const schema = {
     canRead: ['guests'],
     canCreate: ['members'],
     canUpdate: ['members'],
-  }
+  },
+  
+  lastMessagesArray: {
+    type: Array,
+    optional: true,
+    canRead: ['guests'],
+    canCreate: ['members'],
+    canUpdate: ['members'],
+  },
 
-  //TODO: add sidebar image
+  'lastMessagesArray.$': Date
 };
 
 export default schema;

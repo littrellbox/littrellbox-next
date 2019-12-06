@@ -32,7 +32,16 @@ class ProfileModal extends React.Component {
     })
   }
 
+  checkBlocked() {
+    if(this.props.user.lb_usersBlocked && this.props.user.lb_usersBlocked.includes(this.props.currentUser._id))
+      return true
+    if(this.props.currentUser.lb_usersBlocked && this.props.currentUser.lb_usersBlocked.includes(this.props.user._id))
+      return true
+    return false
+  }
+
   render() {
+    console.log(this.props.user)
     tooltipText = "Block User"
     if(this.props.user && this.props.currentUser.lb_usersBlocked && this.props.currentUser.lb_usersBlocked.includes(this.props.user._id))
       tooltipText = "Unblock User"
@@ -47,7 +56,7 @@ class ProfileModal extends React.Component {
           </div>
           <div className="profile-buttons">
             {this.props.user._id != this.props.currentUser._id && <Tooltip text={tooltipText}><FontAwesomeIcon className="profile-button-block" icon={faUserSlash} onClick={() => this.blockUser()}/></Tooltip>}
-            {this.props.user._id != this.props.currentUser._id && <Components.CreateDMButton user={this.props.user} terms={{
+            {((this.props.user._id != this.props.currentUser._id) && !this.checkBlocked()) && <Components.CreateDMButton user={this.props.user} terms={{
               view: 'findDm',
               dmUserIds: [this.props.user._id, this.props.currentUser._id]
             }}/>}
