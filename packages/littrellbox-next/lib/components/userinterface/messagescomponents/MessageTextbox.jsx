@@ -178,9 +178,9 @@ class MessageTextbox extends React.Component {
                   title="Pick an emoji!"
                 />
               </div>}
-              <div className="message-textbox-attachments">
+              {messageAttachments.length > 0 && <div className="message-textbox-attachments">
                 {messageAttachments.map((fileObject) => <MessageTextboxAttachment key={fileObject.key} index={fileObject.key} file={fileObject.file} removeItem={(key) => this.props.removeItem(key)}/>)}
-              </div>
+              </div>}
               <div className="message-textbox">
                 <Textarea 
                   value={this.state.textboxText} 
