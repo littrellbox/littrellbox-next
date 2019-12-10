@@ -1,20 +1,9 @@
 import React from 'react'
-import { getSetting, Components, registerComponent, withCurrentUser } from 'meteor/vulcan:core'
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faAd } from '@fortawesome/free-solid-svg-icons'
+import { getSetting, registerComponent, withCurrentUser } from 'meteor/vulcan:core'
 
 class RectangleAd extends React.Component {
   constructor(props) {
     super(props)
-  }
-
-  joinPlanet() {
-    this.props.createPlanetMember({
-      data: {
-        planetId: this.props.planet._id
-      }
-    })
   }
   
   componentDidMount() {

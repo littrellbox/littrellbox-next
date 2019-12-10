@@ -21,6 +21,6 @@ class FeaturedPlanets extends React.Component {
 
 const options = {
   collectionName: "Planets"
-}
+};
 
 registerComponent({ name: 'FeaturedPlanets', component: FeaturedPlanets, hocs: [withCurrentUser, [withMulti, options]]});

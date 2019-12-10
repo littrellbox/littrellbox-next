@@ -3,16 +3,16 @@ import { Components, withCurrentUser, registerComponent, withCreate, withUpdate 
 
 class MessageAreaHeaderAddUser extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
 
     this.state = {
       username: ""
     }
   }
 
-  ourUserId = null  
-
   // ! workaround for VulcanJS/Vulcan#2449
+  ourUserId = null;
+
   setUsername(e) {
     this.setState({
       username: e.target.value
@@ -26,15 +26,15 @@ class MessageAreaHeaderAddUser extends React.Component {
   }
 
   updateId(id) {
-    ourUserId = id
+    this.ourUserId = id
   }
 
   addUser() {
-    if(ourUserId) {
-      arrayOfIds = [...this.props.channel.dmUserIds]
-      arrayOfIds.push(ourUserId)
+    if(this.ourUserId) {
+      let arrayOfIds = [...this.props.channel.dmUserIds];
+      arrayOfIds.push(this.ourUserId);
       if(this.props.channel.dmUserIds.length > 2) {
-        documentId = this.props.channel._id
+        let documentId = this.props.channel._id;
         this.props.updateChannel({
           selector: { documentId },
           data: {
@@ -72,6 +72,6 @@ class MessageAreaHeaderAddUser extends React.Component {
 
 const channelOptions = {
   collectionName: "Channels"
-}
+};
 
 registerComponent({ name: 'MessageAreaHeaderAddUser', component: MessageAreaHeaderAddUser, hocs: [withCurrentUser, [withCreate, channelOptions], [withUpdate, channelOptions]]});

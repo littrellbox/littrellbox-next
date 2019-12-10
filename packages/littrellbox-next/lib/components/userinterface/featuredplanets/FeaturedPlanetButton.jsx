@@ -1,5 +1,5 @@
 import React from 'react'
-import {Components, registerComponent, withCreate, withCurrentUser} from 'meteor/vulcan:core'
+import { registerComponent, withCreate, withCurrentUser} from 'meteor/vulcan:core'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar } from '@fortawesome/free-solid-svg-icons'
@@ -30,6 +30,6 @@ class FeaturedPlanetButton extends React.Component {
 
 const options = {
   collectionName: 'PlanetMembers'
-}
+};
 
 registerComponent({ name: 'FeaturedPlanetButton', component: FeaturedPlanetButton, hocs: [withCurrentUser, [withCreate, options]]});

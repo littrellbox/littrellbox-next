@@ -1,9 +1,8 @@
 import React from 'react';
-import Helmet from 'react-helmet';
 import { Components, withCurrentUser, registerComponent, withSingle, withDelete, withUpdate } from 'meteor/vulcan:core';
 
 //formatting
-const ReactMarkdown = require('react-markdown/with-html')
+const ReactMarkdown = require('react-markdown/with-html');
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEllipsisH, faPencilAlt, faTrash, faUser, faComment, faUpload, faSlash, faCheck } from '@fortawesome/free-solid-svg-icons'
@@ -12,12 +11,11 @@ import formatText from '../../lib/FormatText'
 
 import CircleLoader from '../../lib/Loader'
 
-import Tooltip from '../../lib/Tooltip';
 import { HiddenWithMoveRight, Visible } from '../../lib/AnimationStyles';
 
 class Message extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
   
     this.state = {
       showEditDropdown: false,
@@ -28,9 +26,9 @@ class Message extends React.Component {
   shouldComponentUpdate(newProps, newState) {
     if(this.state !== newState)
       return true;
-    if(this.props.loading != newProps.loading)
-      return true
-    if(typeof(this.props.message) != typeof(newProps.message))
+    if(this.props.loading !== newProps.loading)
+      return true;
+    if(typeof(this.props.message) !== typeof(newProps.message))
       return true;
     if(this.props.message.text !== newProps.message.text)
       return true;
@@ -55,15 +53,15 @@ class Message extends React.Component {
 
   deleteMessage() {
     //this is litterally message suicide
-    document = this.props.message
-    documentId = document._id
-    this.props.deleteMessage({documentId})
+    let document = this.props.message;
+    let documentId = document._id;
+    this.props.deleteMessage({documentId});
     this.toggleMenu()
   }
 
   deleteUser() {
-    documentId = this.props.document._id
-    this.props.deleteUser({documentId})
+    let documentId = this.props.document._id;
+    this.props.deleteUser({documentId});
     this.toggleMenu()
   }
 
@@ -77,24 +75,24 @@ class Message extends React.Component {
   toggleEdit() {
     this.setState({
       isEditing: !this.state.isEditing
-    })
+    });
     this.toggleMenu()
   }
 
   muteUser() {
-    documentId = this.props.document._id
+    let documentId = this.props.document._id;
     if(!this.props.document.lb_muted) {
       this.props.updateUser({
         selector: { documentId },
         data: {
           lb_muted: 1
         }
-      })
+      });
       return
     }
 
-    setValue = this.props.document.lb_muted == 1 ? 0 : 1
-    documentId = this.props.document._id
+    let setValue = this.props.document.lb_muted === 1 ? 0 : 1;
+    documentId = this.props.document._id;
     this.props.updateUser({
       selector: { documentId },
       data: {
@@ -104,18 +102,18 @@ class Message extends React.Component {
   }
 
   disableUploads() {
-    documentId = this.props.document._id
+    let documentId = this.props.document._id;
     if(!this.props.document.lb_filesBlocked) {
       this.props.updateUser({
         selector: { documentId },
         data: {
           lb_filesBlocked: 1
         }
-      })
+      });
       return
     }
-    setValue = this.props.document.lb_filesBlocked == 1 ? 0 : 1
-    documentId = this.props.document._id
+    let setValue = this.props.document.lb_filesBlocked === 1 ? 0 : 1;
+    documentId = this.props.document._id;
     this.props.updateUser({
       selector: { documentId },
       data: {
@@ -125,15 +123,8 @@ class Message extends React.Component {
   }
 
   render() {
-    document = this.props.document
-    if(!this.props.document) {
-      document = {
-        username: "Unknown User"
-      }
-    }
-
-    dropdownCondition1 = !this.props.loading && this.props.currentUser._id == this.props.document._id
-    dropdownCondition2 = !this.props.loading && this.props.currentUser.isAdmin
+    let dropdownCondition1 = !this.props.loading && this.props.currentUser._id === this.props.document._id;
+    let dropdownCondition2 = !this.props.loading && this.props.currentUser.isAdmin;
 
     return(
       <div className="message">
@@ -151,7 +142,7 @@ class Message extends React.Component {
                         <FontAwesomeIcon icon={faUser}/>  
                         <FontAwesomeIcon icon={faSlash}/> 
                       </span>  
-                      {this.props.document.lb_muted == 1 ? 
+                      {this.props.document.lb_muted === 1 ?
                         <span className="message-dropdown-unmute fa-layers fa-fw" onClick={() => this.muteUser()}>
                           <FontAwesomeIcon icon={faComment}/>  
                           <FontAwesomeIcon icon={faCheck}/> 
@@ -161,7 +152,7 @@ class Message extends React.Component {
                           <FontAwesomeIcon icon={faSlash}/> 
                         </span>
                       } 
-                      {this.props.document.lb_filesBlocked == 1 ? 
+                      {this.props.document.lb_filesBlocked === 1 ?
                         <span className="message-dropdown-filesenable fa-layers fa-fw"  onClick={() => this.disableUploads()}>
                           <FontAwesomeIcon icon={faUpload}/> 
                           <FontAwesomeIcon icon={faCheck}/>  
@@ -228,7 +219,7 @@ const deleteOptions = {
 
 const deleteOptionsUser = {
   collectionName: "Users"
-}
+};
 
 registerComponent({ name: 'Message', component: Message, hocs: [withCurrentUser, [withSingle, options], [withDelete, deleteOptions], [withDelete, deleteOptionsUser], [withUpdate, deleteOptionsUser]] });
 
