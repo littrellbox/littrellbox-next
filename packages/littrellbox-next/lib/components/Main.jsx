@@ -2,56 +2,53 @@ import React from 'react';
 import Helmet from 'react-helmet';
 import { Components, withCurrentUser, registerComponent } from 'meteor/vulcan:core';
 
-import Dropzone from 'react-dropzone'
-
 //import context
 import {ChatContext} from '../contexts/ChatContext'
 
 import {faUpload} from '@fortawesome/free-solid-svg-icons'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import { flattenProp } from 'recompose';
 
 class Main extends React.Component {
   constructor(props) {
     super(props);
 
     this.switchPlanet = (planetToSet) => {
-      this.setState(state => ({
+      this.setState({
         planet: planetToSet,
         attachments: []
-      }));
+      });
     };
 
     this.switchChannel = (channelToSet) => {
-      this.setState(state => ({
+      this.setState({
         channel: channelToSet,
         attachments: []
-      }));
+      });
     };
 
     this.onDrop = (acceptedFiles) => {
-      attachments = this.state.attachments
+      let attachments = this.state.attachments;
       Array.from(acceptedFiles).forEach(element => {
         attachments.push(element)
       });
       this.setState({
         attachments: attachments
       })
-    }
+    };
 
     this.removeFile = (key) => {
-      attachments = this.state.attachments
-      attachments.splice(key, 1)
+      let attachments = this.state.attachments;
+      attachments.splice(key, 1);
       this.setState({
         attachments: attachments
       })
-    }
+    };
 
     this.removeAllFiles = () => {
       this.setState({
         attachments: []
       })
-    }
+    };
 
     this.clearPlanet = () => {
       this.setState({
@@ -59,13 +56,13 @@ class Main extends React.Component {
         channel: {},
         planetMember: {}
       })
-    }
+    };
 
     this.setPlanetMember = (memberToSet) => {
       this.setState({
         planetMember: memberToSet
       })
-    }
+    };
 
     this.state = {
       planet: {},
@@ -84,11 +81,11 @@ class Main extends React.Component {
   }
 
   //since Component.setState is run synchronously we need to stop it from repeating
-  preventInfiniteLoopsWorkaround = false
+  preventInfiniteLoopsWorkaround = false;
 
   componentDidUpdate() {
-    if(!this.preventInfiniteLoopsWorkaround && !this.props.currentUser && (this.state.planet != {} || this.state.channel != {})) {
-      this.preventInfiniteLoopsWorkaround = true
+    if(!this.preventInfiniteLoopsWorkaround && !this.props.currentUser && (this.state.planet !== {} || this.state.channel !== {})) {
+      this.preventInfiniteLoopsWorkaround = true;
       this.setState({
         planet: {},
         channel: {}
@@ -102,7 +99,7 @@ class Main extends React.Component {
   }
 
   onDragStart(evt) {
-    evt.preventDefault()
+    evt.preventDefault();
     if(!this.state.showingDropDialog)
       this.setState({
         showingDropDialog: true
@@ -110,35 +107,35 @@ class Main extends React.Component {
   }
 
   onDragStop(evt) {
-    evt.preventDefault()
+    evt.preventDefault();
     this.setState({
       showingDropDialog: false
     })
   }
 
   onCCDrop(evt) {
-    evt.preventDefault()
-    evt.stopPropagation()
+    evt.preventDefault();
+    evt.stopPropagation();
     this.setState({
       showingDropDialog: false
-    })
+    });
 
-    if(this.props.currentUser.lb_muted != 1)
+    if(this.props.currentUser.lb_muted !== 1)
       this.onDrop(Array.from(evt.dataTransfer.files))
   }
 
   render() {
-    channelIdToSet = ""
+    let channelIdToSet = "";
     if(this.state.channel) {
       channelIdToSet = this.state.channel._id
     }
 
-    messageLimit = 32
+    let messageLimit = 32;
     if(typeof(window) != 'undefined') {
       if(window.innerHeight > 800)
-        messageLimit = 42
+        messageLimit = 42;
       if(window.innerHeight > 1080)
-        messageLimit = 75
+        messageLimit = 75;
     }
 
     return (
@@ -146,9 +143,8 @@ class Main extends React.Component {
         value={this.state} 
         className="main"
       > 
-        <Helmet> 
-          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"/>
-          <link href="https://unpkg.com/emoji-mart@2.11.1/css/emoji-mart.css" rel="stylesheet"/>
+        <Helmet>
+          <link href="https://unpkg.com/emoji-mart@2.11.1/css/emoji-mart.css" rel="stylesheet"/> //FIXME: locally store css
         </Helmet>
         
         {this.props.currentUser && <div 
@@ -162,7 +158,7 @@ class Main extends React.Component {
           onDragCapture={(e) => {e.preventDefault()}}
           onDrop={(e) => this.onCCDrop(e)}
         >
-          {this.state.showingDropDialog && (this.props.currentUser.lb_muted != 1) && <div className="file-dropzone-upload">
+          {this.state.showingDropDialog && (this.props.currentUser.lb_muted !== 1) && <div className="file-dropzone-upload">
             <div className="file-dropzone-icon"> 
               <FontAwesomeIcon icon={faUpload}/>
             </div>

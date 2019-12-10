@@ -1,6 +1,7 @@
 import React from 'react';
-import Helmet from 'react-helmet';
-import { Components, withCurrentUser, registerComponent, withCreate, withMulti } from 'meteor/vulcan:core';
+import { withCurrentUser, registerComponent, withCreate, withMulti } from 'meteor/vulcan:core';
+
+import Tooltip from '../../../lib/Tooltip'
 
 import {ChatContext} from '../../../../contexts/ChatContext'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -8,11 +9,14 @@ import { faUserPlus, faHashtag } from '@fortawesome/free-solid-svg-icons'
 
 class ChannelButton extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
+
+    this.textInput = React.createRef();
 
     this.state = {
       inviteDialogShow: false,
-      inviteId: ""
+      inviteId: "",
+      copied: false
     };
   }
 
@@ -20,10 +24,12 @@ class ChannelButton extends React.Component {
     if(this.props.loading) {
       return
     }
-    if(this.props.results.length != 0) {
+    if(this.props.results.length !== 0) {
+      this.textInput.current.value = window.location + "invite/" + this.props.results[0]._id;
+      this.textInput.current.select();
+      window.document.execCommand('copy');
       this.setState({
-        inviteDialogShow: !this.state.inviteDialogShow,
-        inviteId: this.props.results[0]._id
+        copied: true
       })
     } else {
       this.props.createInvite({
@@ -32,9 +38,11 @@ class ChannelButton extends React.Component {
           planetId: this.props.buttonChannel.planetId
         }
       }).then(function(value) {
+        this.textInput.current.value = window.location + "invite/" + value.data.createInvite.data._id;
+        this.textInput.current.select();
+        window.document.execCommand('copy');
         this.setState({
-          inviteDialogShow: !this.state.inviteDialogShow,
-          inviteId: value.data.createInvite.data._id
+          copied: true
         })
       })
     }
@@ -56,7 +64,7 @@ class ChannelButton extends React.Component {
             }
           }
 
-          if(channel._id == this.props.buttonChannel._id) {
+          if(channel._id === this.props.buttonChannel._id) {
             return(
               <div className="channel-button-active">
                 {this.state.inviteDialogShow && <div className="dialog-transparent-background" onClick={() => this.toggleDialog()}>
@@ -70,8 +78,9 @@ class ChannelButton extends React.Component {
                 <span className="channel-button-active-text">
                   <FontAwesomeIcon icon={faHashtag}/> {this.props.buttonChannel.name}
                 </span>
-                  <span className="channel-button-active-invite" onClick={() => this.getInvite()}>
-                  <FontAwesomeIcon icon={faUserPlus}/>
+                <span className="channel-button-active-invite" onMouseLeave={() => {this.setState({copied: false})}}>
+                  <input type="text" className="no-size" ref={this.textInput}/>
+                  <Tooltip side="left" text={this.state.copied ? "Copied!" : "Click to copy"}><FontAwesomeIcon onClick={() => this.getInvite()} icon={faUserPlus}/></Tooltip>
                 </span>
               </div>
             )
@@ -89,6 +98,6 @@ class ChannelButton extends React.Component {
 
 const options = {
   collectionName: "Invites"
-}
+};
 
 registerComponent({ name: 'ChannelButton', component: ChannelButton, hocs: [withCurrentUser, [withCreate, options], [withMulti, options]] });

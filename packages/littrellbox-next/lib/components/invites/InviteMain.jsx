@@ -9,7 +9,7 @@ class InviteMain extends React.Component {
   }
 
   render() {
-    inviteArray = this.props.location.pathname.split("/")
+    let inviteArray = this.props.location.pathname.split("/");
     return (
       <div className="main"> 
         <Helmet>

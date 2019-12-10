@@ -1,6 +1,5 @@
 import React from 'react';
-import Helmet from 'react-helmet';
-import { Components, withCurrentUser, registerComponent, withMulti, withSingle } from 'meteor/vulcan:core';
+import { Components, withCurrentUser, registerComponent, withSingle } from 'meteor/vulcan:core';
 
 class Invite extends React.Component {
   constructor(props) {
@@ -29,6 +28,6 @@ class Invite extends React.Component {
 
 const options = {
   collectionName: 'Invites' 
-}
+};
 
 registerComponent({ name: 'Invite', component: Invite, hocs: [withCurrentUser, [withSingle, options] ] });

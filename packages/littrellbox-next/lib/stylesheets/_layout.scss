@@ -24,17 +24,18 @@ p {
     transform: translateX(-50%);
     right: initial;
     left: 50%;
-    margin: 0.35rem;
-    margin-left: 0;
-    margin-top: -0.5rem;
+    margin: -0.5rem 0.35rem 0.35rem 0;
     border-radius: 0.25rem;
-    padding: 0.4rem;
-    padding-left: 0.5rem;
-    padding-bottom: 0.3rem;
-    padding-right: 0.5rem;
+    padding: 0.4rem 0.5rem 0.3rem;
     font-weight: normal;
     font-size: 0.9rem;
     pointer-events: none;
+  }
+  .tooltip-left {
+    margin-top: 0 !important;
+    right: 100% !important;
+    left: initial !important;
+    transform: translateY(-80%);
   }
 }
 
@@ -42,7 +43,6 @@ p {
   .tooltip {
     margin-top: 0.2rem;
     color: #cccccc;
-    pointer-events: default;
     background-color: #222222CC;
     box-shadow: 0 0 0.5rem #222222;
   }
@@ -121,11 +121,9 @@ p {
   margin: 0.5rem;
   background-color: #333333;
   color: #cccccc;
-  border-width: 0px;
+  border-width: 0;
   border-radius: 5px;
-  padding: 1rem;
-  padding-left: 1.1rem;
-  padding-right: 1.1rem;
+  padding: 1rem 1.1rem;
   font-size: 2rem;
   position: relative;
   resize: horizontal;
@@ -172,4 +170,11 @@ pre {
 .message-area {
   position: relative;;
   color: #cccccc;
+}
+
+.no-size {
+  max-width: 0;
+  max-height: 0;
+  border-width: 0;
+  padding: 0;
 }

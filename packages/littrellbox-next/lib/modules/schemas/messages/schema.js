@@ -93,7 +93,6 @@ const schema = {
     canUpdate: ['members'],
   },
 
-  //TODO: add file support
   fileId: {
     type: String,
     optional: true,
