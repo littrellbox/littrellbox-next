@@ -13,10 +13,7 @@
 
 .dropdown-item {
   cursor: pointer;
-  padding-bottom: 0.25rem;
-  padding-top: 0.25rem;
-  padding-left: 0.6rem;
-  padding-right: 0.6rem;
+  padding: 0.25rem 0.6rem;
 }
 
 .dropdown-icon {
@@ -28,10 +25,7 @@
 }
 
 .dropdown-header {
-  padding-bottom: 0.25rem;
-  padding-top: 0.25rem;
-  padding-left: 0.6rem;
-  padding-right: 0.6rem;
+  padding: 0.25rem 0.6rem;
   cursor: default;
   font-weight: bold;
   border-top: 0.1rem solid #444444;

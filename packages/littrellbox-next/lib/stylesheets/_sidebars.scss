@@ -5,7 +5,7 @@
   height: calc(100% - 0.5rem);
   background-color: #222222;
   overflow-y: auto;
-  scrollbar-width: none;  
+  scrollbar-width: 0;
   padding-bottom: .5rem;
 }
 
@@ -99,8 +99,7 @@
 
 .channel-header {
   color: #cccccc;
-  padding: 0.5rem;
-  padding-bottom: 0.4rem;
+  padding: 0.5rem 0.5rem 0.4rem;
   position: relative;
 }
 
@@ -122,8 +121,7 @@
 }
 
 .channel-list-title {
-  padding: 0.5rem;
-  padding-top: 0.3rem;
+  padding: 0.3rem 0.5rem 0.5rem;
   color: #cccccc;
   font-weight: bold;
   display: flex;
@@ -131,8 +129,7 @@
 }
 
 .dm-list-title {
-  padding: 0.5rem;
-  padding-top: 0.3rem;
+  padding: 0.3rem 0.5rem 0.5rem;
   color: #cccccc;
   font-weight: bold;
   display: flex;
@@ -141,11 +138,8 @@
 .channel-button {
   transition: 0.2s;
   color: #cccccc;
-  padding-bottom: 0.5rem;
-  padding-top: 0.45rem;
-  padding-left: 0.5rem;
   cursor: pointer;
-  padding-right: 0.5rem;
+  padding: 0.45rem 0.5rem 0.5rem;
   overflow: hidden;
 }
 
@@ -157,13 +151,10 @@
 .channel-button-active {
   transition: 0.2s;
   color: #cccccc;
-  padding-bottom: 0.5rem;
-  padding-top: 0.45rem;
-  padding-left: 0.5rem;
   background-color: #555555;
   cursor: pointer;
   display: flex;
-  padding-right: 0.5rem;
+  padding: 0.45rem 0.5rem 0.5rem;
   overflow: hidden;
 }
 
@@ -182,14 +173,12 @@
 }
 
 .new-channel-textbox {
-  margin: 0.5rem;
-  margin-top: 1.2rem;
+  margin: 1.2rem 0.5rem 0.5rem;
   background-color: #444444;
   color: #cccccc;
-  border-width: 0px;
+  border-width: 0;
   border-radius: 5px;
-  padding: 0.25rem;
-  padding-left: 0.35rem;
+  padding: 0.25rem 0.25rem 0.25rem 0.35rem;
   position: relative;
   width: calc(100% - 1.6rem);
 }
@@ -243,8 +232,7 @@
 
 .dm-sidebar-header {
   color: #cccccc;
-  padding: 0.5rem;
-  padding-bottom: 0.4rem;
+  padding: 0.5rem 0.5rem 0.4rem;
   position: relative;
 }
 

@@ -25,7 +25,7 @@
 
 .form-control{
   background-color: #444444;
-  border-width: 0px;
+  border-width: 0;
   padding: 0.6rem;
   width: 100%;
   font-size: 1rem;
@@ -48,36 +48,6 @@
 .btn:hover {
   background: #4c4c4c
 }
-
-// .message-area {
-//   .btn {
-//     background: #555555;
-//     color: #cccccc;
-//     font-family: $font;
-//   }
-//   
-//   .btn:hover {
-//     background: #5c5c5c;
-//     font-family: $font;
-//   }
-// 
-//   .buttons{
-//     a {
-//       background: #555555;
-//       padding: 0.6rem;
-//       padding-top: 0.65rem;
-//       font-family: $font;
-//     }
-//     a:hover {
-//       background: #5c5c5c;
-//       font-family: $font;
-//     }
-//   }
-// 
-//   .accounts-ui {
-//     padding-top: 1rem;
-//   }
-// }
 
 .buttons{
   a {
