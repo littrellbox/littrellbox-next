@@ -1,5 +1,5 @@
 import { createCollection, getDefaultResolvers, getDefaultMutations } from 'meteor/vulcan:core';
-import Users from 'meteor/vulcan:users';
+
 import schema from './schema.js';
 
 import Channels from '../channels/collection'
@@ -23,17 +23,17 @@ const Planets = createCollection({
 
   callbacks: {
     delete: {
-      after: [(document, properties) => {
-        Channels.remove({planetId: document._id})
-        PlanetMembers.remove({planetId: document._id})
-        Messages.remove({planetId: document._id})
+      after: [(document) => {
+        Channels.remove({planetId: document._id});
+        PlanetMembers.remove({planetId: document._id});
+        Messages.remove({planetId: document._id});
         return null
       }]
     }
   }
 });
 
-Planets.addDefaultView(terms => ({
+Planets.addDefaultView(() => ({
   options: {
     sort: {
       //put the newest at the bottom

@@ -1,5 +1,5 @@
 import { createCollection, getDefaultResolvers, getDefaultMutations } from 'meteor/vulcan:core';
-import Users from 'meteor/vulcan:users';
+
 import schema from './schema.js';
 
 const PlanetMembers = createCollection({
@@ -19,13 +19,13 @@ const PlanetMembers = createCollection({
 
   callbacks: {
     create: {
-      validate: [(validationErrors, document, properties) => {
-        errors = validationErrors
+      validate: [(validationErrors, document) => {
+        let errors = validationErrors;
 
-        planetMember = PlanetMembers.findOne({
+        let planetMember = PlanetMembers.findOne({
           userId: document.currentUser._id,
           planetId: document.data.planetId
-        })
+        });
 
         if(planetMember) {
           errors.push("0018:ALREADY_IN_PLANET")
@@ -37,7 +37,7 @@ const PlanetMembers = createCollection({
   }
 });
 
-PlanetMembers.addDefaultView(terms => ({
+PlanetMembers.addDefaultView(() => ({
   options: {
     sort: {
       //put the newest at the bottom
@@ -57,6 +57,6 @@ PlanetMembers.addView('userLookup', terms => ({
     userId: terms.userId,
     planetId: terms.planetId
   }
-}))
+}));
 
 export default PlanetMembers;

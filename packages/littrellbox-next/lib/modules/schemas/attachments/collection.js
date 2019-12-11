@@ -1,5 +1,5 @@
 import { createCollection, getDefaultResolvers, getDefaultMutations } from 'meteor/vulcan:core';
-import Users from 'meteor/vulcan:users';
+
 import schema from './schema.js';
 
 import Messages from '../messages/collection'
@@ -21,8 +21,8 @@ const Attachments = createCollection({
 
   callbacks: {
     create: {
-      validate: [(validationErrors, document, properties) => { 
-        errors = validationErrors
+      validate: [(validationErrors, document) => {
+        let errors = validationErrors;
 
         if(!document.data.postId) {
           errors.push("0013:MISSING_POST_ID")
@@ -36,13 +36,13 @@ const Attachments = createCollection({
           errors.push("0015:MISSING_ATTACHMENT_ID")
         }
 
-        post = Messages.findOne(document.data.postId)
+        let post = Messages.findOne(document.data.postId);
 
-        if(post.userId != document.currentUser._id) {
+        if(post.userId !== document.currentUser._id) {
           errors.push("0016:NO_PERMISSION")
         }
 
-        if(document.currentUser.lb_filesAllowed && document.data.type == "file") {
+        if(document.currentUser.lb_filesAllowed && document.data.type === "file") {
           errors.push("0017:FILES_BLOCKED")
         }
         
@@ -52,7 +52,7 @@ const Attachments = createCollection({
   }
 });
 
-Attachments.addDefaultView(terms => ({
+Attachments.addDefaultView(() => ({
   options: {
     sort: {
       //put the newest at the bottom

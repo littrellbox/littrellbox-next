@@ -1,5 +1,5 @@
 import { createCollection, getDefaultResolvers, getDefaultMutations } from 'meteor/vulcan:core';
-import Users from 'meteor/vulcan:users';
+
 import schema from './schema.js';
 
 const Files = createCollection({
@@ -19,17 +19,20 @@ const Files = createCollection({
 
   callbacks: {
     create: {
-      validate: [(validationErrors, document, properties) => { 
-        errors = validationErrors
-        if(document.currentUser.lb_filesBlocked == 1) {
+      validate: [(validationErrors, document) => {
+        let errors = validationErrors;
+
+        if(document.currentUser.lb_filesBlocked === 1) {
           errors.push("0009:NO_PERMISSION")
         }
+
+        return errors
       }]
     }
   }
 });
 
-Files.addDefaultView(terms => ({
+Files.addDefaultView(() => ({
   options: {
     sort: {
       //put the newest at the bottom

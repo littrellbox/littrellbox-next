@@ -1,5 +1,5 @@
 import { createCollection, getDefaultResolvers, getDefaultMutations } from 'meteor/vulcan:core';
-import Users from 'meteor/vulcan:users';
+
 import schema from './schema.js';
 
 const Invites = createCollection({
@@ -18,7 +18,7 @@ const Invites = createCollection({
   },
 });
 
-Invites.addDefaultView(terms => ({
+Invites.addDefaultView(() => ({
   options: {
     sort: {
       //put the newest at the bottom

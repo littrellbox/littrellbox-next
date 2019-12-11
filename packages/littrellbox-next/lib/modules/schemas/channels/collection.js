@@ -1,5 +1,5 @@
-import { createCollection, getDefaultResolvers, getDefaultMutations } from 'meteor/vulcan:core';
-import Users from 'meteor/vulcan:users';
+import {createCollection, getDefaultMutations, getDefaultResolvers} from 'meteor/vulcan:core';
+
 import schema from './schema.js';
 
 import PlanetMembers from '../planetmembers/collection'
@@ -12,16 +12,10 @@ const canRead = ({ document, user }) => {
     return true
   }
 
-  planetMember = PlanetMembers.findOne({
+  return PlanetMembers.findOne({
     userId: user._id,
     planetId: document.planetId
-  })
-
-  if(!planetMember) {
-    return false
-  }
-  
-  return true
+  });
 };
 
 const Channels = createCollection({
@@ -41,8 +35,8 @@ const Channels = createCollection({
 
   callbacks: {
     create: {
-      validate: [(validationErrors, document, properties) => { 
-        errors = validationErrors
+      validate: [(validationErrors, document) => {
+        let errors = validationErrors;
 
         if(!document.data.planetId && !document.data.isDm) {
           errors.push("0010:MISSING_PLANET_ID")
@@ -52,9 +46,9 @@ const Channels = createCollection({
           errors.push("0011:NO_NAME")
         }
 
-        planet = Planets.findOne(document.data.planetId)
+        let planet = Planets.findOne(document.data.planetId);
         
-        if(document.data.dmUserIds.filter(item => item == document.currentUser._id).length == 2) {
+        if(document.data.dmUserIds.filter(item => item === document.currentUser._id).length === 2) {
           errors.push("0021:NO_SELF_DM")
         }
 
@@ -63,8 +57,8 @@ const Channels = createCollection({
             errors.push("0019:MISSING_DM_USER_IDS")
           }
 
-          if(document.data.dmUserIds.length == 2) {
-            channel = Channels.findOne({dmUserIds: {$all: document.data.dmUserIds, $size: 2}})
+          if(document.data.dmUserIds.length === 2) {
+            let channel = Channels.findOne({dmUserIds: {$all: document.data.dmUserIds, $size: 2}});
 
             if(channel) {
               errors.push("0020:DM_CHANNEL_ALREADY_EXISTS")
@@ -72,7 +66,7 @@ const Channels = createCollection({
           }
         }
 
-        if(!document.data.isDm && (planet.userId != document.currentUser._id)) {
+        if(!document.data.isDm && (planet.userId !== document.currentUser._id)) {
           errors.push("0012:NO_PERMISSION")
         }
 
@@ -82,7 +76,7 @@ const Channels = createCollection({
   }
 });
 
-Channels.addDefaultView(terms => ({
+Channels.addDefaultView(() => ({
   options: {
     sort: {
       //put the newest at the bottom
@@ -101,12 +95,12 @@ Channels.addView("getDms", terms => ({
   selector: {
     dmUserIds: terms.userId
   }
-}))
+}));
 
 Channels.addView("findDm", terms => ({
   selector: {
     dmUserIds: {$all: terms.dmUserIds, $size: 2}
   }
-}))
+}));
 
 export default Channels;

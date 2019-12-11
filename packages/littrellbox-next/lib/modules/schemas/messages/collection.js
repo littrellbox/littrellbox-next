@@ -1,14 +1,13 @@
-import { createCollection, getDefaultResolvers, Connectors, getDefaultMutations } from 'meteor/vulcan:core';
-import Users from 'meteor/vulcan:users';
+import {createCollection, getDefaultMutations, Connectors, getDefaultResolvers} from 'meteor/vulcan:core';
+
 import schema from './schema.js';
-import { PathErrorStats } from 'apollo-engine-reporting-protobuf';
 
 import PlanetMembers from '../planetmembers/collection'
 import Planets from '../planets/collection'
 import Channels from '../channels/collection'
 
 const canRead = ({ document, user }) => {
-  channel = Channels.findOne(document.channelId)
+  let channel = Channels.findOne(document.channelId);
   
   if(channel.isDm && !channel.dmUserIds.includes(user._id)) {
     return false
@@ -16,16 +15,10 @@ const canRead = ({ document, user }) => {
     return true
   }
 
-  planetMember = PlanetMembers.findOne({
+  return PlanetMembers.findOne({
     userId: user._id,
     planetId: document.planetId
-  })
-
-  if(!planetMember) {
-    return false
-  }
-  
-  return true
+  });
 };
 
 const Messages = createCollection({
@@ -45,13 +38,13 @@ const Messages = createCollection({
 
   callbacks: {
     create: {
-      validate: [(validationErrors, document, properties) => { 
-        errors = validationErrors
+      validate: [(validationErrors, document) => {
+        let errors = validationErrors;
         if(!document.data.channelId) {
           errors.push("0001:MISSING_CHANNEL_ID")
         }
 
-        channel = Channels.findOne(document.data.channelId)
+        let channel = Channels.findOne(document.data.channelId);
 
         if(!channel.isDm && !document.data.planetId) {
           errors.push("0002:MISSING_PLANET_ID")
@@ -65,15 +58,15 @@ const Messages = createCollection({
           errors.push("0003:MISSING_TEXT")
         }*/
 
-        if(document.currentUser.lb_muted == 1) {
+        if(document.currentUser.lb_muted === 1) {
           errors.push("0004:MUTED")
         }
 
-        planet = Planets.findOne(document.data.planetId)
-        planetMember = PlanetMembers.findOne({
+        let planet = Planets.findOne(document.data.planetId);
+        let planetMember = PlanetMembers.findOne({
           userId: document.currentUser._id,
           planetId: document.data.planetId
-        })
+        });
 
         if(!channel.isDm && !planet) {
           errors.push("0005:FAKE_PLANET")
@@ -87,20 +80,20 @@ const Messages = createCollection({
           errors.push("0007:NOT_IN_PLANET")
         }
 
-        if(channel.planetId != document.data.planetId) {
+        if(channel.planetId !== document.data.planetId) {
           errors.push("0008:CHANNEL_MISMATCH")
         }
 
         return errors;
       }],
-      after:[(document, properties) => {
-        planet = Planets.findOne(document.planetId)
+      after:[(document) => {
+        let planet = Planets.findOne(document.planetId);
         if(!planet.lastMessagesArray)
-          planet.lastMessagesArray = []
+          planet.lastMessagesArray = [];
 
-        planet.lastMessagesArray[document.channelId] = new Date()
-        console.log(planet) 
-        Connectors['mongo'].update(Planets, document.planetId, {lastMessagesArray: planet.lastMessagesArray})
+        planet.lastMessagesArray[document.channelId] = new Date();
+        console.log(planet);
+        Connectors['mongo'].update(Planets, document.planetId, {lastMessagesArray: planet.lastMessagesArray});
 
         return document;
       }]
@@ -109,7 +102,7 @@ const Messages = createCollection({
 
 });
 
-Messages.addDefaultView(terms => ({
+Messages.addDefaultView(() => ({
   options: {
     sort: {
       //put the newest at the bottom

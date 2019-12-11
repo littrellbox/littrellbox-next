@@ -1,23 +1,22 @@
 import { WebApp } from 'meteor/webapp';
 import { getSetting } from 'meteor/vulcan:core';
 
-const request = require('request')
+const request = require('request');
 
 const AWS = require('aws-sdk');
 const fs = require('fs');
-const fileType = require('file-type');
 const bluebird = require('bluebird');
 const multiparty = require('multiparty');
 
-var bucket = "lbn-default-bucket"
+let bucket = "lbn-default-bucket";
 
-var host = ""
+let host = "";
 
 if(Meteor.isProduction) {
   const region = getSetting('digitalocean.region');
   const accessKey = getSetting('digitalocean.accessKey');
   const secret = getSetting('digitalocean.accessKeySecret');
-  host = `${region}.digitaloceanspaces.com`;
+  let host = `${region}.digitaloceanspaces.com`;
   const spacesEndpoint = new AWS.Endpoint(host);
   AWS.config.update({
     endpoint: spacesEndpoint,
@@ -28,7 +27,7 @@ if(Meteor.isProduction) {
 } else {
   const accessKey = getSetting('developmentBucket.accessKey');
   const secret = getSetting('developmentBucket.accessKeySecret');
-  host = getSetting('developmentBucket.endpoint')
+  host = getSetting('developmentBucket.endpoint');
   const spacesEndpoint = new AWS.Endpoint(host);
   AWS.config.update({
     endpoint: spacesEndpoint,
@@ -55,10 +54,8 @@ const uploadFile = (buffer, fields, type) => {
 };
 
 const checkIsBrowserRenderable = function(filetype) {
-  if(filetype == "image/jpeg" || filetype == "image/gif" || filetype == "image/png" || filetype == "image/x-icon")
-    return true
-  return false
-}
+  return filetype === "image/jpeg" || filetype === "image/gif" || filetype === "image/png" || filetype === "image/x-icon";
+};
 
 WebApp.connectHandlers.use((request, response, next) => {
   if (request.url === '/api/aws-upload-endpoint') {
@@ -69,7 +66,7 @@ WebApp.connectHandlers.use((request, response, next) => {
         const path = files.file[0].path;
         if(files.file[0].size > 8*1024*1024) {
           response.statusCode = 400;
-          response.end("file_too_big")
+          response.end("file_too_big");
           return
         }
         const buffer = fs.readFileSync(path);
@@ -78,7 +75,7 @@ WebApp.connectHandlers.use((request, response, next) => {
         response.end(data.Location)
       } catch (error) {
         response.statusCode = 500;
-        console.log(error)
+        console.log(error);
         response.end(error.toString())
       }
     });
@@ -96,13 +93,13 @@ WebApp.connectHandlers.use((request, response, next) => {
         const path = files.file[0].path;
         if(files.file[0].size > 8*1024*1024) {
           response.statusCode = 400;
-          response.end("file_too_big")
+          response.end("file_too_big");
           return
         } 
 
         if(!checkIsBrowserRenderable(files.file[0].headers['content-type'])) {
           response.statusCode = 400;
-          response.end("invalid_file_type")
+          response.end("invalid_file_type");
           return
         }
         const buffer = fs.readFileSync(path);
@@ -111,7 +108,7 @@ WebApp.connectHandlers.use((request, response, next) => {
         response.end(data.Location)
       } catch (error) {
         response.statusCode = 500;
-        console.log(error)
+        console.log(error);
         response.end(error.toString())
       }
     });
@@ -129,13 +126,13 @@ WebApp.connectHandlers.use((request, response, next) => {
                 const path = files.file[0].path;
                 if(files.file[0].size > 8*1024*1024) {
                     response.statusCode = 400;
-                    response.end("file_too_big")
+                    response.end("file_too_big");
                     return
                 } 
 
                 if(!checkIsBrowserRenderable(files.file[0].headers['content-type'])) {
                     response.statusCode = 400;
-                    response.end("invalid_file_type")
+                    response.end("invalid_file_type");
                     return
                 }
                 const buffer = fs.readFileSync(path);
@@ -144,7 +141,7 @@ WebApp.connectHandlers.use((request, response, next) => {
                 response.end(data.Location)
             } catch (error) {
                 response.statusCode = 500;
-                console.log(error)
+                console.log(error);
                 response.end(error.toString())
             }
         });
@@ -160,10 +157,10 @@ WebApp.connectHandlers.use((req, res, next) => {
       res.statusCode = 403;
       res.end("403 Unauthorized")
     }
-    url = req.url.substr(10);
-    fileNameList = req.url.split("/")
-    fileName = fileNameList[fileNameList.length - 1]
-    res.setHeader('Content-Disposition', 'attachment; filename="' +fileName + '"')
+    let url = req.url.substr(10);
+    let fileNameList = req.url.split("/");
+    let fileName = fileNameList[fileNameList.length - 1];
+    res.setHeader('Content-Disposition', 'attachment; filename="' +fileName + '"');
     if(Meteor.isProduction) {
       request("https://" + bucket + "." + host + "/" + url).pipe(res)
     } else {
@@ -172,4 +169,4 @@ WebApp.connectHandlers.use((req, res, next) => {
   } else {
     next();
   }
-})
+});

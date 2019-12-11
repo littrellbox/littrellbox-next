@@ -1,7 +1,7 @@
 import Users from 'meteor/vulcan:users'
 import { extendFragment } from 'meteor/vulcan:core'
 
-Users.createGroup('moderators')
+Users.createGroup('moderators');
 
 Users.addView('byUsername', terms => ({
   selector: {
@@ -66,11 +66,11 @@ extendFragment('UsersCurrent', `
   lb_muted
   lb_filesBlocked
   lb_usersBlocked
-`)
+`);
 
 extendFragment('UsersDefaultFragment', `
   lb_profilePicture
   lb_muted
   lb_filesBlocked
   lb_usersBlocked
-`)
+`);

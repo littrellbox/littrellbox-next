@@ -1,5 +1,5 @@
 import { createCollection, getDefaultResolvers, getDefaultMutations } from 'meteor/vulcan:core';
-import Users from 'meteor/vulcan:users';
+
 import schema from './schema.js';
 
 const GlobalBans = createCollection({
@@ -18,7 +18,7 @@ const GlobalBans = createCollection({
   },
 });
 
-GlobalBans.addDefaultView(terms => ({
+GlobalBans.addDefaultView(() => ({
   options: {
     sort: {
       //put the newest at the bottom
