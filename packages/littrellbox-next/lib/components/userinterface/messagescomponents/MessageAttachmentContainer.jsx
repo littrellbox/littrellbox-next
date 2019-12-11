@@ -6,16 +6,8 @@ class MessageAttachmentContainer extends React.Component {
     super(props)
   }
 
-  /*componentWillUpdate() {
-    if(this.props.forcePositionUpdate) {
-      this.props.forcePositionUpdate()
-    }
-  }*/
-
   shouldComponentUpdate(newProps, newState) {
-    if(this.props.results != newProps.results)
-      return true
-    return false
+    return this.props.results !== newProps.results;
   }
 
   componentDidUpdate() {
@@ -27,10 +19,10 @@ class MessageAttachmentContainer extends React.Component {
   }
 
   render() {
-    fileAttachments = []
+    let fileAttachments = [];
     if(!this.props.loading) {
       this.props.results.forEach(element => {
-        if(element.type == "file") {
+        if(element.type === "file") {
           fileAttachments.push(element.attachmentId)
         }
       });
@@ -48,6 +40,6 @@ class MessageAttachmentContainer extends React.Component {
 
 const options = {
   collectionName: "Attachments"
-}
+};
 
-registerComponent({ name: 'MessageAttachmentContainer', component: MessageAttachmentContainer, hocs: [withCurrentUser, [withMulti, options]]})
+registerComponent({ name: 'MessageAttachmentContainer', component: MessageAttachmentContainer, hocs: [withCurrentUser, [withMulti, options]]});

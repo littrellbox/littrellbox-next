@@ -1,5 +1,5 @@
 import React from 'react'
-import {registerComponent, withMulti} from 'meteor/vulcan:core';
+import {registerComponent, withMulti, withCurrentUser} from 'meteor/vulcan:core';
 
 import Loading from '../../../lib/Loader'
 

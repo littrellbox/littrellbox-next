@@ -1,12 +1,7 @@
 import React from 'react';
-import Helmet from 'react-helmet';
-import { Components, withCurrentUser, registerComponent, withCreate, withUpdate, withMulti } from 'meteor/vulcan:core';
+import { Components, withCurrentUser, registerComponent, withMulti } from 'meteor/vulcan:core';
 
 import { ChatContext } from '../../contexts/ChatContext'
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-
-import { faSmile } from '@fortawesome/free-solid-svg-icons'
 
 class MessageArea extends React.Component {
   constructor(props) {
@@ -22,11 +17,11 @@ class MessageArea extends React.Component {
     if (!channel.isDm) {
       return ""
     }
-    if (channel.dmUserIds.length != 2) {
+    if (channel.dmUserIds.length !== 2) {
       return "" //no document will ever match this
     }
-    arrayInPlace = [...channel.dmUserIds]
-    arrayInPlace.splice(channel.dmUserIds.indexOf(this.props.currentUser._id), 1)
+    let arrayInPlace = [...channel.dmUserIds];
+    arrayInPlace.splice(channel.dmUserIds.indexOf(this.props.currentUser._id), 1);
     return arrayInPlace
   }
 
@@ -78,6 +73,6 @@ class MessageArea extends React.Component {
 const options = {
   collectionName: "Messages",
   queryOptions: { pollInterval: 500 }
-}
+};
 
 registerComponent({ name: 'MessageArea', component: MessageArea, hocs: [withCurrentUser, [withMulti, options]]});

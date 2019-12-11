@@ -1,5 +1,5 @@
 import React from 'react'
-import { Components, withCurrentUser, registerComponent, withCreate, withMulti } from 'meteor/vulcan:core';
+import { withCurrentUser, registerComponent, withCreate, withMulti } from 'meteor/vulcan:core';
 
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faComments} from '@fortawesome/free-solid-svg-icons'
@@ -15,18 +15,18 @@ class CreateDMButton extends React.Component {
 
   createDM(switchChannel, switchPlanet) {
     if(this.props.results && this.props.results.length > 0) {
-      switchPlanet({})
+      switchPlanet({});
       switchChannel(this.props.results[0])
     }
-    createdChannelPromise = this.props.createChannel({
+    let createdChannelPromise = this.props.createChannel({
       data: {
         name: "directm",
         isDm: true,
         dmUserIds: [this.props.currentUser._id, this.props.user._id]
       }
-    })
+    });
     createdChannelPromise.then((value) => {
-      switchPlanet({})
+      switchPlanet({});
       switchChannel(value.data.createChannel.data)
     }).log(e + "a")
   }
@@ -50,6 +50,6 @@ class CreateDMButton extends React.Component {
 
 const options = {
   collectionName: "Channels"
-}
+};
 
 registerComponent({ name: 'CreateDMButton', component: CreateDMButton, hocs: [withCurrentUser, [withCreate, options], [withMulti, options]] });

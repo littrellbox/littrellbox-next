@@ -1,5 +1,5 @@
 import React from 'react'
-import { Components, registerComponent, withSingle, withCurrentUser } from 'meteor/vulcan:core'
+import { registerComponent, withSingle, withCurrentUser } from 'meteor/vulcan:core'
 
 import { faDownload } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -8,7 +8,7 @@ import { HiddenWithMoveUp, Visible, Hidden, PointerEventsWorkaround } from '../.
 
 class MessageFileAttachment extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       showFullView: false
     }
@@ -33,8 +33,8 @@ class MessageFileAttachment extends React.Component {
   }
 
   createDownloadLink(originalUrl) {
-    urlSplit = originalUrl.split("/")
-    length = urlSplit.length
+    let urlSplit = originalUrl.split("/");
+    let length = urlSplit.length;
     return(window.location + "download/" + urlSplit[length - 3] + "/" + urlSplit[length - 2] + "/" + urlSplit[length - 1])
   }
 
@@ -44,9 +44,9 @@ class MessageFileAttachment extends React.Component {
         return (
           <div className="message-attachment-image">
             <span className="message-attachment-image-name">{this.props.document.fileName}</span>
-            <img src={this.props.document.fileUrl} className="message-attachment-image-img" onClick={() => this.toggleFullView()} onLoad={() => this.props.scrollToBottom()}/>
+            <img src={this.props.document.fileUrl} className="message-attachment-image-img" alt="Attachment Image" onClick={() => this.toggleFullView()} onLoad={() => this.props.scrollToBottom()}/>
             <div className="message-attachment-image-fullview" style={this.state.showFullView ? {} : PointerEventsWorkaround}>
-              <img src={this.props.document.fileUrl} className="message-attachment-fullview-img" style={this.state.showFullView ? Visible : HiddenWithMoveUp}/>
+              <img src={this.props.document.fileUrl} className="message-attachment-fullview-img" alt="Attachment Image" style={this.state.showFullView ? Visible : HiddenWithMoveUp}/>
               <div className="dialog-semi-transparent-background" style={this.state.showFullView ? Visible : Hidden} onClick={() => this.toggleFullView()}/>
             </div>
           </div>
@@ -60,7 +60,6 @@ class MessageFileAttachment extends React.Component {
           </div>
         )
       }
-      return null
     }
     return null
   }
@@ -68,6 +67,6 @@ class MessageFileAttachment extends React.Component {
 
 const options = {
   collectionName: "Files"
-}
+};
 
-registerComponent({ name: 'MessageFileAttachment', component: MessageFileAttachment, hocs: [withCurrentUser, [withSingle, options]]})
+registerComponent({ name: 'MessageFileAttachment', component: MessageFileAttachment, hocs: [withCurrentUser, [withSingle, options]]});

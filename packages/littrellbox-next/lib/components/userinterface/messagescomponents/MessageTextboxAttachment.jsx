@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { faFile, faTimes } from '@fortawesome/free-solid-svg-icons'
+import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 class MessageTextboxAttachment extends React.Component {

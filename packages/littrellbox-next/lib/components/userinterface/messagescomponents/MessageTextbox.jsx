@@ -1,6 +1,5 @@
 import React from 'react';
-import Helmet from 'react-helmet';
-import { Components, withCurrentUser, registerComponent, withCreate, withUpdate, withSingle } from 'meteor/vulcan:core';
+import { withCurrentUser, registerComponent, withCreate, withUpdate, withSingle } from 'meteor/vulcan:core';
 import Textarea from 'react-textarea-autosize';
 
 import { ChatContext } from '../../../contexts/ChatContext'
@@ -28,25 +27,24 @@ class MessageTextbox extends React.Component {
   }
   
   shouldComponentUpdate(newProps, newState) {
-    if(this.state != newState)
-      return true
-    if(this.props.document && newProps.document && this.props.document.username != newProps.document.username)
-      return true
-    if(this.props.channel.name != newProps.channel.name)
-      return true
-    if(this.props.channel._id != newProps.channel._id)
-      return true
-    if(this.props.attachments != newProps.files)
-      return true
-    if(typeof(this.props.document) != typeof(this.props.document))
-      return true
-    return false
+    if(this.state !== newState)
+      return true;
+    if(this.props.document && newProps.document && this.props.document.username !== newProps.document.username)
+      return true;
+    if(this.props.channel.name !== newProps.channel.name)
+      return true;
+    if(this.props.channel._id !== newProps.channel._id)
+      return true;
+    if(this.props.attachments !== newProps.files)
+      return true;
+    return typeof (this.props.document) !== typeof (this.props.document);
+
   } 
 
   handleKeyPress(e, planet, channel) {
     if (e.key === 'Enter' && !this.state.shiftKeyDown)
-      e.preventDefault()
-    if (e.key === 'Enter' && !this.state.shiftKeyDown && (this.state.textboxText != "" || this.props.files.length != 0)) {
+      e.preventDefault();
+    if (e.key === 'Enter' && !this.state.shiftKeyDown && (this.state.textboxText !== "" || this.props.files.length !== 0)) {
       this.props.createMessage({
         data: {
           planetId: planet._id,
@@ -54,8 +52,8 @@ class MessageTextbox extends React.Component {
           text: this.state.textboxText.replaceAll("\n", "  \n\n")
         }
       }).then((value) => {
-        filesToUpload = this.props.files
-        this.props.removeAllItems()
+        let filesToUpload = this.props.files;
+        this.props.removeAllItems();
         filesToUpload.forEach(element => {
           if(element.size > 8*1024*1024) {
             this.setState({
@@ -65,15 +63,15 @@ class MessageTextbox extends React.Component {
             const formData = new FormData();
             formData.append('file', element);
             formData.append('folder', this.props.channel._id + "/" + value.data.createMessage.data._id);
-            formData.append('fileType', element.type)
-            formData.append('name', element.name)
+            formData.append('fileType', element.type);
+            formData.append('name', element.name);
             axios.post(`/api/aws-upload-endpoint`, formData, {
               headers: {
                 'Content-Type': 'multipart/form-data'
               },
               transformResponse: res => res
             }).then(response => {
-              if(response.data != "file_too_big") {
+              if(response.data !== "file_too_big") {
                 this.props.createFile({
                   data: {
                     fileName: element.name,
@@ -91,11 +89,12 @@ class MessageTextbox extends React.Component {
                 })
               }
             }).catch(error => {
+              console.log(error)
               // handle your error
             });
           }
         })
-      }) 
+      });
       this.setState({textboxText: ""})
     }
   }
@@ -121,7 +120,7 @@ class MessageTextbox extends React.Component {
     this.setState({textboxText: e.target.value});
   }
 
-  onEmojiPickerButtonClick(e) {
+  onEmojiPickerButtonClick() {
     this.setState({showEmojiPicker: !this.state.showEmojiPicker})
   }
 
@@ -140,7 +139,7 @@ class MessageTextbox extends React.Component {
   }
 
   render() {
-    messageAttachments = []
+    let messageAttachments = [];
     for(i = 0; i < this.props.files.length; i++) {
       messageAttachments.push({
         file: this.props.files[i],
@@ -148,19 +147,19 @@ class MessageTextbox extends React.Component {
       })
     }
 
-    addAttachmentClassName = "message-textbox-attachment-button"
-    placeholderText = "Message #" + this.props.channel.name
+    let addAttachmentClassName = "message-textbox-attachment-button";
+    let placeholderText = "Message #" + this.props.channel.name;
     if (this.props.channel.isDm) {
       placeholderText = "Message " + this.props.channel.name
     }
-    if (this.props.channel.isDm && this.props.channel.dmUserIds.length == 2 && this.props.document && this.props.document.username) {
+    if (this.props.channel.isDm && this.props.channel.dmUserIds.length === 2 && this.props.document && this.props.document.username) {
       placeholderText = "Message " + this.props.document.username
     }
-    if (this.props.currentUser.lb_muted == 1) {
+    if (this.props.currentUser.lb_muted === 1) {
       placeholderText = "You've been muted."
     }
     if (this.state.fileTooBig) {
-      placeholderText = "File was too big to upload! Max size: 8MB."
+      placeholderText = "File was too big to upload! Max size: 8MB.";
       addAttachmentClassName = "message-textbox-attachment-button-toobig"
     }
 
@@ -192,12 +191,12 @@ class MessageTextbox extends React.Component {
                   onKeyUp={(e) => this.handleKeyUp(e)} 
                   onKeyPress={(e) => this.handleKeyPress(e, planet, channel)} 
                   onChange={(e) => this.onChange(e)} 
-                  disabled={this.props.currentUser.lb_muted == 1}
+                  disabled={this.props.currentUser.lb_muted === 1}
                 /> 
-                {this.props.currentUser.lb_muted != 1 && <div className="message-textbox-emoji-picker-button">
+                {this.props.currentUser.lb_muted !== 1 && <div className="message-textbox-emoji-picker-button">
                   <FontAwesomeIcon icon={faSmile} onClick={() => this.onEmojiPickerButtonClick()}/>
                 </div>}
-                {this.props.currentUser.lb_muted != 1 && this.props.currentUser.lb_filesBlocked != 1 && <div className={addAttachmentClassName}>
+                {this.props.currentUser.lb_muted !== 1 && this.props.currentUser.lb_filesBlocked !== 1 && <div className={addAttachmentClassName}>
                   <FontAwesomeIcon icon={faPaperclip} onClick={() => this.onAttachmentButtonClick()}/>
                   <input type="file" id="file-dialog" multiple ref={(el) => { this.fileDialog = el; }} style={{display: 'none'}} onChange={(e) => this.props.addFile(e.target.files)}/>
                 </div>}
@@ -216,14 +215,14 @@ const createOptions = {
 
 const createAttachmentOptions = {
   collectionName: "Attachments"
-}
+};
 
 const options = {
   collectionName: "Users"
-}
+};
 
 const createFileOptions = {
   collectionName: "Files"
-}
+};
 
 registerComponent({ name: 'MessageTextbox', component: MessageTextbox, hocs: [withCurrentUser, [withSingle, options], [withCreate, createOptions], [withCreate, createFileOptions], [withCreate, createAttachmentOptions], [withUpdate, createOptions]] });

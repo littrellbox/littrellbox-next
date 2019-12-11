@@ -1,6 +1,5 @@
 import React from 'react';
-import Helmet from 'react-helmet';
-import { Components, withCurrentUser, registerComponent, Loading, withMulti } from 'meteor/vulcan:core';
+import { Components, withCurrentUser, registerComponent } from 'meteor/vulcan:core';
 
 class MessageList extends React.Component {
   constructor(props) {
@@ -18,15 +17,14 @@ class MessageList extends React.Component {
       return true;
     if(this.props.items !== newProps.items)
       return true;
-    if(this.props.planet !== newProps.planet)
-      return true;
-    return false;
+    return this.props.planet !== newProps.planet;
+
   }
 
-  isAtBottom = true
+  isAtBottom = true;
 
-  keysTopId = []
-  keysBottomId = []
+  keysTopId = [];
+  keysBottomId = [];
 
   forcePositionUpdate() {
     if(this.messagesList) {
@@ -60,35 +58,33 @@ class MessageList extends React.Component {
   }
 
   handleScroll(e) {
-    condition = e.target.scrollTop == 0
+    let condition = e.target.scrollTop === 0;
 
-    if(condition && this.props.count != this.props.totalCount) {
+    if(condition && this.props.count !== this.props.totalCount) {
       this.props.loadMore()
     }
   }
 
   generateMessageObjects(messageObjects) {
     if(!this.props.loading) {
-      newKeysTop = []
-      newKeysBottom = []
-      if(messageObjects.length != 0) {
-        objectsArray = []
-        workingArray = []
-        messageLastId = ""
-        if(messageObjects.length == 1) {
-          workingArray.push(messageObjects[0])
+      if(messageObjects.length !== 0) {
+        let objectsArray = [];
+        let workingArray = [];
+        let messageLastId = "";
+        if(messageObjects.length === 1) {
+          workingArray.push(messageObjects[0]);
           objectsArray.push({
             messages: workingArray,
             key: 1
-          })
+          });
           return objectsArray
         }
-        for(i = 0; i < messageObjects.length; i++) {
-          if(messageObjects[i].userId == messageLastId) {
+        for(let i = 0; i < messageObjects.length; i++) {
+          if(messageObjects[i].userId === messageLastId) {
             workingArray.push(messageObjects[i])
-          } else if(workingArray.length != 0) {
+          } else if(workingArray.length !== 0) {
             //get a static key
-            key = Math.floor(Math.random() * 10000000000).toString()
+            let key = Math.floor(Math.random() * 10000000000).toString();
             if(this.keysTopId[workingArray[workingArray.length - 1]._id]) {
               key = this.keysTopId[workingArray[workingArray.length - 1]._id]
             } else {
@@ -102,12 +98,12 @@ class MessageList extends React.Component {
             objectsArray.push({
               messages: workingArray,
               key: key
-            })
+            });
             workingArray = []
           }
           
-          if(messageObjects[i].userId != messageLastId) {
-            workingArray.push(messageObjects[i])
+          if(messageObjects[i].userId !== messageLastId) {
+            workingArray.push(messageObjects[i]);
             messageLastId = workingArray[workingArray.length - 1].userId
           }
         }
@@ -115,7 +111,7 @@ class MessageList extends React.Component {
         //push remaining content, if we have any
         if(workingArray[0]) {
           //get a static key
-          key = Math.floor(Math.random() * 10000000000).toString()
+          let key = Math.floor(Math.random() * 10000000000).toString();
           if(this.keysTopId[workingArray[workingArray.length - 1]._id]) {
             key = this.keysTopId[workingArray[workingArray.length - 1]._id]
           } else {

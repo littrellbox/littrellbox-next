@@ -1,42 +1,16 @@
 import React from 'react'
-import { Components, withCurrentUser, registerComponent, withUpdate } from 'meteor/vulcan:core';
-
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faWindowClose} from '@fortawesome/free-solid-svg-icons'
+import { registerComponent } from 'meteor/vulcan:core';
 
 class AboutModal extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       editUsername: false,
       textboxText: ""
     }
   }
 
-  handleChange(e) {
-    this.setState({
-      textboxText: e.target.value
-    })
-  }
-
-  handleKeyPress(e) {
-    if (e.key == "Enter") {
-      documentId = this.props.currentUser._id
-      username = this.state.textboxText
-      this.props.updateUser({
-        selector: {documentId},
-        data: {
-          username: username
-        }
-      })
-    }
-  }
-
   render() {
-    text = this.state.textboxText
-    if(text == "") {
-      text = this.props.currentUser.username
-    }
     return (
       <div className="about-modal" style={this.props.style}>
         <div className="about-header">
@@ -54,4 +28,4 @@ class AboutModal extends React.Component {
   }
 }
 
-registerComponent({ name: 'AboutModal', component: AboutModal, hocs: [withCurrentUser] });
+registerComponent({ name: 'AboutModal', component: AboutModal });

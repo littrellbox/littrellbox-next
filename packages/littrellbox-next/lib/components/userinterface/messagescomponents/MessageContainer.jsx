@@ -10,7 +10,7 @@ import Tooltip from '../../lib/Tooltip'
 
 class MessageContainer extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     
     this.state = {
       showProfile: false,
@@ -23,17 +23,16 @@ class MessageContainer extends React.Component {
       return true;
     if(this.props.messages !== newProps.messages) 
       return true;
-    if(typeof(this.props.document) != typeof(newProps.document))
+    if(typeof(this.props.document) !== typeof(newProps.document))
       return true;
-    if(typeof(this.props.channel) != typeof(newProps.channel))
+    if(typeof(this.props.channel) !== typeof(newProps.channel))
       return true;
     if(newProps.document && this.props.document && this.props.document.username !== newProps.document.username)
       return true;
     if(newProps.document && this.props.document && this.props.document.lb_profilePicture !== newProps.document.lb_profilePicture)
       return true;
-    if(newProps.channel && this.props.channel && this.props.channel._id !== newProps.channel._Id)
-      return true;
-    return false;
+    return !!(newProps.channel && this.props.channel && this.props.channel._id !== newProps.channel._id);
+
   }
 
   toggleProfile() {
@@ -50,12 +49,6 @@ class MessageContainer extends React.Component {
     this.props.scrollToBottom()
   }
 
-  hideProfile() {
-    this.setState({
-      showProfile: false
-    })
-  }
-
   toggleBlocked() {
     this.setState({
       showBlockedMessages: !this.state.showBlockedMessages
@@ -63,21 +56,21 @@ class MessageContainer extends React.Component {
   }
 
   render() {
-    document = this.props.document
+    let document = this.props.document;
     if(!this.props.document) {
       document = {
         username: "Unknown User"
       }
     }
-    if(this.props.document && (!this.props.document.username || this.props.document.username == "")) {
+    if(this.props.document && (!this.props.document.username || this.props.document.username === "")) {
       document = {
         username: "Deleted User"
       }
     }
 
-    var date = new Date(this.props.messages[0].createdAt)
+    let date = new Date(this.props.messages[0].createdAt);
 
-    var timeOptions = {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour:'numeric', minute: 'numeric'}
+    let timeOptions = {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour:'numeric', minute: 'numeric'};
     
     if(this.props.document && !this.state.showBlockedMessages && this.props.currentUser.lb_usersBlocked && this.props.currentUser.lb_usersBlocked.includes(this.props.document._id)) {
       return (
@@ -95,14 +88,14 @@ class MessageContainer extends React.Component {
        </div>
        {this.props.document && !this.props.document.lb_profilePicture && <div className="message-profile-picture" onClick={() => this.toggleProfile()}/>}
        {this.props.document && this.props.document.lb_profilePicture && <div className="message-profile-picture" onClick={() => this.toggleProfile()}>
-         <img src={this.props.document.lb_profilePicture} className="message-pfp-image"/>
+         <img src={this.props.document.lb_profilePicture} className="message-pfp-image" alt="Profile Picture"/>
        </div>}
        <div style={{width: "100%"}}>
          <div className="message-header">
            <div className="message-userdate">
              <span className="message-username" onClick={() => this.toggleProfile()}>{document.username} </span>
              {this.props.document && this.props.document.isAdmin && <Tooltip text="Moderator" className="message-name-icon"><FontAwesomeIcon icon={faUserShield}/></Tooltip>}
-             {this.props.document && (this.props.document._id == this.props.planet.userId) && <Tooltip text="Planet Owner" className="message-name-icon"><FontAwesomeIcon icon={faCrown}/></Tooltip>}
+             {this.props.document && (this.props.document._id === this.props.planet.userId) && <Tooltip text="Planet Owner" className="message-name-icon"><FontAwesomeIcon icon={faCrown}/></Tooltip>}
              <span className="message-date">
                 - {date.toLocaleDateString(navigator.language, timeOptions)}
              </span> 
