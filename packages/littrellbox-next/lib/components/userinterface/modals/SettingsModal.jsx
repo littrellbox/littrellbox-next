@@ -88,6 +88,7 @@ class SettingsModal extends React.Component {
   }
 
   render() {
+    let text = this.state.textboxText ? this.state.textboxText : this.props.currentUser.username;
     return (
       <div className="settings-modal" style={this.props.style}>
         <div className="settings-modal-user-info">

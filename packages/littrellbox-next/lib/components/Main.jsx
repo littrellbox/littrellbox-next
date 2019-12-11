@@ -1,6 +1,6 @@
 import React from 'react';
 import Helmet from 'react-helmet';
-import { Components, withCurrentUser, registerComponent } from 'meteor/vulcan:core';
+import { Components, withCurrentUser, registerComponent, withUpdate } from 'meteor/vulcan:core';
 
 //import context
 import {ChatContext} from '../contexts/ChatContext'
@@ -20,6 +20,20 @@ class Main extends React.Component {
     };
 
     this.switchChannel = (channelToSet) => {
+      if(this.state.channel._id) {
+        let documentId = this.state.planetMember._id;
+        let arrayToUpdate = this.state.planetMember.lastVisitedArray;
+        if(arrayToUpdate === null) {
+          arrayToUpdate = [];
+        }
+        arrayToUpdate[this.state.channel._id] = new Date;
+        this.props.updatePlanetMember({
+          selector: { documentId },
+          data: {
+            lastVisitedArray: arrayToUpdate
+          }
+        });
+      }
       this.setState({
         channel: channelToSet,
         attachments: []
@@ -191,19 +205,8 @@ class Main extends React.Component {
   }
 }
 
-registerComponent({ name: 'Main', component: Main, hocs: [withCurrentUser] });
+const options = {
+  collectionName: "PlanetMembers"
+};
 
-/*        <Dropzone onDrop={(acceptedFiles) => this.state.onDrop(acceptedFiles)} noClick>
-            {({getRootProps, getInputProps, isDragActive}) => (
-              <section>
-                <span className="file-dropzone" {...getRootProps()}>
-                  <input {...getInputProps()}/>
-                  {isDragActive && <div className="file-dropzone-upload">
-                    <div className="file-dropzone-icon"> 
-                      <FontAwesomeIcon icon={faUpload}/>
-                    </div>
-                  </div>}
-                </span>
-              </section>
-            )}
-          </Dropzone> */
+registerComponent({ name: 'Main', component: Main, hocs: [withCurrentUser, [withUpdate, options]] });

@@ -80,7 +80,7 @@ class ChannelButton extends React.Component {
                 </span>
                 <span className="channel-button-active-invite" onMouseLeave={() => {this.setState({copied: false})}}>
                   <input type="text" className="no-size" ref={this.textInput}/>
-                  <Tooltip side="left" text={this.state.copied ? "Copied!" : "Click to copy"}><FontAwesomeIcon onClick={() => this.getInvite()} icon={faUserPlus}/></Tooltip>
+                  <Tooltip side="left tooltip-left-channel" text={this.state.copied ? "Copied!" : "Click to copy"}><FontAwesomeIcon onClick={() => this.getInvite()} icon={faUserPlus}/></Tooltip>
                 </span>
               </div>
             )

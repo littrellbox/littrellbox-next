@@ -32,10 +32,10 @@ p {
     pointer-events: none;
   }
   .tooltip-left {
-    margin-top: 0 !important;
+    margin-top: -0.6rem !important;
     right: 100% !important;
     left: initial !important;
-    transform: translateY(-80%);
+    transform: translateY(-50%);
   }
 }
 

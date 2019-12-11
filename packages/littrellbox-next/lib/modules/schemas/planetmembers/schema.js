@@ -61,7 +61,17 @@ const schema = {
       },
       addOriginalField: true,
     }
-  }
-};
+  },
+
+  lastVisitedArray: {
+    type: Array,
+    optional: true,
+    canRead: ['guests'],
+    canCreate: ['members'],
+    canUpdate: ['members']
+  },
+
+  'lastVisitedArray.$': Date
+}
 
 export default schema;

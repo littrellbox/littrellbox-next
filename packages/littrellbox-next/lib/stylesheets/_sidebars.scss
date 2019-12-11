@@ -305,6 +305,10 @@
   cursor: pointer;
 }
 
+.tooltip-left-channel {
+  box-shadow: none !important;
+}
+
 //scale to small screens
 @media screen and (max-height: 800px) {
   .channel-header-planet { font-size: 1.1rem; }
