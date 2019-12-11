@@ -1,13 +1,13 @@
 import React from 'react';
-import Helmet from 'react-helmet';
-import { Components, withCurrentUser, registerComponent } from 'meteor/vulcan:core';
+
+import { withCurrentUser, registerComponent } from 'meteor/vulcan:core';
 
 import { ChatContext } from '../../../../contexts/ChatContext'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHome } from '@fortawesome/free-solid-svg-icons'
 
-const HomeButton = ({ currentUser }) => (
+const HomeButton = ({ }) => (
   <ChatContext.Consumer>
     {({clearPlanet}) => {
       return(

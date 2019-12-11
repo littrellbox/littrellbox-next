@@ -1,10 +1,8 @@
 import React from 'react';
-import Helmet from 'react-helmet';
+
 import { Components, withCurrentUser, registerComponent } from 'meteor/vulcan:core';
 
-import {ChatContext} from '../../../contexts/ChatContext';
-
-const DMSidebar = ({ currentUser, planet }) => {
+const DMSidebar = ({ currentUser }) => {
   return (
     <div className="channel-sidebar">
       <Components.DMSidebarHeader/>
@@ -16,6 +14,6 @@ const DMSidebar = ({ currentUser, planet }) => {
       }}/>
     </div>
   );
-}
+};
 
 registerComponent({ name: 'DMSidebar', component: DMSidebar, hocs: [withCurrentUser] });

@@ -1,5 +1,5 @@
 import React from 'react';
-import Helmet from 'react-helmet';
+
 import { Components, withCurrentUser, registerComponent, withUpdate, withDelete } from 'meteor/vulcan:core';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -13,7 +13,7 @@ import Tooltip from '../../../lib/Tooltip'
 
 class ChannelHeader extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       showDropdown: false,
       showSettings: false,
@@ -50,23 +50,23 @@ class ChannelHeader extends React.Component {
   }
 
   toggleFeatured() {
-    featured = true
+    let featured = true;
     if(!this.props.planet.featured)
-      featured = true
-    documentId = this.props.planet._id
+      featured = true;
+    let documentId = this.props.planet._id;
     this.props.updatePlanet({
       selector: {documentId},
       data: {
         featured: featured
       }
-    })
+    });
     this.setState({
       showDropdown: false
     })
   }
 
   leavePlanet(member) {
-    documentId = member._id
+    let documentId = member._id;
     this.props.deletePlanetMember({documentId})
   }
 
@@ -92,7 +92,7 @@ class ChannelHeader extends React.Component {
                 </div>
               )}
             </ChatContext.Consumer>
-            {this.props.planet.userId == this.props.currentUser._id && <div className="dropdown-item" onClick={() => this.togglePlanet()}>
+            {this.props.planet.userId === this.props.currentUser._id && <div className="dropdown-item" onClick={() => this.togglePlanet()}>
               <FontAwesomeIcon icon={faCog} className="dropdown-icon"/> Planet Settings
             </div>}
             <div className="dropdown-item" onClick={() => this.toggleAbout()}>
@@ -123,10 +123,10 @@ class ChannelHeader extends React.Component {
 
 const options = {
   collectionName: "Planets"
-}
+};
 
 const optionsDelete = {
   collectionName: "PlanetMembers"
-}
+};
 
 registerComponent({ name: 'ChannelHeader', component: ChannelHeader, hocs: [withCurrentUser, [withUpdate, options], [withDelete, optionsDelete]] });

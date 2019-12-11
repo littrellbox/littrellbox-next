@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import Helmet from 'react-helmet';
+import React from 'react';
+
 import { Components, withCurrentUser, registerComponent, withCreate } from 'meteor/vulcan:core';
 
 import '../../../../modules/schemas/planets/collection'
@@ -8,7 +8,7 @@ import { Hidden, HiddenWithMoveUp, Visible, PointerEventsWorkaround} from '../..
 
 class NewPlanet extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
 
     this.state = {
       showingNewPlanetDialog: false,
@@ -17,7 +17,7 @@ class NewPlanet extends React.Component {
   }
 
   handleKeyPress(e) {
-    if(e.key == "Enter") {
+    if(e.key === "Enter") {
       this.props.createPlanet({
         data: {
           name: this.state.textboxText
@@ -28,13 +28,13 @@ class NewPlanet extends React.Component {
             planetId: value.data.createPlanet.data._id,
             name: "general"
           }
-        })
+        });
         this.props.createPlanetMember({
           data: { 
             planetId: value.data.createPlanet.data._id
           }
         })
-      })
+      });
       this.setState({
         showingNewPlanetDialog: false
       })
@@ -79,40 +79,16 @@ class NewPlanet extends React.Component {
   }
 }
 
-/*const NewPlanet = ({ currentUser, createPlanetMember, createChannel, closeModal }) => (
-  <div className="new-planet"> 
-    <Components.ModalTrigger size="large" title="New Planet" component={<div><Components.NewPlanetButton/></div>}>
-      <Components.SmartForm
-        collectionName="Planets"
-        successCallback={(document, options) => {
-          options.form.props.closeModal()
-          createChannel({
-            data: {
-              planetId: document._id,
-              name: "general"
-            }
-          })
-          createPlanetMember({
-            data: { 
-              planetId: document._id 
-            }
-          })
-        }}
-      />
-    </Components.ModalTrigger>
-  </div>
-);*/
-
 const optionsMember = {
   collectionName: 'PlanetMembers'
-}
+};
 
 const optionsChannel = {
   collectionName: 'Channels'
-}
+};
 
 const optionsPlanet = {
   collectionName: 'Planets'
-}
+};
 
 registerComponent({ name: 'NewPlanet', component: NewPlanet, hocs: [withCurrentUser, [withCreate, optionsPlanet], [withCreate, optionsMember], [withCreate, optionsChannel]] });

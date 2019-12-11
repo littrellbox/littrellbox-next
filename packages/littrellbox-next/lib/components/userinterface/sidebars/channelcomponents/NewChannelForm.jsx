@@ -1,6 +1,5 @@
 import React from 'react';
-import Helmet from 'react-helmet';
-import { Components, withCurrentUser, registerComponent, withCreate } from 'meteor/vulcan:core';
+import { withCurrentUser, registerComponent, withCreate } from 'meteor/vulcan:core';
 
 import { ChatContext } from '../../../../contexts/ChatContext'
 
@@ -20,7 +19,7 @@ class NewChannelForm extends React.Component {
           planetId: planet._id,
           name: this.state.textboxText
         }
-      })
+      });
       this.props.closeModal()
     }
   }

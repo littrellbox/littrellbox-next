@@ -1,6 +1,5 @@
 import React from 'react';
-import Helmet from 'react-helmet';
-import { Components, withCurrentUser, registerComponent, withSingle } from 'meteor/vulcan:core';
+import { withCurrentUser, registerComponent, withSingle } from 'meteor/vulcan:core';
 
 import {ChatContext} from '../../../../contexts/ChatContext'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -21,15 +20,15 @@ class DMButton extends React.Component {
             }
           }
 
-          if(channel._id == this.props.buttonChannel._id) {
+          if(channel._id === this.props.buttonChannel._id) {
             return(
               <div className="channel-button-active dm-button">
                 <span className="dm-button-profile-picture">
-                  {!this.props.documentId != "" && <FontAwesomeIcon className="dm-button-group-icon" icon={faUsers}/>}
-                  {this.props.documentId != "" && this.props.document && this.props.document.lb_profilePicture && <img src={this.props.document.lb_profilePicture} className="dm-button-pfp-image"/>}
+                  {this.props.documentId === "" && <FontAwesomeIcon className="dm-button-group-icon" icon={faUsers}/>}
+                  {this.props.documentId !== "" && this.props.document && this.props.document.lb_profilePicture && <img src={this.props.document.lb_profilePicture} alt="" className="dm-button-pfp-image"/>}
                 </span>
-                {this.props.documentId != "" && this.props.document && <span className="channel-button-active-text dmb-text">{this.props.document.username}</span>}
-                {!this.props.documentId != "" && <span className="channel-button-active-text dmb-text">{this.props.buttonChannel.name}</span>}
+                {this.props.documentId !== "" && this.props.document && <span className="channel-button-active-text dmb-text">{this.props.document.username}</span>}
+                {this.props.documentId === "" && <span className="channel-button-active-text dmb-text">{this.props.buttonChannel.name}</span>}
               </div>
             )
           }
@@ -37,11 +36,11 @@ class DMButton extends React.Component {
           return(
             <div className="channel-button dm-button flex" onClick={() => switchChannel(this.props.buttonChannel)}>
               <span className="dm-button-profile-picture">
-                {!this.props.documentId != "" && <FontAwesomeIcon className="dm-button-group-icon" icon={faUsers}/>}
-                {this.props.documentId != "" && this.props.document && this.props.document.lb_profilePicture && <img src={this.props.document.lb_profilePicture} className="dm-button-pfp-image"/>}
+                {this.props.documentId === "" && <FontAwesomeIcon className="dm-button-group-icon" icon={faUsers}/>}
+                {this.props.documentId !== "" && this.props.document && this.props.document.lb_profilePicture && <img src={this.props.document.lb_profilePicture} alt="" className="dm-button-pfp-image"/>}
               </span>
-              {this.props.documentId != "" && this.props.document && <span className="channel-button-active-text dmb-text">{this.props.document.username}</span>}
-              {!this.props.documentId != "" && <span className="channel-button-active-text dmb-text">{this.props.buttonChannel.name}</span>}
+              {this.props.documentId !== "" && this.props.document && <span className="channel-button-active-text dmb-text">{this.props.document.username}</span>}
+              {this.props.documentId === "" && <span className="channel-button-active-text dmb-text">{this.props.buttonChannel.name}</span>}
             </div>
           )
         }}
@@ -52,6 +51,6 @@ class DMButton extends React.Component {
 
 const options = {
   collectionName: "Users"
-}
+};
 
 registerComponent({ name: 'DMButton', component: DMButton, hocs: [withCurrentUser, [withSingle, options]] });

@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
-import Helmet from 'react-helmet';
-import { Components, withCurrentUser, registerComponent, withMulti, withSingle } from 'meteor/vulcan:core';
+import React from 'react';
+import { registerComponent, withMulti, withSingle } from 'meteor/vulcan:core';
 
 import {ChatContext} from '../../../../contexts/ChatContext'
 
@@ -17,8 +16,8 @@ const PlanetButton = ({member, document, loading, results = []}) => {
     )
   }
 
-  textsplit = document.name.split(" ")
-  text = ""
+  let textsplit = document.name.split(" ");
+  let text = "";
   textsplit.forEach(element => {
     text = text + element.substring(0,1)
   });
@@ -29,8 +28,8 @@ const PlanetButton = ({member, document, loading, results = []}) => {
         <div 
           className="planet-button" 
           onClick={() => {
-              switchChannel(results[0])
-              switchPlanet(document)
+              switchChannel(results[0]);
+              switchPlanet(document);
               setPlanetMember(member)
             }
           }
@@ -42,7 +41,7 @@ const PlanetButton = ({member, document, loading, results = []}) => {
               {text}
             </div>
           }
-          </div> : <img className="planet-button-image" src={document.image}/>}
+          </div> : <img alt={text} className="planet-button-image" src={document.image}/>}
         </div>
       )}
     </ChatContext.Consumer>
@@ -54,6 +53,6 @@ const options = {
 
 const optionsMulti = {
   collectionName: "Channels"
-}
+};
 
 registerComponent({ name: 'PlanetButton', component: PlanetButton, hocs: [[withSingle, options], [withMulti, optionsMulti]] });

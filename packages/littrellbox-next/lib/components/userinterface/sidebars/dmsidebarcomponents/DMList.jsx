@@ -1,11 +1,8 @@
 import React from 'react';
-import Helmet from 'react-helmet';
-import { Components, withCurrentUser, registerComponent, Loading, withMulti, withCreate } from 'meteor/vulcan:core';
+
+import { Components, withCurrentUser, registerComponent, withMulti, withCreate } from 'meteor/vulcan:core';
 
 import CircleLoader from '../../../lib/Loader'
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
 
 class DMList extends React.Component {
   constructor(props) {
@@ -13,11 +10,11 @@ class DMList extends React.Component {
   }
 
   getUserId(channel) {
-    if (channel.dmUserIds.length != 2) {
+    if (channel.dmUserIds.length !== 2) {
       return [""]
     }
-    arrayInPlace = [...channel.dmUserIds]
-    arrayInPlace.splice(channel.dmUserIds.indexOf(this.props.currentUser._id), 1)
+    let arrayInPlace = [...channel.dmUserIds];
+    arrayInPlace.splice(channel.dmUserIds.indexOf(this.props.currentUser._id), 1);
     return arrayInPlace
   }
 

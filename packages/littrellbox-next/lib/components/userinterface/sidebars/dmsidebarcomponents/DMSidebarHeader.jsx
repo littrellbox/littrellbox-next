@@ -1,16 +1,14 @@
 import React from 'react';
-import { Components, withCurrentUser, registerComponent, withUpdate, withDelete } from 'meteor/vulcan:core';
+import { Components, withCurrentUser, registerComponent } from 'meteor/vulcan:core';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faAngleDown, faStar, faCog, faInfo } from '@fortawesome/free-solid-svg-icons'
+import { faAngleDown, faCog, faInfo } from '@fortawesome/free-solid-svg-icons'
 
 import { HiddenWithMoveUp, Visible, Hidden } from '../../../lib/AnimationStyles'
 
-import Tooltip from '../../../lib/Tooltip'
-
 class DMSidebarHeader extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       showDropdown: false,
       showSettings: false,

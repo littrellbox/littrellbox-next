@@ -1,6 +1,6 @@
 import React from 'react';
-import Helmet from 'react-helmet';
-import { Components, withCurrentUser, registerComponent, Loading, withMulti } from 'meteor/vulcan:core';
+
+import { Components, withCurrentUser, registerComponent, withMulti } from 'meteor/vulcan:core';
 
 import { ChatContext } from '../../../contexts/ChatContext'
 
@@ -9,13 +9,13 @@ class PlanetSidebar extends React.Component {
     super(props)
   }
 
-  ReactStupidInfiniteLoopPreventionBoolean = false
+  ReactStupidInfiniteLoopPreventionBoolean = false;
 
   componentDidUpdate() {
-    if(this.props.results && !this.props.loading && this.context.planet && this.context.planet != {}) {
-      if(this.props.results.filter(value => value.planetId == this.context.planet._id).length == 0 && !this.ReactStupidInfiniteLoopPreventionBoolean) {
+    if(this.props.results && !this.props.loading && this.context.planet && this.context.planet !== {}) {
+      if(this.props.results.filter(value => value.planetId === this.context.planet._id).length === 0 && !this.ReactStupidInfiniteLoopPreventionBoolean) {
         //the planet doesn't exist, or we aren't in it (this is checked in the server)
-        this.context.clearPlanet()
+        this.context.clearPlanet();
         this.ReactStupidInfiniteLoopPreventionBoolean = true
       } else {
         this.ReactStupidInfiniteLoopPreventionBoolean = false
@@ -30,7 +30,7 @@ class PlanetSidebar extends React.Component {
       <div className="scroll-container">
         {this.props.results && <div className="planet-sidebar">
           { this.props.loading ?
-            <Loading/>:
+            <div/>:
             <div> 
               <Components.HomeButton/>
               {this.props.results.map(planetmember => <Components.PlanetButton
@@ -52,7 +52,7 @@ class PlanetSidebar extends React.Component {
   }
 }
 
-PlanetSidebar.contextType = ChatContext
+PlanetSidebar.contextType = ChatContext;
 
 const options = {
   collectionName: "PlanetMembers",

@@ -1,6 +1,6 @@
 import React from 'react';
-import Helmet from 'react-helmet';
-import { Components, withCurrentUser, registerComponent, Loading, withMulti, withCreate } from 'meteor/vulcan:core';
+
+import { Components, withCurrentUser, registerComponent, withMulti, withCreate } from 'meteor/vulcan:core';
 
 import CircleLoader from '../../../lib/Loader'
 
@@ -10,7 +10,7 @@ import { Visible, HiddenNoHeight } from '../../../lib/AnimationStyles';
 
 class ChannelList extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
 
     this.state = {
       showNewChannelTextbox: false,
@@ -25,13 +25,13 @@ class ChannelList extends React.Component {
   }
 
   handleKeyPress(e) {
-    if(e.key == "Enter") {
+    if(e.key === "Enter") {
       this.props.createChannel({
         data: {
           planetId: this.props.planet._id,
           name: this.state.textboxText
         }
-      })
+      });
       this.setState({
         showNewChannelTextbox: false
       })
@@ -51,7 +51,7 @@ class ChannelList extends React.Component {
           <div className="channel-list-title-text">
             CHANNELS
           </div>
-          {this.props.currentUser._id == this.props.planet.userId && <div>
+          {this.props.currentUser._id === this.props.planet.userId && <div>
             <span className="new-channel-button" onClick={() => this.toggleTextbox()}><FontAwesomeIcon icon={faPlus}/></span>
           </div>}
         </div>
