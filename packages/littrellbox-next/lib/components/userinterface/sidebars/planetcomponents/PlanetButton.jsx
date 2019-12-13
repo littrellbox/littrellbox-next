@@ -10,14 +10,14 @@ class PlanetButton extends React.Component {
     super(props);
   }
 
-  /*componentDidUpdate(prevProps, prevState, snapshot) {
-    if(this.context.planet !== this.props.document) {
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if(this.context.planet._id === this.props.document._id && this.context.planet !== this.props.document) {
       this.context.switchPlanet(this.props.document)
     }
-    if(this.context.planetMember !== this.props.member) {
+    if(this.context.planetMember._id === this.props.member._id && this.context.planetMember !== this.props.member) {
       this.context.setPlanetMember(this.props.member)
     }
-  }*/
+  }
 
   checkNotifications(channel) {
     if(this.props.document && this.props.document.lastMessagesArray && this.props.member.lastVisitedArray) {
