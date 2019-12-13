@@ -8,7 +8,6 @@ let formatText = (message) => {
   // the uk emoji is weird, don't worry about it
   let workingMessage = message;
   workingMessage = workingMessage.replaceAll("\\n", "  \n");
-  workingMessage = workingMessage.replaceAll("`", "&$96;");
   workingMessage = workingMessage.replaceAll(":flag-uk:", ":uk:");
   workingMessage = escapeHtml(workingMessage);
   workingMessage = emoji.emojify(workingMessage);

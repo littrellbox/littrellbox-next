@@ -64,14 +64,12 @@ const schema = {
   },
 
   lastVisitedArray: {
-    type: Array,
+    type: String,
     optional: true,
     canRead: ['guests'],
     canCreate: ['members'],
     canUpdate: ['members']
-  },
-
-  'lastVisitedArray.$': Date
-}
+  }
+};
 
 export default schema;

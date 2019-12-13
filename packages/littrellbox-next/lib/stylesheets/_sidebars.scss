@@ -305,6 +305,17 @@
   cursor: pointer;
 }
 
+.planet-button-unread {
+  position: absolute;
+  z-index: 10000;
+  top: 0.25rem;
+  right: 0.25rem;
+  min-width: 0.5rem;
+  min-height: 0.5rem;
+  background-color: #aaaaaaaa;
+  border-radius: 50%;
+}
+
 .tooltip-left-channel {
   box-shadow: none !important;
 }

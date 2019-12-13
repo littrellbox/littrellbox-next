@@ -31,7 +31,7 @@ class MessageList extends React.Component {
       const messageList = this.messagesList;
       const scrollPos = messageList.scrollTop;
       const scrollBottom = (messageList.scrollHeight - messageList.clientHeight);
-      this.isAtBottom = (scrollBottom <= 0) || (scrollPos === scrollBottom); 
+      this.isAtBottom = (scrollBottom <= 10) || (scrollPos === scrollBottom);
     }
   }
 
@@ -39,7 +39,7 @@ class MessageList extends React.Component {
     const messageList = this.messagesList;
     const scrollPos = messageList.scrollTop;
     const scrollBottom = (messageList.scrollHeight - messageList.clientHeight);
-    this.isAtBottom = (scrollBottom <= 0) || (scrollPos === scrollBottom); 
+    this.isAtBottom = (scrollBottom <= 10) || (scrollPos === scrollBottom);
     return null
   }
 

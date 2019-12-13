@@ -89,11 +89,14 @@ const Messages = createCollection({
       after:[(document) => {
         let planet = Planets.findOne(document.planetId);
         if(!planet.lastMessagesArray)
-          planet.lastMessagesArray = [];
+          planet.lastMessagesArray = {};
+        else {
+          planet.lastMessagesArray = JSON.parse(planet.lastMessagesArray)
+        }
 
         planet.lastMessagesArray[document.channelId] = new Date();
-        console.log(planet);
-        Connectors['mongo'].update(Planets, document.planetId, {lastMessagesArray: planet.lastMessagesArray});
+        console.log(planet.lastMessagesArray);
+        Connectors.update(Planets, document.planetId, {$set: {lastMessagesArray: JSON.stringify(planet.lastMessagesArray)}});
 
         return document;
       }]

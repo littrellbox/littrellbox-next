@@ -19,21 +19,26 @@ class Main extends React.Component {
       });
     };
 
-    this.switchChannel = (channelToSet) => {
-      if(this.state.channel._id) {
+    this.updateLastVisited = () => {
+      if(this.state.planet._id && this.state.channel._id) {
+        console.log("id");
         let documentId = this.state.planetMember._id;
-        let arrayToUpdate = this.state.planetMember.lastVisitedArray;
-        if(arrayToUpdate === null) {
-          arrayToUpdate = [];
+        let arrayToUpdate = {};
+        if(this.state.planetMember.lastVisitedArray) {
+          arrayToUpdate = JSON.parse(this.state.planetMember.lastVisitedArray);
         }
         arrayToUpdate[this.state.channel._id] = new Date;
         this.props.updatePlanetMember({
           selector: { documentId },
           data: {
-            lastVisitedArray: arrayToUpdate
+            lastVisitedArray: JSON.stringify(arrayToUpdate)
           }
         });
       }
+    };
+
+    this.switchChannel = (channelToSet) => {
+      this.updateLastVisited();
       this.setState({
         channel: channelToSet,
         attachments: []
@@ -65,6 +70,7 @@ class Main extends React.Component {
     };
 
     this.clearPlanet = () => {
+      this.updateLastVisited();
       this.setState({
         planet: {},
         channel: {},

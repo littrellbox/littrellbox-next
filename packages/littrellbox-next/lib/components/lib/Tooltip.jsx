@@ -9,7 +9,6 @@ class Tooltip extends React.Component {
     let style = "tooltip";
     if(this.props.side) {
       style = "tooltip " + "tooltip-" + this.props.side;
-      console.log(style)
     }
     return (
       <div className={"tooltip-container " + this.props.className}>
