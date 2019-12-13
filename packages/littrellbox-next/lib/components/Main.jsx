@@ -72,7 +72,7 @@ class Main extends React.Component {
     this.clearPlanet = () => {
       this.updateLastVisited();
       this.setState({
-        planet: {},
+        planet: {b: "a"},
         channel: {},
         planetMember: {}
       })

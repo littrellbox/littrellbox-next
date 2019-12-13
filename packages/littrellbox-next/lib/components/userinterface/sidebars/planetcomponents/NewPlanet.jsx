@@ -73,7 +73,7 @@ class NewPlanet extends React.Component {
               onKeyPress={(e) => this.handleKeyPress(e)}
             />
           </div>
-        </div>}
+        </div>
       </div>
     )
   }

@@ -8,7 +8,7 @@ const ChannelSidebar = ({}) => {
   return (
     <ChatContext.Consumer>
       {({planet}) => {
-        if(planet.name) {
+        if(planet && planet._id) {
           return (
             <div className="channel-sidebar">
               <Components.ChannelHeader planet={planet}/>

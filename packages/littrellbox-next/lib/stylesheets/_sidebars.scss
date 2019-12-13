@@ -316,6 +316,14 @@
   border-radius: 50%;
 }
 
+.channel-button-unread {
+  min-width: 0.5rem;
+  min-height: 0.5rem;
+  background-color: #aaaaaaaa;
+  border-radius: 50%;
+  display: inline-block;
+}
+
 .tooltip-left-channel {
   box-shadow: none !important;
 }

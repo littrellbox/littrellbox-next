@@ -6,6 +6,7 @@ import Tooltip from '../../../lib/Tooltip'
 import {ChatContext} from '../../../../contexts/ChatContext'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUserPlus, faHashtag } from '@fortawesome/free-solid-svg-icons'
+import {date} from "@storybook/addon-knobs";
 
 class ChannelButton extends React.Component {
   constructor(props) {
@@ -18,6 +19,19 @@ class ChannelButton extends React.Component {
       inviteId: "",
       copied: false
     };
+  }
+
+  checkNotifications() {
+    console.log(this.context);
+    if(this.context.planet.lastMessagesArray && this.context.planetMember.lastVisitedArray) {
+      console.log("a");
+      let array = JSON.parse(this.context.planet.lastMessagesArray);
+      let lastVisited = JSON.parse(this.context.planetMember.lastVisitedArray);
+      let dateMessages = Date.parse(array[this.props.buttonChannel._id].toString());
+      let dateVisited = Date.parse(lastVisited[this.props.buttonChannel._id]);
+      return dateMessages > dateVisited;
+    }
+    return false;
   }
 
   getInvite() {
@@ -67,14 +81,6 @@ class ChannelButton extends React.Component {
           if(channel._id === this.props.buttonChannel._id) {
             return(
               <div className="channel-button-active">
-                {this.state.inviteDialogShow && <div className="dialog-transparent-background" onClick={() => this.toggleDialog()}>
-                  <div className="dialog">
-                    Your invite url is:
-                    <div className="invite-dialog-url">
-                    <a href={window.location + "invite/" + this.state.inviteId}>{window.location + "invite/" + this.state.inviteId}</a>
-                    </div>
-                  </div>
-                </div>}
                 <span className="channel-button-active-text">
                   <FontAwesomeIcon icon={faHashtag}/> {this.props.buttonChannel.name}
                 </span>
@@ -87,7 +93,7 @@ class ChannelButton extends React.Component {
           }
           return(
             <div className="channel-button" onClick={() => switchChannel(this.props.buttonChannel)}>
-              <FontAwesomeIcon icon={faHashtag}/> {this.props.buttonChannel.name}
+              <FontAwesomeIcon icon={faHashtag}/> {this.props.buttonChannel.name} {this.checkNotifications() && <div className="channel-button-unread"/>}
             </div>
           )
         }}
@@ -95,6 +101,8 @@ class ChannelButton extends React.Component {
     )
   }
 }
+
+ChannelButton.contextType = ChatContext;
 
 const options = {
   collectionName: "Invites"

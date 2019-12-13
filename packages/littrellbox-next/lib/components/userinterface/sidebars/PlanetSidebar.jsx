@@ -31,7 +31,7 @@ class PlanetSidebar extends React.Component {
         {this.props.results && <div className="planet-sidebar">
           { this.props.loading ?
             <div/>:
-            <div> 
+            <div>
               <Components.HomeButton/>
               {this.props.results.map(planetmember => <Components.PlanetButton
                 key={planetmember._id} 

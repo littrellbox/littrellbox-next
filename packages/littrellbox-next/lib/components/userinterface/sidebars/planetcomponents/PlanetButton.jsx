@@ -10,14 +10,14 @@ class PlanetButton extends React.Component {
     super(props);
   }
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
+  /*componentDidUpdate(prevProps, prevState, snapshot) {
     if(this.context.planet !== this.props.document) {
       this.context.switchPlanet(this.props.document)
     }
     if(this.context.planetMember !== this.props.member) {
       this.context.setPlanetMember(this.props.member)
     }
-  }
+  }*/
 
   checkNotifications(channel) {
     if(this.props.document && this.props.document.lastMessagesArray && this.props.member.lastVisitedArray) {
@@ -27,7 +27,7 @@ class PlanetButton extends React.Component {
       for (const value of Object.entries(array)) {
         let dateMessages = Date.parse(value[1].toString());
         let dateVisited = Date.parse(lastVisited[value[0]]);
-        if(!channel || !channel._id || value[0] !== channel._id)
+        if(!channel || !channel._id || value[0] !== channel._id && !newNotif)
           newNotif = dateMessages > dateVisited;
       }
       return newNotif;
@@ -84,7 +84,8 @@ class PlanetButton extends React.Component {
 PlanetButton.contextType = ChatContext;
 
 const options = {
-  collectionName: "Planets"
+  collectionName: "Planets",
+  queryOptions: { pollInterval: 1000 }
 };
 
 const optionsMulti = {
