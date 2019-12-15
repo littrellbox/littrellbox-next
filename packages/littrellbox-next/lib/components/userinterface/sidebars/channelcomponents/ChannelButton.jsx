@@ -21,12 +21,19 @@ class ChannelButton extends React.Component {
   }
 
   checkNotifications() {
-    if(this.context.planet.lastMessagesArray && this.context.planetMember.lastVisitedArray) {
+    if(this.props.buttonChannel && this.context.planet.lastMessagesArray && this.context.planetMember.lastVisitedArray) {
       let array = JSON.parse(this.context.planet.lastMessagesArray);
       let lastVisited = JSON.parse(this.context.planetMember.lastVisitedArray);
-      let dateMessages = Date.parse(array[this.props.buttonChannel._id].toString());
-      let dateVisited = Date.parse(lastVisited[this.props.buttonChannel._id]);
-      return dateMessages > dateVisited;
+      console.log(lastVisited);
+      if(array && array[this.props.buttonChannel._id]) {
+        if (!lastVisited || !lastVisited[this.props.buttonChannel._id]) {
+          //we've never visited the channel before
+          return true
+        }
+        let dateMessages = Date.parse(array[this.props.buttonChannel._id].toString());
+        let dateVisited = Date.parse(lastVisited[this.props.buttonChannel._id]);
+        return dateMessages > dateVisited;
+      }
     }
     return false;
   }

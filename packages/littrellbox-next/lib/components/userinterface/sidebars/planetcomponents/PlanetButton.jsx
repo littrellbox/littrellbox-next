@@ -11,11 +11,13 @@ class PlanetButton extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    if(this.context.planet._id === this.props.document._id && this.context.planet !== this.props.document) {
-      this.context.switchPlanet(this.props.document)
-    }
-    if(this.context.planetMember._id === this.props.member._id && this.context.planetMember !== this.props.member) {
-      this.context.setPlanetMember(this.props.member)
+    if(this.props.document && this.context.planet) {
+      if(this.context.planet._id === this.props.document._id && this.context.planet !== this.props.document) {
+        this.context.switchPlanet(this.props.document)
+      }
+      if(this.context.planetMember._id === this.props.member._id && this.context.planetMember !== this.props.member) {
+        this.context.setPlanetMember(this.props.member)
+      }
     }
   }
 
@@ -25,6 +27,10 @@ class PlanetButton extends React.Component {
       let lastVisited = JSON.parse(this.props.member.lastVisitedArray);
       let newNotif = false;
       for (const value of Object.entries(array)) {
+        if (!lastVisited || !lastVisited[value[0]]) {
+          //we've never visited the channel before
+          return true
+        }
         let dateMessages = Date.parse(value[1].toString());
         let dateVisited = Date.parse(lastVisited[value[0]]);
         if(!channel || !channel._id || value[0] !== channel._id && !newNotif)
