@@ -2,6 +2,7 @@ import {createCollection, getDefaultMutations, Connectors, getDefaultResolvers} 
 
 import schema from './schema.js';
 
+import Users from 'meteor/vulcan:users'
 import PlanetMembers from '../planetmembers/collection'
 import Planets from '../planets/collection'
 import Channels from '../channels/collection'
@@ -87,6 +88,24 @@ const Messages = createCollection({
         return errors;
       }],
       after:[(document) => {
+        if(document.pings) {
+          for(const pingedUsername in document.pings) {
+            let user = Users.findOne({username: pingedUsername});
+            if (user) {
+              let member = PlanetMembers.findOne(user._id);
+              if (member) {
+                if(!member.pingArray) {
+                  member.pingArray = {}
+                } else {
+                  member.pingArray = JSON.parse(member.pingArray)
+                }
+                member.pingArray[document.channelId] = true;
+                Connectors.update(PlanetMembers, member._id, {$set: {pingArray: JSON.stringify(member.pingArray)}})
+              }
+            }
+          }
+        }
+
         let planet = Planets.findOne(document.planetId);
         if(!planet.lastMessagesArray)
           planet.lastMessagesArray = {};
@@ -95,7 +114,6 @@ const Messages = createCollection({
         }
 
         planet.lastMessagesArray[document.channelId] = new Date();
-        console.log(planet.lastMessagesArray);
         Connectors.update(Planets, document.planetId, {$set: {lastMessagesArray: JSON.stringify(planet.lastMessagesArray)}});
 
         return document;

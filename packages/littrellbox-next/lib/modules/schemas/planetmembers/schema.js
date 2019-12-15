@@ -69,6 +69,14 @@ const schema = {
     canRead: ['guests'],
     canCreate: ['members'],
     canUpdate: ['members']
+  },
+
+  pingArray: {
+    type: String,
+    optional: true,
+    canRead: ['guests'],
+    canCreate: ['members'],
+    canUpdate: ['members']
   }
 };
 

@@ -99,7 +99,17 @@ const schema = {
     canRead: ['guests'],
     canCreate: ['members'],
     canUpdate: ['members'],
-  }
+  },
+
+  pings: {
+    type: Array,
+    optional: true,
+    canRead: ['guests'],
+    canCreate: ['members'],
+    canUpdate: ['members'],
+  },
+
+  'pings.$': String
 };
 
 export default schema;
