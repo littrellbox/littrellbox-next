@@ -6,7 +6,6 @@ import Tooltip from '../../../lib/Tooltip'
 import {ChatContext} from '../../../../contexts/ChatContext'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUserPlus, faHashtag } from '@fortawesome/free-solid-svg-icons'
-import {date} from "@storybook/addon-knobs";
 
 class ChannelButton extends React.Component {
   constructor(props) {
@@ -22,9 +21,7 @@ class ChannelButton extends React.Component {
   }
 
   checkNotifications() {
-    console.log(this.context);
     if(this.context.planet.lastMessagesArray && this.context.planetMember.lastVisitedArray) {
-      console.log("a");
       let array = JSON.parse(this.context.planet.lastMessagesArray);
       let lastVisited = JSON.parse(this.context.planetMember.lastVisitedArray);
       let dateMessages = Date.parse(array[this.props.buttonChannel._id].toString());
@@ -60,12 +57,6 @@ class ChannelButton extends React.Component {
         })
       })
     }
-  }
-
-  toggleDialog() {
-    this.setState({
-      inviteDialogShow: !this.state.inviteDialogShow
-    })
   }
 
   render() {

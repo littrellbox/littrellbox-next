@@ -45,11 +45,21 @@ class MessageTextbox extends React.Component {
     if (e.key === 'Enter' && !this.state.shiftKeyDown)
       e.preventDefault();
     if (e.key === 'Enter' && !this.state.shiftKeyDown && (this.state.textboxText !== "" || this.props.files.length !== 0)) {
+      let pingSplit = this.state.textboxText.split("@");
+      let pinged = [];
+      if(pingSplit.length > 1) {
+        for(let i = 0; i > pingSplit.length; i++) {
+          if(i !== 0) {
+            pinged.push(pingSplit[i].split(" ")[0])
+          }
+        }
+      }
       this.props.createMessage({
         data: {
           planetId: planet._id,
           channelId: channel._id,
-          text: this.state.textboxText.replaceAll("\n", "  \n\n")
+          text: this.state.textboxText.replaceAll("\n", "  \n\n"),
+          pings: pinged
         }
       }).then((value) => {
         let filesToUpload = this.props.files;
