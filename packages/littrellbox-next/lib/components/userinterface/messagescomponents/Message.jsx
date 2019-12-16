@@ -126,7 +126,7 @@ class Message extends React.Component {
     let dropdownCondition1 = !this.props.loading && this.props.currentUser._id === this.props.document._id;
     let dropdownCondition2 = !this.props.loading && this.props.currentUser.isAdmin;
     let style = "message-singular";
-    console.log(this.props.message)
+
     if(this.props.message && this.props.message.pings && this.props.message.pings.includes(this.props.currentUser.username)) {
       style = "message-singular message-bg-mentioned"
     }

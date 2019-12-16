@@ -70,6 +70,12 @@ class ChannelButton extends React.Component {
   }
 
   render() {
+    let notificationsStyle = "channel-button-unread";
+    if(this.context.planetMember && this.context.planetMember.pingArray) {
+      if(Object.values(JSON.parse(this.context.planetMember.pingArray)).includes(true))
+        notificationsStyle = "channel-button-unread planet-button-ping"
+    }
+
     return(
       <ChatContext.Consumer>
         {({channel, switchChannel}) => {
@@ -94,7 +100,7 @@ class ChannelButton extends React.Component {
           }
           return(
             <div className="channel-button" onClick={() => switchChannel(this.props.buttonChannel)}>
-              <FontAwesomeIcon icon={faHashtag}/> {this.props.buttonChannel.name} {this.checkNotifications() && <div className="channel-button-unread"/>}
+              <FontAwesomeIcon icon={faHashtag}/> {this.props.buttonChannel.name} {this.checkNotifications() && <div className={notificationsStyle}/>}
             </div>
           )
         }}

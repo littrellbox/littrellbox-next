@@ -60,7 +60,7 @@ class MessageTextbox extends React.Component {
         data: {
           planetId: planet._id,
           channelId: channel._id,
-          text: this.state.textboxText.replaceAll("\n", "  \n\n"),
+          text: this.state.textboxText,
           pings: pinged
         }
       }).then((value) => {

@@ -38,7 +38,7 @@ class MessageEditTextbox extends React.Component {
         selector: { documentId },
         data: {
           //i'm gonna be 100% honest with you i have absolutely no clue where this variable came from
-          text: text
+          text: this.state.textboxText
         }
       })
     }

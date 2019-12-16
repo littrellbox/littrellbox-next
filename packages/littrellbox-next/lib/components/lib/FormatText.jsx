@@ -6,6 +6,7 @@ let formatText = (message) => {
   // we can't use DOM parsing, it bugs out too much
   let workingMessage = message;
   workingMessage = escapeHtml(workingMessage);
+  workingMessage = workingMessage.replaceAll("\n", "  \n\n");
   workingMessage = workingMessage.replaceAll(/( @[A-Za-z0-9_])\w+/g, formatPing);
   workingMessage = workingMessage.replaceAll(/(^@[A-Za-z0-9_])\w+/, formatNewLinePing);
   workingMessage = workingMessage.replaceAll(/(\n\n@[A-Za-z0-9_])\w+/, formatUnformattedNewLinePing); //workaround for how we handle new lines

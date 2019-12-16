@@ -178,3 +178,15 @@ pre {
   border-width: 0;
   padding: 0;
 }
+
+@media screen and (max-height: 800px) {
+  .tooltip {
+    padding: 0.3rem 0.4rem 0.2rem !important;
+    font-size: 0.8rem !important;
+  }
+  .tooltip-container:hover {
+    .tooltip {
+      box-shadow: 0 0 0.2rem #222222 !important;
+    }
+  }
+}

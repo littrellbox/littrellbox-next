@@ -60,26 +60,36 @@ class PlanetButton extends React.Component {
       });
     }
 
+    let notificationsStyle = 'planet-button-unread';
+
+    if(this.props.member && this.props.member.pingArray) {
+      if(Object.values(JSON.parse(this.props.member.pingArray)).includes(true))
+        notificationsStyle = "planet-button-unread planet-button-ping"
+    }
+
     return (
       <ChatContext.Consumer>
         {({switchPlanet, switchChannel, setPlanetMember, channel}) => (
-          <div
-            className="planet-button"
-            onClick={() => {
-              switchChannel(this.props.results[0]);
-              switchPlanet(this.props.document);
-              setPlanetMember(this.props.member)
-            }}
-          >
-            {this.checkNotifications(channel) && <div className="planet-button-unread"/>}
-            {(!document.image && !this.props.loading) ? <div className="planet-button-inner">
-              {this.props.loading ?
-                <CircleLoader/> :
-                <div className="planet-button-text">
-                  {text}
-                </div>
-              }
-            </div> : <img alt={text} className="planet-button-image" src={document.image}/>}
+          <div style={{position: "relative"}}>
+            {this.props.document._id === this.context.planet._id && <div className="planet-button-current"/>}
+            <div
+              className="planet-button"
+              onClick={() => {
+                switchChannel(this.props.results[0]);
+                switchPlanet(this.props.document);
+                setPlanetMember(this.props.member)
+              }}
+            >
+              {this.checkNotifications(channel) && <div className={notificationsStyle}/>}
+              {(!document.image && !this.props.loading) ? <div className="planet-button-inner">
+                {this.props.loading ?
+                  <CircleLoader/> :
+                  <div className="planet-button-text">
+                    {text}
+                  </div>
+                }
+              </div> : <img alt={text} className="planet-button-image" src={document.image}/>}
+            </div>
           </div>
         )}
       </ChatContext.Consumer>

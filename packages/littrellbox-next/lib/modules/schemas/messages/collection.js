@@ -89,10 +89,10 @@ const Messages = createCollection({
       }],
       after:[(document) => {
         if(document.pings) {
-          for(const pingedUsername in document.pings) {
+          for(const pingedUsername of document.pings) {
             let user = Users.findOne({username: pingedUsername});
             if (user) {
-              let member = PlanetMembers.findOne(user._id);
+              let member = PlanetMembers.findOne({userId: user._id});
               if (member) {
                 if(!member.pingArray) {
                   member.pingArray = {}
