@@ -125,13 +125,17 @@ class Message extends React.Component {
   render() {
     let dropdownCondition1 = !this.props.loading && this.props.currentUser._id === this.props.document._id;
     let dropdownCondition2 = !this.props.loading && this.props.currentUser.isAdmin;
-
+    let style = "message-singular";
+    console.log(this.props.message)
+    if(this.props.message && this.props.message.pings && this.props.message.pings.includes(this.props.currentUser.username)) {
+      style = "message-singular message-bg-mentioned"
+    }
     return(
       <div className="message">
         {this.props.loading && <div>
           <CircleLoader/> <span className="loading-text">Loading...</span>
         </div>}
-        {!this.props.loading && <div className="message-singular">
+        {!this.props.loading && <div className={style}>
           <div>
             <div className="message-header">
               {(dropdownCondition1 || dropdownCondition2) && <div className="message-dropdown" onClick={() => this.toggleMenu()}>

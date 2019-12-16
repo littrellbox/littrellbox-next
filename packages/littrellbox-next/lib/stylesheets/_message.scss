@@ -145,7 +145,6 @@
 .message-dropdown {
   padding-left: 0.4rem;
   border-bottom-left-radius: 0.2rem;
-  background-color: #444444;
   position: absolute;
   padding-bottom: 0;
   right: 0;
@@ -450,4 +449,18 @@
   padding: 0.45rem 0.35rem 0.25rem;
   margin-top: -0.50rem;
   margin-bottom: -0.25rem;
+}
+
+.message-mention {
+  background-color: #3333ff55;
+  color: #7777ff;
+  padding: 0 0.1rem;
+  border-radius: 0.2rem;
+}
+
+.message-bg-mentioned {
+  background-color: #cccc0011;
+  padding: 0.25rem;
+  margin: -0.25rem;
+  border-radius: 0.2rem;
 }

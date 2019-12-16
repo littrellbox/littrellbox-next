@@ -45,15 +45,17 @@ class MessageTextbox extends React.Component {
     if (e.key === 'Enter' && !this.state.shiftKeyDown)
       e.preventDefault();
     if (e.key === 'Enter' && !this.state.shiftKeyDown && (this.state.textboxText !== "" || this.props.files.length !== 0)) {
-      let pingSplit = this.state.textboxText.split("@");
       let pinged = [];
-      if(pingSplit.length > 1) {
-        for(let i = 0; i > pingSplit.length; i++) {
-          if(i !== 0) {
-            pinged.push(pingSplit[i].split(" ")[0])
-          }
+      let search1 = this.state.textboxText.match(/(\s@[A-Za-z0-9_])\w+/g);
+      let search2 = this.state.textboxText.match(/(^@[A-Za-z0-9_])\w+/g);
+      if(search1)
+        for(const ping of search1) {
+          pinged.push(ping.substring(2, ping.length))
         }
-      }
+      if(search2)
+        for(const ping of search2) {
+          pinged.push(ping.substring(1, ping.length))
+        }
       this.props.createMessage({
         data: {
           planetId: planet._id,
