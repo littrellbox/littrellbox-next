@@ -10,6 +10,7 @@ export const ChatContext = React.createContext({
   onDrop: (acceptedFiles) => {return acceptedFiles},
   removeFile: (key) => {return key},
   removeAllFiles: () => {return null},
+  updateNotification: (channelId, isNotifying) => {return null},
   clearPlanet: () => {return null},
   attachments: []
 });

@@ -27,17 +27,20 @@ class PlanetButton extends React.Component {
       let lastVisited = JSON.parse(this.props.member.lastVisitedArray);
       let newNotif = false;
       for (const value of Object.entries(array)) {
-        if (!lastVisited || !lastVisited[value[0]]) {
+        if ((!lastVisited || !lastVisited[value[0]]) && array) {
           //we've never visited the channel before
-          return true
+          newNotif = true;
         }
         let dateMessages = Date.parse(value[1].toString());
         let dateVisited = Date.parse(lastVisited[value[0]]);
-        if(!channel || !channel._id || value[0] !== channel._id && !newNotif)
+        if(!channel || !channel._id || value[0] !== channel._id && !newNotif) {
           newNotif = dateMessages > dateVisited;
+          this.context.updateNotification(value[0]._id, dateMessages > dateVisited);
+        }
       }
       return newNotif;
     }
+    this.context.updateNotification("", false);
     return false;
   }
 

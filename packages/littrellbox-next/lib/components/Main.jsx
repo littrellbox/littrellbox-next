@@ -19,6 +19,27 @@ class Main extends React.Component {
       });
     };
 
+    this.updateNotification = (channelId, isNotifying) => {
+      this.notificationArray[channelId] = isNotifying;
+      this.updateTitle(this.state.channel.name);
+    };
+
+    this.updateTitle = (name) => {
+      if(Object.values(this.notificationArray).includes(true)) {
+        if(name) {
+          document.title = "* " + name + " - Littrellbox"
+        } else {
+          document.title = "* Littrellbox"
+        }
+      } else {
+        if(name) {
+          document.title = name + " - Littrellbox"
+        } else {
+          document.title = "Littrellbox"
+        }
+      }
+    };
+
     this.updateLastVisited = () => {
       if(this.state.planet._id && this.state.channel._id) {
         console.log("id");
@@ -39,6 +60,7 @@ class Main extends React.Component {
 
     this.switchChannel = (channelToSet) => {
       this.updateLastVisited();
+      this.updateTitle(channelToSet.name);
       this.setState({
         channel: channelToSet,
         attachments: []
@@ -71,6 +93,7 @@ class Main extends React.Component {
 
     this.clearPlanet = () => {
       this.updateLastVisited();
+      this.updateTitle(null);
       this.setState({
         planet: {b: "a"},
         channel: {},
@@ -95,6 +118,7 @@ class Main extends React.Component {
       removeFile: this.removeFile,
       removeAllFiles: this.removeAllFiles,
       clearPlanet: this.clearPlanet,
+      updateNotification: this.updateNotification,
       attachments: [],      
       showingDropDialog: false
     };
@@ -117,6 +141,8 @@ class Main extends React.Component {
       this.preventInfiniteLoopsWorkaround = false
     }
   }
+
+  notificationArray = {};
 
   onDragStart(evt) {
     evt.preventDefault();

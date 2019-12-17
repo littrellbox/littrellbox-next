@@ -78,7 +78,7 @@ class ChannelButton extends React.Component {
 
     return(
       <ChatContext.Consumer>
-        {({channel, switchChannel}) => {
+        {({channel, switchChannel, updateNotification}) => {
           if(!this.props.buttonChannel) {
             this.props.buttonChannel = {
               name: "Loading..."
@@ -99,7 +99,7 @@ class ChannelButton extends React.Component {
             )
           }
           return(
-            <div className="channel-button" onClick={() => switchChannel(this.props.buttonChannel)}>
+            <div className="channel-button" onClick={() => {switchChannel(this.props.buttonChannel); updateNotification(this.props.buttonChannel._id, this.checkNotifications())}}>
               <FontAwesomeIcon icon={faHashtag}/> {this.props.buttonChannel.name} {this.checkNotifications() && <div className={notificationsStyle}/>}
             </div>
           )
