@@ -23,7 +23,7 @@ class ChannelButton extends React.Component {
   checkNotifications() {
     if(this.props.buttonChannel && this.context.planet.lastMessagesArray ) {
       let array = JSON.parse(this.context.planet.lastMessagesArray);
-      if(!this.context.planetMember.lastVisitedArray && lastVisited[this.props.buttonChannel._id]) {
+      if(!this.context.planetMember.lastVisitedArray && array[this.props.buttonChannel._id]) {
         //we've never registered visiting a channel
         return true;
       }

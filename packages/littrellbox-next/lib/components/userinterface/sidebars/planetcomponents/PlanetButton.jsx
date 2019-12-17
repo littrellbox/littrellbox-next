@@ -30,6 +30,7 @@ class PlanetButton extends React.Component {
         if ((!lastVisited || !lastVisited[value[0]]) && array) {
           //we've never visited the channel before
           newNotif = true;
+          this.context.updateNotification(value[0]._id, true);
         }
         let dateMessages = Date.parse(value[1].toString());
         let dateVisited = Date.parse(lastVisited[value[0]]);
