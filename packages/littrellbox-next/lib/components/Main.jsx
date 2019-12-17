@@ -45,13 +45,19 @@ class Main extends React.Component {
         console.log("id");
         let documentId = this.state.planetMember._id;
         let arrayToUpdate = {};
+        let pingsToUpdate = {};
         if(this.state.planetMember.lastVisitedArray) {
           arrayToUpdate = JSON.parse(this.state.planetMember.lastVisitedArray);
         }
+        if(this.state.planetMember.pingArray) {
+          pingsToUpdate = JSON.parse(this.state.planetMember.pingArray);
+        }
         arrayToUpdate[this.state.channel._id] = new Date;
+        pingsToUpdate[this.state.channel._id] = false;
         this.props.updatePlanetMember({
           selector: { documentId },
           data: {
+            pingArray: JSON.stringify(pingsToUpdate),
             lastVisitedArray: JSON.stringify(arrayToUpdate)
           }
         });

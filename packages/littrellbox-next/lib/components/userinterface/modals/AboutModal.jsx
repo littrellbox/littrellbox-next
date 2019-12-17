@@ -17,7 +17,7 @@ class AboutModal extends React.Component {
           Littrellbox
         </div>
         <div className="about-version">
-          Alpha 2.1
+          Alpha 3.0.1
         </div>
         <div className="about-copyright">
           © 2019 Littrellbox. Portions of this software are licensed<br/>
