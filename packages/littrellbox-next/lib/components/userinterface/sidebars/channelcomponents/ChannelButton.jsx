@@ -46,7 +46,7 @@ class ChannelButton extends React.Component {
       return
     }
     if(this.props.results.length !== 0) {
-      this.textInput.current.value = window.location + "invite/" + this.props.results[0]._id;
+      this.textInput.current.value = window.location.origin + "/invite/" + this.props.results[0]._id;
       this.textInput.current.select();
       window.document.execCommand('copy');
       this.setState({
@@ -58,8 +58,8 @@ class ChannelButton extends React.Component {
           channelId: this.props.buttonChannel._id,
           planetId: this.props.buttonChannel.planetId
         }
-      }).then(function(value) {
-        this.textInput.current.value = window.location + "invite/" + value.data.createInvite.data._id;
+      }).then((value) => {
+        this.textInput.current.value = window.location.origin + "/invite/" + value.data.createInvite.data._id;
         this.textInput.current.select();
         window.document.execCommand('copy');
         this.setState({

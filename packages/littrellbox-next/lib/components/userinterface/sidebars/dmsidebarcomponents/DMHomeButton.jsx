@@ -20,7 +20,7 @@ const DMHomeButton = () => (
         )
       } else {
         return (
-          <div className="channel-button dm-sidebar-home dm-button" onClick={() => clearPlanet()}>
+          <div className="channel-button dm-sidebar-home dm-button" onClick={() => {console.log("a"); clearPlanet()}}>
             <FontAwesomeIcon icon={faHome}/> Home
           </div>
         )

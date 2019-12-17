@@ -15,7 +15,9 @@ class PlanetSidebar extends React.Component {
     if(this.props.results && !this.props.loading && this.context.planet && this.context.planet !== {}) {
       if(this.props.results.filter(value => value.planetId === this.context.planet._id).length === 0 && !this.ReactStupidInfiniteLoopPreventionBoolean) {
         //the planet doesn't exist, or we aren't in it (this is checked in the server)
-        this.context.clearPlanet();
+        if(this.context.planet._id) {
+          this.context.clearPlanet();
+        }
         this.ReactStupidInfiniteLoopPreventionBoolean = true
       } else {
         this.ReactStupidInfiniteLoopPreventionBoolean = false

@@ -66,7 +66,8 @@ class Main extends React.Component {
 
     this.switchChannel = (channelToSet) => {
       this.updateLastVisited();
-      this.updateTitle(channelToSet.name);
+      if(channelToSet.isDm)
+        this.updateTitle(channelToSet.name);
       this.setState({
         channel: channelToSet,
         attachments: []
