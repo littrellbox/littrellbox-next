@@ -16,7 +16,7 @@
   "digitalocean": {
     "region": "",
     "accessKey": "",
-    "secret": "",
+    "accessKeySecret": "",
     "bucket": "you-only-need-this-in-production"
   },
 
