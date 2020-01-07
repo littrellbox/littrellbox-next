@@ -25,6 +25,8 @@ class Main extends React.Component {
     };
 
     this.updateTitle = (name) => {
+      if(typeof window === 'undefined')
+        return;
       if(Object.values(this.notificationArray).includes(true)) {
         if(name) {
           document.title = "* " + name + " - Littrellbox"

@@ -97,7 +97,7 @@ class PlanetButton extends React.Component {
               }}
             >
               {this.checkNotifications(channel) && <div className={notificationsStyle}/>}
-              {(!document.image && !this.props.loading) ? <div className="planet-button-inner">
+              {(!this.props.document.image && !this.props.loading) ? <div className="planet-button-inner">
                 {this.props.loading ?
                   <CircleLoader/> :
                   <div className="planet-button-text">
