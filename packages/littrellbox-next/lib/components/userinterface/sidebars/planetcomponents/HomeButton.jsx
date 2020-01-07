@@ -12,6 +12,10 @@ class HomeButton extends React.Component {
     super(props);
   }
 
+  shouldComponentUpdate(nextProps, nextState, nextContext) {
+    return false;
+  }
+
   render() {
     return(
       <ChatContext.Consumer>

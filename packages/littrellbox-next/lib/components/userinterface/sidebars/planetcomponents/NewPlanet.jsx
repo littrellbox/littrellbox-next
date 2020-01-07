@@ -16,6 +16,10 @@ class NewPlanet extends React.Component {
     }
   }
 
+  shouldComponentUpdate(nextProps, nextState, nextContext) {
+    return this.state !== nextState;
+  }
+
   handleKeyPress(e) {
     if(e.key === "Enter") {
       this.props.createPlanet({
