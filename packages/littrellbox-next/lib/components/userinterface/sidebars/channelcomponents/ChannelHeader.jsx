@@ -22,6 +22,14 @@ class ChannelHeader extends React.Component {
     }
   }
 
+  shouldComponentUpdate(nextProps, nextState, nextContext) {
+    if(nextState !== this.nextState)
+      return true;
+    if(this.props.planet !== this.props.planet)
+      return true;
+    return this.props.currentUser !== nextProps.currentUser;
+  }
+
   toggleMenu() {
     this.setState({
       showDropdown: !this.state.showDropdown

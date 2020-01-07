@@ -9,6 +9,12 @@ class DMList extends React.Component {
     super(props)
   }
 
+  shouldComponentUpdate(nextProps, nextState, nextContext) {
+    if(this.props.results !== nextProps.results)
+      return true;
+    return this.props.currentUser !== nextProps.currentUser;
+  }
+
   getUserId(channel) {
     if (channel.dmUserIds.length !== 2) {
       return [""]

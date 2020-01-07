@@ -16,6 +16,12 @@ class DMSidebarHeader extends React.Component {
     }
   }
 
+  shouldComponentUpdate(nextProps, nextState, nextContext) {
+    if(this.state !== nextState)
+      return true;
+    return this.props.currentUser !== nextProps.currentUser
+  }
+
   toggleMenu() {
     this.setState({
       showDropdown: !this.state.showDropdown

@@ -20,6 +20,18 @@ class ChannelButton extends React.Component {
     };
   }
 
+  shouldComponentUpdate(nextProps, nextState, nextContext) {
+    if(this.props.results !== nextProps.results)
+      return true;
+    if(this.props.buttonChannel !== nextProps.buttonChannel)
+      return true;
+    if(this.context.planetMember !== nextContext.planetMember)
+      return true;
+    if(this.props.loading !== nextProps.loading)
+      return true;
+    return this.state !== nextState;
+  }
+
   checkNotifications() {
     if(this.props.buttonChannel && this.context.planet.lastMessagesArray ) {
       let array = JSON.parse(this.context.planet.lastMessagesArray);

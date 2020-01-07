@@ -10,6 +10,17 @@ class DMButton extends React.Component {
     super(props)
   }
 
+  shouldComponentUpdate(nextProps, nextState, nextContext) {
+    if(this.props.documentId !== nextProps.documentId)
+      return true;
+    if(this.props.buttonChannel !== nextProps.button)
+      return true;
+    if(this.props.document !== nextProps.document)
+      return true;
+    return this.context.channel !== nextContext.channel;
+
+  }
+
   render() {
     return(
       <ChatContext.Consumer>
@@ -48,6 +59,8 @@ class DMButton extends React.Component {
     )
   }
 }
+
+DMButton.contextType = ChatContext;
 
 const options = {
   collectionName: "Users"

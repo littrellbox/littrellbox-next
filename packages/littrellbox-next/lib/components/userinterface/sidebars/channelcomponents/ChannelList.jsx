@@ -18,6 +18,18 @@ class ChannelList extends React.Component {
     }
   }
 
+  shouldComponentUpdate(nextProps, nextState, nextContext) {
+    if(this.props.currentUser !== nextProps.currentUser)
+      return true;
+    if(this.state !== nextState)
+      return true;
+    if(this.props.planet !== nextProps.planet)
+      return true;
+    if(this.props.results !== nextProps.results)
+      return true;
+    return this.props.loading !== nextProps.loading
+  }
+
   toggleTextbox() {
     this.setState({
       showNewChannelTextbox: !this.state.showNewChannelTextbox
