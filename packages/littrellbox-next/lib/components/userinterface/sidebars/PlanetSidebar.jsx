@@ -27,6 +27,12 @@ class PlanetSidebar extends React.Component {
     }
   }
 
+  shouldComponentUpdate(nextProps, nextState, nextContext) {
+    if(nextProps.loading !== this.props.loading)
+      return true;
+    return nextProps.results !== this.props.results;
+  }
+
   render() {
     return (
       <div className="scroll-container">

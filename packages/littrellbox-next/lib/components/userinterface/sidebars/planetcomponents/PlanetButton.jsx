@@ -21,6 +21,18 @@ class PlanetButton extends React.Component {
     }
   }
 
+  shouldComponentUpdate(nextProps, nextState, nextContext) {
+    if(this.props.document !== nextProps.document)
+      return true;
+    if(this.props.member !== nextProps.member)
+      return true;
+    if(this.props.results !== nextProps.results)
+      return true;
+    if(this.context.planetMember !== nextContext.planetMember)
+      return true;
+    return this.props.loading !== nextProps.loading;
+  }
+
   checkNotifications(channel) {
     if(this.props.document && this.props.document.lastMessagesArray && this.props.member.lastVisitedArray) {
       let array = JSON.parse(this.props.document.lastMessagesArray);
