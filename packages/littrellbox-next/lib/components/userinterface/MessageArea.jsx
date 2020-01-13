@@ -37,6 +37,7 @@ class MessageArea extends React.Component {
                 <div className="message-area"> 
                  <Components.MessageList 
                    items={this.props.results}
+                   channel={channel}
                    count={this.props.count}
                    totalCount={this.props.totalCount}
                    loadMore={() => this.props.loadMore()}

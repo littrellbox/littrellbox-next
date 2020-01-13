@@ -104,7 +104,7 @@ class PlanetButton extends React.Component {
                     {text}
                   </div>
                 }
-              </div> : <img alt={text} className="planet-button-image" src={document.image}/>}
+              </div> : <img alt={text} className="planet-button-image" src={this.props.document.image}/>}
             </div>
           </div>
         )}

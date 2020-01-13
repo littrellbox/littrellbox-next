@@ -27,6 +27,8 @@ class ChannelButton extends React.Component {
       return true;
     if(this.context.planetMember !== nextContext.planetMember)
       return true;
+    if(this.context.switchChannel !== nextContext.switchChannel)
+      return true;
     if(this.props.loading !== nextProps.loading)
       return true;
     return this.state !== nextState;
