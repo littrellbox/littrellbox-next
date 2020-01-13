@@ -112,6 +112,7 @@
 .message-textbox-attachment-button {
   padding: 0.5rem 0.5rem 0.5rem 0;
   cursor: pointer;
+  position: relative;
   transition: 0.2s
 }
 
@@ -239,6 +240,7 @@
   color: #ff3333;
   padding: 0.5rem 0.5rem 0.5rem 0;
   cursor: pointer;
+  position: relative;
   transition: 0.2s
 }
 
@@ -464,4 +466,37 @@
   margin: -0.25rem;
   margin-bottom: -0.15rem;
   border-radius: 0.2rem;
+}
+
+.message-textbox-attachment-menu {
+  position: absolute;
+  bottom: 2.75rem;
+  right: 0;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  border-radius: 0.33rem;
+  color: #cccccc;
+  background-color: #5c5c5c;
+  min-width: max-content;
+}
+
+.mta-menu-header {
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  color: #999999;
+  padding-bottom: 0.25rem;
+  padding-right: 0.5rem;
+  padding-left: 0.5rem;
+}
+
+.mta-menu-item {
+  padding-right: 0.5rem;
+  padding-left: 0.5rem;
+  padding-top: 0.25rem;
+  transition: 0.2s;
+}
+
+.mta-menu-item:hover {
+  background-color: #666666;
 }

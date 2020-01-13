@@ -6,10 +6,13 @@ import { ChatContext } from '../../../contexts/ChatContext'
 
 import { Picker } from 'emoji-mart'
 
-import MessageTextboxAttachment from './MessageTextboxAttachment'
+import MessageTextboxAttachmentMenu from "./mtcomponents/MessageTextboxAttachmentMenu";
+import MessageTextboxAttachment from './mtcomponents/MessageTextboxAttachment'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSmile, faPaperclip } from '@fortawesome/free-solid-svg-icons'
+import { faSmile, faPlusCircle } from '@fortawesome/free-solid-svg-icons'
+
+import {HiddenWithMoveUp, Visible} from '../../lib/AnimationStyles'
 
 import axios from 'axios';
 import Files from '../../../modules/schemas/files/collection';
@@ -209,8 +212,8 @@ class MessageTextbox extends React.Component {
                   <FontAwesomeIcon icon={faSmile} onClick={() => this.onEmojiPickerButtonClick()}/>
                 </div>}
                 {this.props.currentUser.lb_muted !== 1 && this.props.currentUser.lb_filesBlocked !== 1 && <div className={addAttachmentClassName}>
-                  <FontAwesomeIcon icon={faPaperclip} onClick={() => this.onAttachmentButtonClick()}/>
-                  <input type="file" id="file-dialog" multiple ref={(el) => { this.fileDialog = el; }} style={{display: 'none'}} onChange={(e) => this.props.addFile(e.target.files)}/>
+                  <FontAwesomeIcon icon={faPlusCircle} onClick={() => this.onAttachmentButtonClick()}/>
+                  <MessageTextboxAttachmentMenu addFile={(file) => this.props.addFile(file)}/>
                 </div>}
               </div>
             </div>

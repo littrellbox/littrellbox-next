@@ -179,6 +179,11 @@ pre {
   padding: 0;
 }
 
+.icon-workaround {
+  display: inline-block;
+  min-width: 1rem;
+}
+
 @media screen and (max-height: 800px) {
   .tooltip {
     padding: 0.3rem 0.4rem 0.2rem !important;
