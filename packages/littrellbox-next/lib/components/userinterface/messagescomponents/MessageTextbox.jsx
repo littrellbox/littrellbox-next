@@ -25,7 +25,8 @@ class MessageTextbox extends React.Component {
       textboxText: "",
       shiftKeyDown: false,
       showEmojiPicker: false,
-      fileTooBig: false
+      fileTooBig: false,
+      showAttachments: false
     };
   }
   
@@ -140,8 +141,8 @@ class MessageTextbox extends React.Component {
   }
 
   onAttachmentButtonClick() {
-    this.fileDialog.click();
     this.setState({
+      showAttachments: !this.state.showAttachments,
       fileTooBig: false
     })
   }
@@ -213,7 +214,8 @@ class MessageTextbox extends React.Component {
                 </div>}
                 {this.props.currentUser.lb_muted !== 1 && this.props.currentUser.lb_filesBlocked !== 1 && <div className={addAttachmentClassName}>
                   <FontAwesomeIcon icon={faPlusCircle} onClick={() => this.onAttachmentButtonClick()}/>
-                  <MessageTextboxAttachmentMenu addFile={(file) => this.props.addFile(file)}/>
+                  {this.state.showAttachments && <div className="dialog-transparent-background" onClick={() => this.onAttachmentButtonClick()}/>}
+                  <MessageTextboxAttachmentMenu addFile={(file) => this.props.addFile(file)} style={this.state.showAttachments ? Visible : HiddenWithMoveUp} toggleAttachments={() => this.onAttachmentButtonClick()}/>
                 </div>}
               </div>
             </div>

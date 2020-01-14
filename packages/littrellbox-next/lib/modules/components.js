@@ -24,6 +24,7 @@ import '../components/userinterface/modals/AboutModal';
 import '../components/userinterface/modals/ProfileModal';
 import '../components/userinterface/modals/PlanetModal';
 import '../components/userinterface/modals/profilemodalcomponents/CreateDMButton';
+import '../components/userinterface/modals/attachmentmodals/PollModal';
 
 //sidebars
 import '../components/userinterface/sidebars/ChannelSidebar';
