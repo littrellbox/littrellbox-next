@@ -34,14 +34,14 @@ class MessageTextboxAttachmentMenu extends React.Component {
           Attachments
         </div>
         <div className="mta-menu-item" onClick={() => this.togglePollMenu()}>
-          <span onClick={() => this.togglePollMenu()}><FontAwesomeIcon icon={faPoll} className="icon-workaround"/> Poll</span>
-          <Components.PollModal style={this.state.showPollMenu ? Visible : HiddenWithMoveUp}/>
-          <div className="dialog-semi-transparent-background" style={this.state.showPollMenu ? Visible : Hidden} onClick={() => this.togglePollMenu()}/>
+          <span><FontAwesomeIcon icon={faPoll} className="icon-workaround"/> Poll</span>
         </div>
         <div className="mta-menu-item" onClick={() => this.onAttachmentButtonClick()}>
           <span><FontAwesomeIcon icon={faFile} className="icon-workaround"/> File</span>
           <input type="file" id="file-dialog" multiple ref={(el) => { this.fileDialog = el; }} style={{display: 'none'}} onChange={(e) => this.props.addFile(e.target.files)}/>
         </div>
+        <Components.PollModal style={this.state.showPollMenu ? Visible : HiddenWithMoveUp}/>
+        <div className="dialog-semi-transparent-background" onClick={() => {this.togglePollMenu(); this.props.toggleAttachments()}} style={this.state.showPollMenu ? Visible : Hidden}/>
       </div>
     )
   }
