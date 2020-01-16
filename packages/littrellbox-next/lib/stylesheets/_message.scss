@@ -501,3 +501,27 @@
 .mta-menu-item:hover {
   background-color: #666666;
 }
+
+.message-attachment-poll-container {
+  margin-right: -0.5rem;
+  margin-top: 0.25rem;
+}
+
+.message-attachment-poll-answer {
+  background-color: #4c4c4c;
+  display: inline-block;
+  margin-right: 0.5rem;
+  padding: 0.25rem 0.35rem;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.message-attachment-poll-answer:hover {
+  background-color: #5c5c5c;
+}
+
+.message-attachment-poll-name {
+  font-size: 1.35rem;
+  font-weight: bold;
+}

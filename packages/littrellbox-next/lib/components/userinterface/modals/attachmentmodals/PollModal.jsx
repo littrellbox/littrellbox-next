@@ -46,16 +46,41 @@ class PollModal extends React.Component {
     }
   }
 
+  submitPoll() {
+    let pollObject = {};
+    for(const option of this.state.questionTextboxes) {
+      pollObject[option] = [];
+    }
+    this.props.createPoll({
+      data: {
+        pollText: this.state.nameTextbox,
+        pollObject: JSON.stringify(pollObject)
+      }
+    }).then(dataValue => {
+      this.props.addAttachment({
+        type: "poll",
+        id: dataValue.data.createPoll.data._id,
+        name: dataValue.data.createPoll.data.pollText
+      })
+    })
+    this.setState({
+      nameTextbox: "",
+      questionTextboxes: ["", ""]
+    })
+    this.props.close();
+  }
+
+
   render() {
     return (
       <div className="poll-modal" style={this.props.style}>
-        <input type="text" value={this.state.nameTextbox} className="poll-name-textbox" placeholder="Title"/>
-        {this.state.questionTextboxes.map((currentValue, index) => (<div className="poll-textbox" onChange={(e) => this.updateNameTextbox(e)}>
+        <input type="text" value={this.state.nameTextbox} className="poll-name-textbox" placeholder="Title" onChange={(e) => this.updateNameTextbox(e)}/>
+        {this.state.questionTextboxes.map((currentValue, index) => (<div key={index} className="poll-textbox">
           <input type="text" value={currentValue} className="poll-textbox-text" placeholder={"Question " + (index + 1)} onChange={(e) => this.updateTextbox(e, index)}/>
           <FontAwesomeIcon icon={faTimesCircle} className="poll-remove-option" onClick={() => this.removeQuestion(index)}/>
         </div>))}
         <FontAwesomeIcon icon={faPlusCircle} className="poll-add-option" onClick={() => this.addQuestion()}/>
-        <FontAwesomeIcon icon={faCheck} className="poll-create-check"/>
+        <FontAwesomeIcon icon={faCheck} className="poll-create-check" onClick={() => this.submitPoll()}/>
       </div>
     )
   }

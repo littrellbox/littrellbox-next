@@ -19,11 +19,15 @@ class MessageAttachmentContainer extends React.Component {
   }
 
   render() {
+    let pollAttachments = [];
     let fileAttachments = [];
     if(!this.props.loading) {
       this.props.results.forEach(element => {
         if(element.type === "file") {
           fileAttachments.push(element.attachmentId)
+        }
+        if(element.type === "poll") {
+          pollAttachments.push(element.attachmentId)
         }
       });
     }
@@ -32,6 +36,7 @@ class MessageAttachmentContainer extends React.Component {
       <div className="message-attachment-container">
         <span className="message-attachment-files">
           {fileAttachments.map(attachment => <Components.MessageFileAttachment key={attachment} documentId={attachment} forcePositionUpdate={() => this.props.forcePositionUpdate()} scrollToBottom={() => this.props.scrollToBottom()}/>)}
+          {pollAttachments.map(attachment => <Components.MessagePollAttachment key={attachment} documentId={attachment} forcePositionUpdate={() => this.props.forcePositionUpdate()} scrollToBottom={() => this.props.scrollToBottom()}/>)}
         </span>
       </div>
     )

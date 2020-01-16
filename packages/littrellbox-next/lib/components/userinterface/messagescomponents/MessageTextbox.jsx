@@ -8,6 +8,7 @@ import { Picker } from 'emoji-mart'
 
 import MessageTextboxAttachmentMenu from "./mtcomponents/MessageTextboxAttachmentMenu";
 import MessageTextboxAttachment from './mtcomponents/MessageTextboxAttachment'
+import MessageTextboxGenericAttachment from './mtcomponents/MessageTextboxGenericAttachment'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSmile, faPlusCircle } from '@fortawesome/free-solid-svg-icons'
@@ -26,10 +27,34 @@ class MessageTextbox extends React.Component {
       shiftKeyDown: false,
       showEmojiPicker: false,
       fileTooBig: false,
-      showAttachments: false
+      showAttachments: false,
+      attachmentsArray: []
     };
   }
-  
+
+  addAttachment(attachment) {
+    let attachmentsArray = this.state.attachmentsArray;
+    attachmentsArray.push(attachment);
+    this.setState({
+      attachmentsArray: attachmentsArray
+    })
+    console.log("bruh")
+  }
+
+  clearAttachments() {
+    this.setState({
+      attachmentsArray: []
+    })
+  }
+
+  removeAttachment(index) {
+    let attachmentsArray = this.state.attachmentsArray;
+    attachmentsArray.splice(index, 1);
+    this.setState({
+      attachmentsArray: attachmentsArray
+    })
+  }
+
   shouldComponentUpdate(newProps, newState) {
     if(this.state !== newState)
       return true;
@@ -68,6 +93,18 @@ class MessageTextbox extends React.Component {
           pings: pinged
         }
       }).then((value) => {
+        //handle adding misc attachments
+        for(const attachment of this.state.attachmentsArray) {
+          this.props.createAttachment({
+            data: {
+              postId: value.data.createMessage.data._id,
+              type: attachment.type,
+              attachmentId: attachment.id
+            }
+          })
+        }
+        this.clearAttachments();
+        //handle uploading files
         let filesToUpload = this.props.files;
         this.props.removeAllItems();
         filesToUpload.forEach(element => {
@@ -193,8 +230,9 @@ class MessageTextbox extends React.Component {
                   title="Pick an emoji!"
                 />
               </div>}
-              {messageAttachments.length > 0 && <div className="message-textbox-attachments">
+              {(messageAttachments.length > 0 || this.state.attachmentsArray.length > 0) && <div className="message-textbox-attachments">
                 {messageAttachments.map((fileObject) => <MessageTextboxAttachment key={fileObject.key} index={fileObject.key} file={fileObject.file} removeItem={(key) => this.props.removeItem(key)}/>)}
+                {this.state.attachmentsArray.map((attachmentObject, index) => <MessageTextboxGenericAttachment key={index} index={index} attachment={attachmentObject} removeItem={(index) => this.removeAttachment(index)}/>)}
               </div>}
               <div className="message-textbox">
                 <Textarea 
@@ -215,7 +253,7 @@ class MessageTextbox extends React.Component {
                 {this.props.currentUser.lb_muted !== 1 && this.props.currentUser.lb_filesBlocked !== 1 && <div className={addAttachmentClassName}>
                   <FontAwesomeIcon icon={faPlusCircle} onClick={() => this.onAttachmentButtonClick()}/>
                   {this.state.showAttachments && <div className="dialog-transparent-background" onClick={() => this.onAttachmentButtonClick()}/>}
-                  <MessageTextboxAttachmentMenu addFile={(file) => this.props.addFile(file)} style={this.state.showAttachments ? Visible : HiddenWithMoveUp} toggleAttachments={() => this.onAttachmentButtonClick()}/>
+                  <MessageTextboxAttachmentMenu addFile={(file) => this.props.addFile(file)} style={this.state.showAttachments ? Visible : HiddenWithMoveUp} addAttachment={(attachment) => this.addAttachment(attachment)} toggleAttachments={() => this.onAttachmentButtonClick()}/>
                 </div>}
               </div>
             </div>
